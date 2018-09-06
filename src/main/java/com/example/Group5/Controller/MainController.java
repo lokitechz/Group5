@@ -12,12 +12,31 @@ import java.security.Principal;
 
 @Controller
 public class MainController {
+    // Trang main khi chương trình chạy lên
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String welcomePage() {
+        return "LayoutPage";
+    }
 
-    @RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
-    public String welcomePage(Model model) {
-        model.addAttribute("title", "Welcome");
-        model.addAttribute("message", "This is welcome page!");
-        return "welcomePage";
+    // Trả về trang đăng nhập
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginPage(Model model) {
+        return "LoginForm";
+    }
+
+    // Sau khi đăng nhập thành công sẽ trả về trang main
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public String userInfo(Model model, Principal principal) {
+
+        // Sau khi user login thanh cong se co principal
+        String userName = principal.getName();
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+
+        String userInfo = WebUtils.toString(loginedUser);
+        model.addAttribute("userInfo", userInfo);
+
+        return "LayoutPage";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -31,11 +50,6 @@ public class MainController {
         return "adminPage";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model) {
-
-        return "loginPage";
-    }
 
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {
@@ -43,21 +57,6 @@ public class MainController {
         return "logoutSuccessfulPage";
     }
 
-    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-    public String userInfo(Model model, Principal principal) {
-
-        // Sau khi user login thanh cong se co principal
-        String userName = principal.getName();
-
-        System.out.println("User Name: " + userName);
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
-
-        return "userInfoPage";
-    }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
