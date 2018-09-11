@@ -27,6 +27,11 @@
                         <span class="profile-text">Đăng nhập</span>
                     </a>
                 </li>
+                <li class="nav-item dropdown d-none d-xl-inline-block">
+                    <a class="nav-link mdi mdi-logout" th:if="${#request.userPrincipal != null}" th:href="@{/logout}">
+                        <span class="profile-text">Đăng xuất</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -36,12 +41,12 @@
             <ul class="nav">
                 <li class="nav-item nav-profile">
                     <div class="nav-link">
-                        <div class="user-wrapper mb-0">
+                        <div class="user-wrapper mb-0" th:if="${#request.userPrincipal != null}">
                             <div class="profile-image">
                                 <img src="images/user_default_photo.png" alt="profile image">
                             </div>
-                            <div class="text-wrapper">
-                                <p class="profile-name">Tên nhân viên</p>
+                            <div class="text-wrapper" >
+                                <p class="profile-name" th:utext="${userInfo}"></p>
                                 <div>
                                     <small class="designation text-muted">Vai trò</small>
                                     <span class="status-indicator online"></span>
@@ -63,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">
+                    <a class="nav-link" href="/manage-employee">
                         <i class="menu-icon mdi mdi-account-location"></i>
                         <span class="menu-title">Quản lý nhân viên</span>
                     </a>

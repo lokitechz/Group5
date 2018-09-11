@@ -11,11 +11,20 @@ public class AppUser {
     @Column(name = "User_Id", nullable = false)
     private Long userId;
 
-    @Column(name = "User_Name", length = 36, nullable = false)
+    @Column(name = "User_Name", nullable = false)
     private String userName;
 
-    @Column(name = "Encryted_Password", length = 128, nullable = false)
+    @Column(name = "Encryted_Password", nullable = false)
     private String encrytedPassword;
+
+    @Column(name = "User_full_name")
+    private String fullName;
+
+    @Column(name = "User_phone")
+    private Integer phone;
+
+    @Column(name = "User_age")
+    private Integer age;
 
     @Column(name = "Enabled", length = 1, nullable = false)
     private boolean enabled;
@@ -44,6 +53,30 @@ public class AppUser {
         this.encrytedPassword = encrytedPassword;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
@@ -51,5 +84,4 @@ public class AppUser {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
 }
