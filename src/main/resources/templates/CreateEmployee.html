@@ -20,73 +20,12 @@
 </style>
 <div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
     <!-- Menu ngang phía trên -->
-    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-            <a class="navbar-brand brand-logo">
-                <img class="img-fluid" src="/images/logo.png" alt="Logo"/>
-            </a>
-        </div>
-        <div class="navbar-menu-wrapper d-flex align-items-center">
-            <ul class="navbar-nav navbar-nav-right">
-                <li class="nav-item dropdown d-none d-xl-inline-block" th:if="${#request.userPrincipal == null}">
-                    <a class="nav-link mdi mdi-login" th:href="@{/login}">
-                        <span class="profile-text">Đăng nhập</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown d-none d-xl-inline-block" th:if="${#request.userPrincipal != null}">
-                    <a class="nav-link mdi mdi-logout" th:href="@{/logout}">
-                        <span class="profile-text">Đăng xuất</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <!-- Siderbar bên trái -->
+    <th:block th:include="/HorizontalNavbar"/>
+    <!-- End -->
     <div class="container-fluid page-body-wrapper">
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
-            <ul class="nav">
-                <li class="nav-item nav-profile">
-                    <div class="nav-link">
-                        <div class="user-wrapper mb-0" th:if="${#request.userPrincipal != null}">
-                            <div class="profile-image">
-                                <img src="/images/user_default_photo.png" alt="profile image">
-                            </div>
-                            <div class="text-wrapper">
-                                <p class="profile-name" th:utext="${#request.userPrincipal.name}"></p>
-                                <div>
-                                    <small class="designation text-muted">Trạng thái</small>
-                                    <span class="status-indicator online"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/">
-                        <i class="menu-icon mdi mdi-search-web"></i>
-                        <span class="menu-title">Tra cứu thông tin</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <i class="menu-icon mdi mdi-television"></i>
-                        <span class="menu-title">Dashboard</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/manage-employee">
-                        <i class="menu-icon mdi mdi-account-location"></i>
-                        <span class="menu-title">Quản lý nhân viên</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <i class="menu-icon mdi mdi-bus"></i>
-                        <span class="menu-title">Quản lý xe</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <!-- Siderbar bên trái -->
+        <th:block th:include="/VerticalNavbar"/>
+        <!-- End -->
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
@@ -162,6 +101,8 @@
 <script src="/vendors/js/vendor.bundle.addons.js"></script>
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
-
+<script>
+    $('.nav .nav-item:nth-child(4)').addClass('active');
+</script>
 </body>
 </html>
