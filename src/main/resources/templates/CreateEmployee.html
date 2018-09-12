@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bus Reservation System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/customCSS.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+</head>
+
+<body>
+<style>
+    label {
+        font-size: 15px !important;
+    }
+</style>
+<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+    <!-- Menu ngang phía trên -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+            <a class="navbar-brand brand-logo">
+                <img class="img-fluid" src="/images/logo.png" alt="Logo"/>
+            </a>
+        </div>
+        <div class="navbar-menu-wrapper d-flex align-items-center">
+            <ul class="navbar-nav navbar-nav-right">
+                <li class="nav-item dropdown d-none d-xl-inline-block" th:if="${#request.userPrincipal == null}">
+                    <a class="nav-link mdi mdi-login" th:href="@{/login}">
+                        <span class="profile-text">Đăng nhập</span>
+                    </a>
+                </li>
+                <li class="nav-item dropdown d-none d-xl-inline-block" th:if="${#request.userPrincipal != null}">
+                    <a class="nav-link mdi mdi-logout" th:href="@{/logout}">
+                        <span class="profile-text">Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Siderbar bên trái -->
+    <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+                <li class="nav-item nav-profile">
+                    <div class="nav-link">
+                        <div class="user-wrapper mb-0" th:if="${#request.userPrincipal != null}">
+                            <div class="profile-image">
+                                <img src="/images/user_default_photo.png" alt="profile image">
+                            </div>
+                            <div class="text-wrapper">
+                                <p class="profile-name" th:utext="${#request.userPrincipal.name}"></p>
+                                <div>
+                                    <small class="designation text-muted">Trạng thái</small>
+                                    <span class="status-indicator online"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="menu-icon mdi mdi-search-web"></i>
+                        <span class="menu-title">Tra cứu thông tin</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="menu-icon mdi mdi-television"></i>
+                        <span class="menu-title">Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manage-employee">
+                        <i class="menu-icon mdi mdi-account-location"></i>
+                        <span class="menu-title">Quản lý nhân viên</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="menu-icon mdi mdi-bus"></i>
+                        <span class="menu-title">Quản lý xe</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="text-center">Tạo mới nhân viên</h4>
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputUsername">Tên tài khoản</label>
+                                                    <input type="email" class="form-control" id="inputUsername" placeholder="Username">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputPassword">Mật khẩu</label>
+                                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputFullname">Họ và tên</label>
+                                                <input type="text" class="form-control" id="inputFullname" placeholder="Tên đầy đủ">
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputPhone">Số điện thoại</label>
+                                                    <input type="text" class="form-control" id="inputPhone"
+                                                           placeholder="Số điện thoại phải là số,tối đa 11 chữ số">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputAddress">Địa chỉ</label>
+                                                    <input type="text" class="form-control" id="inputAddress"
+                                                           placeholder="Số 2 ngõ 61 Giang Văn Minh">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputAge">Tuổi</label>
+                                                    <input type="text" class="form-control" id="inputAge">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
+                                                    <label for="role">Vai trò</label>
+                                                    <select id="role" class="form-control">
+                                                        <option selected>Choose ...</option>
+                                                        <option value="1">Admin</option>
+                                                        <option value="2">Employee</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="status">Trạng thái tài khoản</label>
+                                                    <select id="status" class="form-control">
+                                                        <option selected>Choose ...</option>
+                                                        <option value="1">Đã kích hoạt</option>
+                                                        <option value="2">Khóa</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Tạo mới</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<script src="/vendors/js/vendor.bundle.addons.js"></script>
+<script src="/js/misc.js"></script>
+<script src="/js/dashboard.js"></script>
+
+</body>
+</html>

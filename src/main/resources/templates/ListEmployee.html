@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/">
                         <i class="menu-icon mdi mdi-search-web"></i>
                         <span class="menu-title">Tra cứu thông tin</span>
@@ -90,40 +90,41 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Tìm kiếm thông tin các chuyến xe</h4>
-                                        <form>
-                                            <div class="col-md-12" style="display: flex">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="from">Điểm khởi hành</label>
-                                                        <input type="text" class="form-control" id="from"
-                                                               placeholder="Điểm khởi hành">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="to">Ngày đi</label>
-                                                        <input type="date" class="form-control" id="datefrom"
-                                                               placeholder="Ngày đi">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="to">Điểm đến</label>
-                                                        <input type="text" class="form-control" id="to"
-                                                               placeholder="Điểm đến">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="from">Ngày đến</label>
-                                                        <input type="date" class="form-control" id="dateto"
-                                                               placeholder="Ngày đến">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-6">
-                                                    <button type="submit" class="btn btn-success mr-2">Tìm kiếm</button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        <h4 class="text-center">Danh sách nhân viên</h4>
+                                        <a class="btn btn-success" href="/manage-employee/create">
+                                            <span class="mdi mdi-plus"></span>
+                                            Thêm nhân viên
+                                        </a>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Avatar</th>
+                                                    <th>Tài khoản</th>
+                                                    <th>Họ và tên</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Tuổi</th>
+                                                    <th>Delete</th>
+                                                    <th>Edit</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="emp :${employeeInfo}" th:id="${'employee-' + emp.getUserId()}">
+                                                    <td class="py-1">
+                                                        <img src="images/user_default_photo.png" alt="profile image">
+                                                    </td>
+                                                    <td th:text="${emp.getUserName()}"></td>
+                                                    <td class="product-name" th:text="${emp.getFullName()}"></td>
+                                                    <td th:text="${emp.getPhone()}"></td>
+                                                    <td th:text="${emp.getAddress()}"></td>
+                                                    <td th:text="${emp.getAge()} "></td>
+                                                    <td><a th:href="@{'/emp/delete/' + ${emp.getUserId()}}">Delete</a></td>
+                                                    <td><a th:href="@{'/emp/edit/' + ${emp.getUserId()}}">Edit</a></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -134,10 +135,9 @@
         </div>
     </div>
 </div>
-
+<!-- JS -->
 <script src="vendors/js/vendor.bundle.base.js"></script>
 <script src="vendors/js/vendor.bundle.addons.js"></script>
-<script src="js/off-canvas.js"></script>
 <script src="js/misc.js"></script>
 <script src="js/dashboard.js"></script>
 

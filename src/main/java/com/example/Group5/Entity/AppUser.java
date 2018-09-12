@@ -21,7 +21,10 @@ public class AppUser {
     private String fullName;
 
     @Column(name = "User_phone")
-    private Integer phone;
+    private String phone;
+
+    @Column(name = "User_address")
+    private String address;
 
     @Column(name = "User_age")
     private Integer age;
@@ -61,12 +64,20 @@ public class AppUser {
         this.fullName = fullName;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Integer getAge() {
