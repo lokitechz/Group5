@@ -35,13 +35,13 @@ public class AdminController {
             }
         }
         model.addAttribute("employeeInfo", users);
-        return "ListEmployee";
+        return "ManageEmployee/ListEmployee";
     }
 
     //  Trả về trang tạo mới
     @RequestMapping(value = "/manage-employee/create", method = RequestMethod.GET)
     public String createEmployee() {
-        return "CreateEmployee";
+        return "ManageEmployee/CreateEmployee";
     }
 
     @RequestMapping(value = "/manage-employee/create", method = RequestMethod.POST)

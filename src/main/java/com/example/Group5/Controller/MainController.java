@@ -15,13 +15,13 @@ public class MainController {
     // Trả về trang đăng nhập
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
-        return "LoginForm";
+        return "Common/LoginForm";
     }
 
     // Trả về trang 403 khi không có quyền
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied() {
-        return "403Page";
+        return "Common/403Page";
     }
 
 }
