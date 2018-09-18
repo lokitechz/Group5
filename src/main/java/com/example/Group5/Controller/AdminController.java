@@ -34,7 +34,7 @@ public class AdminController {
         List<UserRole> userRoles = roleRepo.findAllByAppRole(appRoleRepo.findById(num));
         List<AppUser> users = new ArrayList<>();
         for (UserRole userRole : userRoles) {
-            if (userRole.getAppUser().isEnabled(true)) {
+            if (userRole.getAppUser().isEnabled()){
                 users.add(userRole.getAppUser());
             }
         }
