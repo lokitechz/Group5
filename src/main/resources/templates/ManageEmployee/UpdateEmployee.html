@@ -36,11 +36,13 @@
                                     <div class="card-body">
                                         <h4 class="text-center">Chỉnh sửa thông tin nhân viên</h4>
                                         <form th:object="${appUser}" th:action="@{/manage-employee/update}" method="POST">
+                                            <input type="hidden" th:field="*{userId}"/>
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputUsername">Tên tài khoản</label>
                                                     <input type="text" class="form-control" id="inputUsername" placeholder="Username"
                                                            th:field="*{userName}" required>
+                                                    <input class="form-control borderStyle" type="hidden" placeholder="Password" th:field="*{encrytedPassword}" />
                                                 </div>
                                             </div>
                                             <div class="form-row">

@@ -86,11 +86,27 @@ public class AdminController {
         return "ManageEmployee/UpdateEmployee";
     }
 
-    //  Luư thông tin chỉnh sửa tin nhân viên
-    @RequestMapping(path = "/manage-employee/update", method = RequestMethod.POST)
-    public String updateEmployee(AppUser appUser, @RequestParam("role") long role, @RequestParam("status") long status) {
-        appUserRepo.save(appUser);
-        return "redirect:/manage-employee";
+    //  Luư thông tin nhân viên sau khi chỉnh sửa
+    @RequestMapping(value = "/manage-employee/update", method = RequestMethod.POST)
+    public String updateEmployee(AppUser appUser, BindingResult bindingResult, @RequestParam("role") long role, @RequestParam("status") long status) {
+        if (bindingResult.hasErrors() && !appUser.isEnabled()) {
+            return "createPage";
+        } else {
+            if (status == 1) {
+                appUser.setEnabled(true);
+            } else {
+                appUser.setEnabled(false);
+            }
+            appUserRepo.save(appUser);
+            List<UserRole> oldRole = roleRepo.findByAppUser(appUser);
+            for (UserRole x : oldRole) {
+                long num = role;
+                x.setAppRole(appRoleRepo.findById(num).get());
+                x.setAppUser(appUser);
+                roleRepo.save(x);
+            }
+            return "redirect:/manage-employee";
+        }
     }
 
     //  Xóa nhân viên
