@@ -45,7 +45,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr th:each="emp :${employeeInfo}" th:id="${'employee-' + emp.getUserId()}">
+                                                <tr th:each="emp :${employeeInfo}" th:id="${emp.getUserId()}">
                                                     <td class="py-1">
                                                         <img src="images/user_default_photo.png" alt="profile image">
                                                     </td>
@@ -55,11 +55,11 @@
                                                     <td th:text="${emp.getAddress()}"></td>
                                                     <td th:text="${emp.getAge()} "></td>
                                                     <td>
-                                                        <span class="mdi mdi-delete mr-5">
-                                                            <a th:href="@{'/emp/delete/' + ${emp.getUserId()}}">Xóa</a>
+                                                        <span class="mdi mdi-pencil mr-5">
+                                                            <a th:href="@{'/manage-employee/update/' + ${emp.getUserId()}}">Sửa</a>
                                                         </span>
-                                                        <span class="mdi mdi-pencil">
-                                                            <a th:href="@{'/emp/edit/' + ${emp.getUserId()}}">Sửa</a>
+                                                        <span class="mdi mdi-delete">
+                                                            <a th:href="@{'/manage-employee/delete/' + ${emp.getUserId()}}">Xóa</a>
                                                         </span>
                                                     </td>
                                                 </tr>

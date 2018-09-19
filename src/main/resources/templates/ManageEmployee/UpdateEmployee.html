@@ -34,36 +34,34 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Tạo mới nhân viên</h4>
-                                        <form th:object="${appUser}" th:action="@{/manage-employee/create}" method="POST">
+                                        <h4 class="text-center">Chỉnh sửa thông tin nhân viên</h4>
+                                        <form th:object="${appUser}" th:action="@{/manage-employee/update}" method="POST">
                                             <div class="form-row">
                                                 <div class="form-group col-md-6">
                                                     <label for="inputUsername">Tên tài khoản</label>
                                                     <input type="text" class="form-control" id="inputUsername" placeholder="Username"
                                                            th:field="*{userName}" required>
                                                 </div>
-                                                <div class="form-group col-md-6">
-                                                    <label for="inputPassword">Mật khẩu</label>
-                                                    <input type="password" class="form-control" id="inputPassword" placeholder="Password"
-                                                           th:field="*{encrytedPassword}" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputFullname">Họ và tên</label>
-                                                <input type="text" class="form-control" id="inputFullname" placeholder="Tên đầy đủ"
-                                                       th:field="*{fullName}">
                                             </div>
                                             <div class="form-row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputFullname">Họ và tên</label>
+                                                    <input type="text" class="form-control" id="inputFullname" placeholder="Tên đầy đủ"
+                                                           th:field="*{fullName}">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label for="inputAge">Tuổi</label>
+                                                    <input type="text" class="form-control" id="inputAge" placeholder="Phải là số" th:field="*{age}">
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-6">
                                                     <label for="inputPhone">Số điện thoại</label>
                                                     <input type="text" class="form-control" id="inputPhone"
                                                            placeholder="Số điện thoại phải là số,tối đa 11 chữ số" th:field="*{phone}">
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="inputAge">Tuổi</label>
-                                                    <input type="text" class="form-control" id="inputAge" placeholder="Phải là số" th:field="*{age}">
-                                                </div>
-                                                <div class="form-group col-md-4">
+
+                                                <div class="form-group col-md-6">
                                                     <label for="inputAddress">Địa chỉ</label>
                                                     <input type="text" class="form-control" id="inputAddress"
                                                            placeholder="Số 2 ngõ 61 Giang Văn Minh" th:field="*{address}">
@@ -80,12 +78,12 @@
                                                 <div class="form-group col-md-6">
                                                     <label for="status">Trạng thái tài khoản</label>
                                                     <select id="status" class="form-control" name="status">
-                                                        <option value="1" selected>Đã kích hoạt</option>
+                                                        <option value="1">Đã kích hoạt</option>
                                                         <option value="0">Khóa</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Tạo mới</button>
+                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
                                         </form>
                                     </div>
                                 </div>
