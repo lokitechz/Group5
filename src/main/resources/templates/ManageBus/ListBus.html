@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bus Reservation System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customCSS.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+</head>
+
+<body>
+<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:include="Common/HorizontalNavbar"/>
+    <!-- Siderbar bên trái -->
+    <div class="container-fluid page-body-wrapper">
+        <th:block th:include="Common/VerticalNavbar"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="text-center">Danh sách hành trình</h4>
+                                        <a class="btn btn-success" href="/manage-bus/create">
+                                            <span class="mdi mdi-plus"></span>
+                                            Thêm xe
+                                        </a>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Số xe</th>
+                                                    <th>Loại xe</th>
+                                                    <th>Điểm đi</th>
+                                                    <th>Điểm đến</th>
+                                                    <th>Điểm dừng chân</th>
+                                                    <th>Ngày khởi hành</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="bus : ${busList}">
+                                                    <td th:text="${bus.getBusNo()}"></td>
+                                                    <td  th:text="${bus.getBusType().getBusType()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getOrigin()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getDestination()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getBreakPoint()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getDepartureDate()}"></td>
+                                                    <td>
+                                                        <span class="mdi mdi-pencil">
+                                                            <a th:href="@{'/manage-bus/update/' + ${bus.getId()}}">Sửa</a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS -->
+<script src="vendors/js/vendor.bundle.base.js"></script>
+<script src="vendors/js/vendor.bundle.addons.js"></script>
+<script src="js/misc.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

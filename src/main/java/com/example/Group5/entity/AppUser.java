@@ -1,5 +1,7 @@
 package com.example.Group5.entity;
 
+import com.example.Group5.utils.RepeatedName;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class AppUser {
     @Column(name = "User_Id", nullable = false)
     private Long userId;
 
+    @RepeatedName
     @Column(name = "User_Name", nullable = false)
     private String userName;
 
