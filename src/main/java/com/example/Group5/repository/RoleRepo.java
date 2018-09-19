@@ -1,8 +1,8 @@
-package com.example.Group5.Repository;
+package com.example.Group5.repository;
 
-import com.example.Group5.Entity.AppRole;
-import com.example.Group5.Entity.AppUser;
-import com.example.Group5.Entity.UserRole;
+import com.example.Group5.entity.AppRole;
+import com.example.Group5.entity.AppUser;
+import com.example.Group5.entity.UserRole;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;

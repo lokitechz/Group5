@@ -1,11 +1,11 @@
-package com.example.Group5.Controller;
+package com.example.Group5.controller;
 
-import com.example.Group5.Entity.AppUser;
-import com.example.Group5.Entity.UserRole;
-import com.example.Group5.Repository.AppRoleRepo;
-import com.example.Group5.Repository.AppUserRepo;
-import com.example.Group5.Repository.RoleRepo;
-import com.example.Group5.Utils.EncrytedPasswordUtils;
+import com.example.Group5.entity.AppUser;
+import com.example.Group5.entity.UserRole;
+import com.example.Group5.repository.AppRoleRepo;
+import com.example.Group5.repository.AppUserRepo;
+import com.example.Group5.repository.RoleRepo;
+import com.example.Group5.utils.EncrytedPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,7 +86,7 @@ public class AdminController {
         return "ManageEmployee/UpdateEmployee";
     }
 
-    //  Trả về trang chỉnh sửa thông tin nhân viên
+    //  Luư thông tin chỉnh sửa tin nhân viên
     @RequestMapping(path = "/manage-employee/update", method = RequestMethod.POST)
     public String updateEmployee(AppUser appUser, @RequestParam("role") long role, @RequestParam("status") long status) {
         appUserRepo.save(appUser);

@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce.plugins.media.Plugin","tinymce.core.html.Node","tinymce.core.PluginManager","tinymce.core.util.Tools","tinymce.plugins.media.core.Nodes","tinymce.plugins.media.core.Sanitize","tinymce.plugins.media.core.UpdateHtml","tinymce.plugins.media.ui.Dialog","global!tinymce.util.Tools.resolve","tinymce.core.html.Writer","tinymce.core.html.SaxParser","tinymce.core.html.Schema","tinymce.plugins.media.core.VideoScript","tinymce.core.Env","tinymce.core.dom.DOMUtils","tinymce.plugins.media.core.Size","tinymce.core.util.Delay","tinymce.plugins.media.core.HtmlToData","tinymce.plugins.media.core.Service","tinymce.plugins.media.ui.SizeManager","tinymce.plugins.media.core.DataToHtml","tinymce.core.util.Promise","tinymce.plugins.media.core.Mime","tinymce.plugins.media.core.UrlPatterns"]
+["tinymce.plugins.media.Plugin","tinymce.core.html.Node","tinymce.core.PluginManager","tinymce.core.util.Tools","tinymce.plugins.media.core.Nodes","tinymce.plugins.media.core.Sanitize","tinymce.plugins.media.core.UpdateHtml","tinymce.plugins.media.ui.Dialog","global!tinymce.util.Tools.resolve","tinymce.core.html.Writer","tinymce.core.html.SaxParser","tinymce.core.html.Schema","tinymce.plugins.media.core.VideoScript","tinymce.core.Env","tinymce.core.dom.DOMUtils","tinymce.plugins.media.core.Size","tinymce.core.util.Delay","tinymce.plugins.media.core.HtmlToData","tinymce.plugins.media.core.service","tinymce.plugins.media.ui.SizeManager","tinymce.plugins.media.core.DataToHtml","tinymce.core.util.Promise","tinymce.plugins.media.core.Mime","tinymce.plugins.media.core.UrlPatterns"]
 jsc*/
 defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
 /**
@@ -1186,7 +1186,7 @@ define(
 );
 
 /**
- * Service.js
+ * service.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
@@ -1357,7 +1357,7 @@ define(
     'tinymce.core.util.Delay',
     'tinymce.plugins.media.core.HtmlToData',
     'tinymce.plugins.media.core.UpdateHtml',
-    'tinymce.plugins.media.core.Service',
+    'tinymce.plugins.media.core.service',
     'tinymce.plugins.media.core.Size',
     'tinymce.core.util.Tools',
     'tinymce.core.Env',

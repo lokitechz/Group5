@@ -1,8 +1,8 @@
-package com.example.Group5.Service;
+package com.example.Group5.service;
 
-import com.example.Group5.DAO.AppRoleDAO;
-import com.example.Group5.DAO.AppUserDAO;
-import com.example.Group5.Entity.AppUser;
+import com.example.Group5.dao.AppRoleDAO;
+import com.example.Group5.dao.AppUserDAO;
+import com.example.Group5.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

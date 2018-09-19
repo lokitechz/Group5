@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce.plugins.codesample.Plugin","tinymce.core.Env","tinymce.core.PluginManager","tinymce.plugins.codesample.core.Prism","tinymce.plugins.codesample.ui.Dialog","tinymce.plugins.codesample.util.Utils","global!tinymce.util.Tools.resolve","tinymce.core.dom.DOMUtils"]
+["tinymce.plugins.codesample.Plugin","tinymce.core.Env","tinymce.core.PluginManager","tinymce.plugins.codesample.core.Prism","tinymce.plugins.codesample.ui.Dialog","tinymce.plugins.codesample.util.utils","global!tinymce.util.Tools.resolve","tinymce.core.dom.DOMUtils"]
 jsc*/
 defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
 /**
@@ -1092,7 +1092,7 @@ define(
 );
 
 /**
- * Utils.js
+ * utils.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
@@ -1149,7 +1149,7 @@ define(
   [
     'tinymce.core.dom.DOMUtils',
     'tinymce.plugins.codesample.core.Prism',
-    'tinymce.plugins.codesample.util.Utils'
+    'tinymce.plugins.codesample.util.utils'
   ],
   function (DOMUtils, Prism, Utils) {
     var DOM = DOMUtils.DOM;
@@ -1284,7 +1284,7 @@ define(
     'tinymce.core.PluginManager',
     'tinymce.plugins.codesample.core.Prism',
     'tinymce.plugins.codesample.ui.Dialog',
-    'tinymce.plugins.codesample.util.Utils'
+    'tinymce.plugins.codesample.util.utils'
   ],
   function (Env, PluginManager, Prism, Dialog, Utils) {
     var addedInlineCss, trimArg = Utils.trimArg;

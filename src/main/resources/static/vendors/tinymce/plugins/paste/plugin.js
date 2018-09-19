@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce.plugins.paste.Plugin","tinymce.core.PluginManager","tinymce.plugins.paste.core.Clipboard","tinymce.plugins.paste.core.CutCopy","tinymce.plugins.paste.core.Quirks","tinymce.plugins.paste.core.WordFilter","global!tinymce.util.Tools.resolve","tinymce.core.dom.RangeUtils","tinymce.core.Env","tinymce.core.util.Delay","tinymce.core.util.Tools","tinymce.core.util.VK","tinymce.plugins.paste.core.InternalHtml","tinymce.plugins.paste.core.Utils","tinymce.plugins.paste.core.Newlines","tinymce.plugins.paste.core.SmartPaste","tinymce.core.html.DomParser","tinymce.core.html.Schema","tinymce.core.html.Serializer","tinymce.core.html.Node","tinymce.core.html.Entities"]
+["tinymce.plugins.paste.Plugin","tinymce.core.PluginManager","tinymce.plugins.paste.core.Clipboard","tinymce.plugins.paste.core.CutCopy","tinymce.plugins.paste.core.Quirks","tinymce.plugins.paste.core.WordFilter","global!tinymce.util.Tools.resolve","tinymce.core.dom.RangeUtils","tinymce.core.Env","tinymce.core.util.Delay","tinymce.core.util.Tools","tinymce.core.util.VK","tinymce.plugins.paste.core.InternalHtml","tinymce.plugins.paste.core.utils","tinymce.plugins.paste.core.Newlines","tinymce.plugins.paste.core.SmartPaste","tinymce.core.html.DomParser","tinymce.core.html.Schema","tinymce.core.html.Serializer","tinymce.core.html.Node","tinymce.core.html.Entities"]
 jsc*/
 defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
 /**
@@ -285,7 +285,7 @@ define(
 );
 
 /**
- * Utils.js
+ * utils.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
@@ -449,7 +449,7 @@ define(
   [
     'tinymce.core.Env',
     'tinymce.plugins.paste.core.InternalHtml',
-    'tinymce.plugins.paste.core.Utils'
+    'tinymce.plugins.paste.core.utils'
   ],
   function (Env, InternalHtml, Utils) {
     var noop = function () {
@@ -791,7 +791,7 @@ define(
     'tinymce.plugins.paste.core.InternalHtml',
     'tinymce.plugins.paste.core.Newlines',
     'tinymce.plugins.paste.core.SmartPaste',
-    'tinymce.plugins.paste.core.Utils'
+    'tinymce.plugins.paste.core.utils'
   ],
   function (RangeUtils, Env, Delay, Tools, VK, CutCopy, InternalHtml, Newlines, SmartPaste, Utils) {
     return function (editor) {
@@ -1530,7 +1530,7 @@ define(
     'tinymce.core.html.Schema',
     'tinymce.core.html.Serializer',
     'tinymce.core.html.Node',
-    'tinymce.plugins.paste.core.Utils'
+    'tinymce.plugins.paste.core.utils'
   ],
   function (Tools, DomParser, Schema, Serializer, Node, Utils) {
     /**
@@ -2035,7 +2035,7 @@ define(
     'tinymce.core.Env',
     'tinymce.core.util.Tools',
     'tinymce.plugins.paste.core.WordFilter',
-    'tinymce.plugins.paste.core.Utils'
+    'tinymce.plugins.paste.core.utils'
   ],
   function (Env, Tools, WordFilter, Utils) {
     "use strict";

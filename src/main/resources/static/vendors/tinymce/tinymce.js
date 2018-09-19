@@ -6299,7 +6299,7 @@ define(
 /*eslint no-bitwise:0 */
 
 /**
- * Entity encoder class.
+ * entity encoder class.
  *
  * @class tinymce.html.Entities
  * @static
@@ -6414,7 +6414,7 @@ define(
        * @method encodeRaw
        * @param {String} text Text to encode.
        * @param {Boolean} attr Optional flag to specify if the text is attribute contents.
-       * @return {String} Entity encoded text.
+       * @return {String} entity encoded text.
        */
       encodeRaw: function (text, attr) {
         return text.replace(attr ? attrsCharsRegExp : textCharsRegExp, function (chr) {
@@ -6429,7 +6429,7 @@ define(
        *
        * @method encodeAllRaw
        * @param {String} text Text to encode.
-       * @return {String} Entity encoded text.
+       * @return {String} entity encoded text.
        */
       encodeAllRaw: function (text) {
         return ('' + text).replace(rawCharsRegExp, function (chr) {
@@ -6444,7 +6444,7 @@ define(
        * @method encodeNumeric
        * @param {String} text Text to encode.
        * @param {Boolean} attr Optional flag to specify if the text is attribute contents.
-       * @return {String} Entity encoded text.
+       * @return {String} entity encoded text.
        */
       encodeNumeric: function (text, attr) {
         return text.replace(attr ? attrsCharsRegExp : textCharsRegExp, function (chr) {
@@ -6465,7 +6465,7 @@ define(
        * @param {String} text Text to encode.
        * @param {Boolean} attr Optional flag to specify if the text is attribute contents.
        * @param {Object} entities Optional parameter with entities to use.
-       * @return {String} Entity encoded text.
+       * @return {String} entity encoded text.
        */
       encodeNamed: function (text, attr, entities) {
         entities = entities || namedEntities;
@@ -6541,7 +6541,7 @@ define(
        *
        * @method decode
        * @param {String} text Text to entity decode.
-       * @return {String} Entity decoded string.
+       * @return {String} entity decoded string.
        */
       decode: function (text) {
         return text.replace(entityRegExp, function (all, numeric) {
@@ -10832,20 +10832,20 @@ define(
       },
 
       /**
-       * Entity decodes a string. This method decodes any HTML entities, such as &aring;.
+       * entity decodes a string. This method decodes any HTML entities, such as &aring;.
        *
        * @method decode
        * @param {String} s String to decode entities on.
-       * @return {String} Entity decoded string.
+       * @return {String} entity decoded string.
        */
       decode: Entities.decode,
 
       /**
-       * Entity encodes a string. This method encodes the most common entities, such as <>"&.
+       * entity encodes a string. This method encodes the most common entities, such as <>"&.
        *
        * @method encode
        * @param {String} text String to encode with entities.
-       * @return {String} Entity encoded string.
+       * @return {String} entity encoded string.
        */
       encode: Entities.encodeAllRaw,
 
@@ -45558,7 +45558,7 @@ define(
        * @param {String} name Configruation parameter to retrieve.
        * @param {String} defaultVal Optional default value to return.
        * @param {String} type Optional type parameter.
-       * @return {String} Configuration parameter value or default value.
+       * @return {String} configuration parameter value or default value.
        * @example
        * // Returns a specific config value from the currently active editor
        * var someval = tinymce.activeEditor.getParam('myvalue');

@@ -1,6 +1,6 @@
-package com.example.Group5.DAO;
+package com.example.Group5.dao;
 
-import com.example.Group5.Entity.AppUser;
+import com.example.Group5.entity.AppUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

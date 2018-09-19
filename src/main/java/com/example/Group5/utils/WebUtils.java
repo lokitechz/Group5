@@ -1,4 +1,4 @@
-package com.example.Group5.Utils;
+package com.example.Group5.utils;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

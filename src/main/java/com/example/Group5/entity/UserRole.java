@@ -1,4 +1,4 @@
-package com.example.Group5.Entity;
+package com.example.Group5.entity;
 
 import javax.persistence.*;
 

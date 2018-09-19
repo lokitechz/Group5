@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce.plugins.link.Plugin","tinymce.core.PluginManager","tinymce.plugins.link.core.Actions","tinymce.plugins.link.ui.Controls","global!tinymce.util.Tools.resolve","tinymce.core.util.VK","tinymce.plugins.link.ui.Dialog","tinymce.plugins.link.core.OpenUrl","tinymce.plugins.link.core.Utils","tinymce.plugins.link.core.Settings","tinymce.core.util.Delay","tinymce.core.util.Tools","tinymce.core.util.XHR","global!RegExp","tinymce.core.dom.DOMUtils","tinymce.core.Env"]
+["tinymce.plugins.link.Plugin","tinymce.core.PluginManager","tinymce.plugins.link.core.Actions","tinymce.plugins.link.ui.Controls","global!tinymce.util.Tools.resolve","tinymce.core.util.VK","tinymce.plugins.link.ui.Dialog","tinymce.plugins.link.core.OpenUrl","tinymce.plugins.link.core.utils","tinymce.plugins.link.core.Settings","tinymce.core.util.Delay","tinymce.core.util.Tools","tinymce.core.util.XHR","global!RegExp","tinymce.core.dom.DOMUtils","tinymce.core.Env"]
 jsc*/
 defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
 /**
@@ -267,7 +267,7 @@ define(
 
 defineGlobal("global!RegExp", RegExp);
 /**
- * Utils.js
+ * utils.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
@@ -472,7 +472,7 @@ define(
     'tinymce.core.util.Delay',
     'tinymce.core.util.Tools',
     'tinymce.core.util.XHR',
-    'tinymce.plugins.link.core.Utils',
+    'tinymce.plugins.link.core.utils',
     'tinymce.plugins.link.core.Settings'
   ],
   function (Delay, Tools, XHR, Utils, Settings) {
@@ -931,7 +931,7 @@ define(
     'tinymce.core.util.VK',
     'tinymce.plugins.link.ui.Dialog',
     'tinymce.plugins.link.core.OpenUrl',
-    'tinymce.plugins.link.core.Utils',
+    'tinymce.plugins.link.core.utils',
     'tinymce.plugins.link.core.Settings'
   ],
   function (VK, Dialog, OpenUrl, Utils, Settings) {
@@ -1075,7 +1075,7 @@ define(
   'tinymce.plugins.link.ui.Controls',
   [
     'tinymce.plugins.link.core.Actions',
-    'tinymce.plugins.link.core.Utils'
+    'tinymce.plugins.link.core.utils'
   ],
   function (Actions, Utils) {
 

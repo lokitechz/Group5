@@ -81,7 +81,7 @@ var defineGlobal = function (id, ref) {
   define(id, [], function () { return ref; });
 };
 /*jsc
-["tinymce.plugins.table.Plugin","tinymce.core.dom.TreeWalker","tinymce.core.Env","tinymce.core.PluginManager","tinymce.core.util.Tools","tinymce.core.util.VK","tinymce.plugins.table.model.TableGrid","tinymce.plugins.table.selection.CellSelection","tinymce.plugins.table.ui.Dialogs","tinymce.plugins.table.ui.ResizeBars","tinymce.plugins.table.util.Quirks","global!tinymce.util.Tools.resolve","tinymce.plugins.table.util.Utils","tinymce.plugins.table.model.SplitCols","tinymce.core.util.Delay"]
+["tinymce.plugins.table.Plugin","tinymce.core.dom.TreeWalker","tinymce.core.Env","tinymce.core.PluginManager","tinymce.core.util.Tools","tinymce.core.util.VK","tinymce.plugins.table.model.TableGrid","tinymce.plugins.table.selection.CellSelection","tinymce.plugins.table.ui.Dialogs","tinymce.plugins.table.ui.ResizeBars","tinymce.plugins.table.util.Quirks","global!tinymce.util.Tools.resolve","tinymce.plugins.table.util.utils","tinymce.plugins.table.model.SplitCols","tinymce.core.util.Delay"]
 jsc*/
 defineGlobal("global!tinymce.util.Tools.resolve", tinymce.util.Tools.resolve);
 /**
@@ -185,7 +185,7 @@ define(
 );
 
 /**
- * Utils.js
+ * utils.js
  *
  * Released under LGPL License.
  * Copyright (c) 1999-2017 Ephox Corp. All rights reserved
@@ -270,7 +270,7 @@ define(
   'tinymce.plugins.table.model.SplitCols',
   [
     'tinymce.core.util.Tools',
-    'tinymce.plugins.table.util.Utils'
+    'tinymce.plugins.table.util.utils'
   ],
   function (Tools, Utils) {
     var getCellAt = function (grid, x, y) {
@@ -418,7 +418,7 @@ define(
   [
     'tinymce.core.util.Tools',
     'tinymce.core.Env',
-    'tinymce.plugins.table.util.Utils',
+    'tinymce.plugins.table.util.utils',
     'tinymce.plugins.table.model.SplitCols'
   ],
   function (Tools, Env, Utils, SplitCols) {
@@ -3630,7 +3630,7 @@ define(
     'tinymce.core.util.Delay',
     'tinymce.core.Env',
     'tinymce.core.util.Tools',
-    'tinymce.plugins.table.util.Utils'
+    'tinymce.plugins.table.util.utils'
   ],
   function (VK, Delay, Env, Tools, Utils) {
     var each = Tools.each, getSpanVal = Utils.getSpanVal;
