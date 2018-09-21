@@ -25,40 +25,68 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Tìm kiếm thông tin các chuyến xe</h4>
-                                        <form>
-                                            <div class="col-md-12" style="display: flex">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="from">Điểm khởi hành</label>
-                                                        <input type="text" class="form-control" id="from"
-                                                               placeholder="Điểm khởi hành">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="to">Ngày đi</label>
-                                                        <input type="date" class="form-control" id="datefrom"
-                                                               placeholder="Ngày đi">
-                                                    </div>
+                                        <h4 class="text-center mb-5">Tìm kiếm thông tin các chuyến xe</h4>
+                                        <form th:action="@{/search}" th:method="GET">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="from">Điểm khởi hành</label>
+                                                    <input type="text" class="form-control" id="from" placeholder="Điểm khởi hành" th:name="from">
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="to">Điểm đến</label>
-                                                        <input type="text" class="form-control" id="to"
-                                                               placeholder="Điểm đến">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="from">Ngày đến</label>
-                                                        <input type="date" class="form-control" id="dateto"
-                                                               placeholder="Ngày đến">
-                                                    </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="to">Điểm đến</label>
+                                                    <input type="text" class="form-control" id="to" placeholder="Điểm đến" th:name="to">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="to">Ngày khởi hành</label>
+                                                    <input type="date" class="form-control" id="datefrom" placeholder="Ngày đi"
+                                                           th:name="departure_date">
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-6">
-                                                    <button type="submit" class="btn btn-success mr-2">Tìm kiếm</button>
-                                                </div>
-                                            </div>
+                                            <button type="submit" class="btn btn-success mr-2">Tìm kiếm</button>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="text-center mb-5">Danh sách kết quả</h4>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Số xe</th>
+                                                    <th>Loại xe</th>
+                                                    <th>Điểm đi</th>
+                                                    <th>Điểm đến</th>
+                                                    <th>Điểm dừng chân</th>
+                                                    <th>Ngày khởi hành</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="bus : ${busList}">
+                                                    <td th:text="${bus.getBusNo()}"></td>
+                                                    <td th:text="${bus.getBusType().getBusType()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getOrigin()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getDestination()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getBreakPoint()}"></td>
+                                                    <td th:text="${bus.getBusRoute().getDepartureDate()}"></td>
+                                                    <td>
+                                                        <span class="mdi mdi-ticket">
+                                                            <a th:href="">Đặt vé</a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

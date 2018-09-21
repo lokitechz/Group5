@@ -41,17 +41,21 @@
                                                     <th>Điểm đến</th>
                                                     <th>Điểm dừng chân</th>
                                                     <th>Ngày khởi hành</th>
+                                                    <td>Thời gian hành trình</td>
+                                                    <th>Giá vé</th>
                                                     <th>Thao tác</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="bus : ${busList}">
-                                                    <td th:text="${bus.getBusNo()}"></td>
-                                                    <td  th:text="${bus.getBusType().getBusType()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getOrigin()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getDestination()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getBreakPoint()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getDepartureDate()}"></td>
+                                                    <td th:text="${bus.busNo}"></td>
+                                                    <td th:text="${bus.busType.busType}"></td>
+                                                    <td th:text="${bus.busRoute.origin}"></td>
+                                                    <td th:text="${bus.busRoute.destination}"></td>
+                                                    <td th:text="${bus.busRoute.breakPoint}"></td>
+                                                    <td th:text="${bus.busRoute.departureDate}"></td>
+                                                    <td th:text="${bus.busRoute.arrivalTime}"></td>
+                                                    <td th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></td>
                                                     <td>
                                                         <span class="mdi mdi-pencil">
                                                             <a th:href="@{'/manage-bus/update/' + ${bus.getId()}}">Sửa</a>

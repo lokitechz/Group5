@@ -21,15 +21,18 @@ public class BusRoute {
     @Column(name = "Destination", nullable = false)
     private String destination;
 
-    @Column(name = "Break_Point",nullable = false)
+    @Column(name = "Break_Point", nullable = false)
     private String breakPoint;
 
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd/MM/yyyy")
-    @Column(name = "Departure_Date",nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Column(name = "Departure_Date", nullable = false)
     private java.sql.Date departureDate;
 
-    @Column(name = "ARRIVALTIME",nullable = false)
+    @Column(name = "ARRIVALTIME", nullable = false)
     private String arrivalTime;
+
+    @Column(name = "FARE", nullable = false)
+    private float fare;
 
     public int getBusRouteId() {
         return busRouteId;
@@ -79,5 +82,11 @@ public class BusRoute {
         this.arrivalTime = arrivalTime;
     }
 
+    public float getFare() {
+        return fare;
+    }
 
+    public void setFare(float fare) {
+        this.fare = fare;
+    }
 }
