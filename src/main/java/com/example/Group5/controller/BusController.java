@@ -40,20 +40,30 @@ public class BusController {
     //  Trả về trang tạo mới xe
     @RequestMapping(path = "/manage-bus/create", method = RequestMethod.GET)
     public String createUser(Model model) {
+        List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
+        List<BusRoute> routeList = (List<BusRoute>) busRouteRepo.findAll();
         model.addAttribute("bus", new Bus());
+        model.addAttribute("listBusType", typeList);
+        model.addAttribute("listBusRoute", routeList);
         return "ManageBus/CreateBus";
     }
 
     // Lưu thông tin xe lên database
     @RequestMapping(path = "/manage-bus/create", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute @Valid Bus bus, BindingResult bindingResult, @RequestParam("type") int type, @RequestParam("route") int route) {
-        List<Bus> listBus = (List<Bus>) busRepo.findAll();
+    public String addUser(Model model,@ModelAttribute @Valid Bus bus, BindingResult bindingResult, @RequestParam("type") int type, @RequestParam("route") int route) {
         BusRoute busRoute = busRouteRepo.findById(route).get();
         BusType busType = busTypeRepo.findById(type).get();
         bus.setBusRoute(busRoute);
         bus.setBusType(busType);
-        for (Bus b : listBus) {
-            if (b.getBusNo() == bus.getBusNo()) {
+        List<Bus> busList = busRepo.findAllByBusNo(bus.getBusNo());
+        for(Bus b:busList){
+            if(b.getBusRoute().getBusRouteId() == bus.getBusRoute().getBusRouteId()){
+                List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
+                List<BusRoute> routeList = (List<BusRoute>) busRouteRepo.findAll();
+                model.addAttribute("bus", new Bus());
+                model.addAttribute("listBusType", typeList);
+                model.addAttribute("listBusRoute", routeList);
+                model.addAttribute("duplicateRoute","Hành trình đã tồn tại");
                 return "ManageBus/CreateBus";
             }
         }
@@ -68,16 +78,23 @@ public class BusController {
     //  Trả về trang sửa thông tin xe
     @RequestMapping(path = "/manage-bus/update/{id}", method = RequestMethod.GET)
     public String editBus(@PathVariable int id, Model model) {
+        List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
+        List<BusRoute> routeList = (List<BusRoute>) busRouteRepo.findAll();
         Optional<Bus> optionalBus = busRepo.findById(id);
+        //remove item
+        typeList.remove(optionalBus.get().getBusType());
+        routeList.remove(optionalBus.get().getBusRoute());
+        model.addAttribute("listBusType", typeList);
+        model.addAttribute("listBusRoute", routeList);
         model.addAttribute("bus", optionalBus.get());
         return "ManageBus/UpdateBus";
     }
 
-    //update
+    // Lưu thông tin chỉnh sửa lên DB
     @RequestMapping(value = "/manage-bus/update", method = RequestMethod.POST)
     public String updateBus(@ModelAttribute @Valid Bus bus, BindingResult bindingResult, @RequestParam("type") int type, @RequestParam("route") int route) {
         if (bindingResult.hasErrors()) {
-            return "ManageBus/pdateBus";
+            return "ManageBus/updateBus";
         } else {
             bus.setBusRoute(busRouteRepo.findById(route).get());
             bus.setBusType(busTypeRepo.findById(type).get());

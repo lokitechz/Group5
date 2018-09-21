@@ -10,8 +10,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RepeatedName {
     String message() default "Tên tài khoản đã bị trùng";
-
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
 }

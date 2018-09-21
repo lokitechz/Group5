@@ -9,17 +9,17 @@ public class BusType {
     @Id
     @GeneratedValue
     @Column(name = "Bus_type_Id", nullable = false)
-    private int busRouteId;
+    private int busTypeId;
 
     @Column(name = "Type", nullable = false)
     private String busType;
 
-    public int getBusRouteId() {
-        return busRouteId;
+    public int getBusTypeId() {
+        return busTypeId;
     }
 
-    public void setBusRouteId(int busRouteId) {
-        this.busRouteId = busRouteId;
+    public void setBusTypeId(int busTypeId) {
+        this.busTypeId = busTypeId;
     }
 
     public String getBusType() {
