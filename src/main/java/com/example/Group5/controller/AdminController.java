@@ -56,24 +56,28 @@ public class AdminController {
 
     //  Lưu dữ liệu nhân viên lên Database
     @RequestMapping(value = "/manage-employee/create", method = RequestMethod.POST)
-    public String saveEmployee(@Valid AppUser appUser, BindingResult bindingResult, @RequestParam("status") int status, @RequestParam("role") long role) {
-        if (bindingResult.hasFieldErrors()) {
-            return "ManageEmployee/CreateEmployee";
+    public String saveEmployee(Model model, AppUser appUser, @RequestParam("status") int status, @RequestParam("role") long role) {
+        List<AppUser> listUser = (List<AppUser>) appUserRepo.findAll();
+        String b = appUser.getUserName().toLowerCase();
+        for (AppUser x : listUser) {
+            if (x.getUserName().toLowerCase().equals(b)) {
+                model.addAttribute("dulicateUsername", "Tên tài khoản đã tồn tại");
+                return "ManageEmployee/CreateEmployee";
+            }
+        }
+        appUser.setEncrytedPassword(EncrytedPasswordUtils.encrytePassword(appUser.getEncrytedPassword()));
+        if (status == 1) {
+            appUser.setEnabled(true);
         } else {
-            appUser.setEncrytedPassword(EncrytedPasswordUtils.encrytePassword(appUser.getEncrytedPassword()));
-            if (status == 1) {
-                appUser.setEnabled(true);
-            } else {
-                appUser.setEnabled(false);
-            }
-            appUserRepo.save(appUser);
-            if (roleRepo.findByAppUser(appUser).size() == 0) {
-                long userRole = role;
-                UserRole employeeRole = new UserRole();
-                employeeRole.setAppRole(appRoleRepo.findById(userRole).get());
-                employeeRole.setAppUser(appUser);
-                roleRepo.save(employeeRole);
-            }
+            appUser.setEnabled(false);
+        }
+        appUserRepo.save(appUser);
+        if (roleRepo.findByAppUser(appUser).size() == 0) {
+            long userRole = role;
+            UserRole employeeRole = new UserRole();
+            employeeRole.setAppRole(appRoleRepo.findById(userRole).get());
+            employeeRole.setAppUser(appUser);
+            roleRepo.save(employeeRole);
         }
         return "redirect:/manage-employee";
     }
@@ -88,25 +92,21 @@ public class AdminController {
 
     //  Luư thông tin nhân viên sau khi chỉnh sửa
     @RequestMapping(value = "/manage-employee/update", method = RequestMethod.POST)
-    public String updateEmployee(AppUser appUser, BindingResult bindingResult, @RequestParam("role") long role, @RequestParam("status") long status) {
-        if (bindingResult.hasErrors() && !appUser.isEnabled()) {
-            return "createPage";
+    public String updateEmployee(AppUser appUser, @RequestParam("role") long role, @RequestParam("status") long status) {
+        if (status == 1) {
+            appUser.setEnabled(true);
         } else {
-            if (status == 1) {
-                appUser.setEnabled(true);
-            } else {
-                appUser.setEnabled(false);
-            }
-            appUserRepo.save(appUser);
-            List<UserRole> oldRole = roleRepo.findByAppUser(appUser);
-            for (UserRole x : oldRole) {
-                long num = role;
-                x.setAppRole(appRoleRepo.findById(num).get());
-                x.setAppUser(appUser);
-                roleRepo.save(x);
-            }
-            return "redirect:/manage-employee";
+            appUser.setEnabled(false);
         }
+        appUserRepo.save(appUser);
+        List<UserRole> oldRole = roleRepo.findByAppUser(appUser);
+        for (UserRole x : oldRole) {
+            long num = role;
+            x.setAppRole(appRoleRepo.findById(num).get());
+            x.setAppUser(appUser);
+            roleRepo.save(x);
+        }
+        return "redirect:/manage-employee";
     }
 
     //  Xóa nhân viên
