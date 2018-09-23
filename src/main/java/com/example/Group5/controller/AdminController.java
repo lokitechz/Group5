@@ -111,7 +111,7 @@ public class AdminController {
 
     //  Xóa nhân viên
     @RequestMapping(path = "/manage-employee/delete/{id}", method = RequestMethod.GET)
-    public String delProduct(@PathVariable long id) {
+    public String delEmployee(@PathVariable long id) {
         AppUser appUser = appUserRepo.findById(id).get();
         appUserRepo.delete(appUser);
         return "redirect:/manage-employee";
