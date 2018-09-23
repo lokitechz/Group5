@@ -28,10 +28,9 @@ public class BusController {
     @Autowired
     private BusRouteRepo busRouteRepo;
 
-
     //  Trả về trang danh sách xe xe
     @RequestMapping(value = "/manage-bus", method = RequestMethod.GET)
-    public String listEmployee(Model model) {
+    public String listBus(Model model) {
         List<Bus> busList = (List<Bus>) busRepo.findAll();
         model.addAttribute("busList", busList);
         return "ManageBus/ListBus";
@@ -39,7 +38,7 @@ public class BusController {
 
     //  Trả về trang tạo mới xe
     @RequestMapping(path = "/manage-bus/create", method = RequestMethod.GET)
-    public String createUser(Model model) {
+    public String createBusPage(Model model) {
         List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
         List<BusRoute> routeList = (List<BusRoute>) busRouteRepo.findAll();
         model.addAttribute("bus", new Bus());
@@ -50,38 +49,33 @@ public class BusController {
 
     // Lưu thông tin xe lên database
     @RequestMapping(path = "/manage-bus/create", method = RequestMethod.POST)
-    public String addUser(Model model,@ModelAttribute @Valid Bus bus, BindingResult bindingResult, @RequestParam("type") int type, @RequestParam("route") int route) {
+    public String saveBus(Model model, @ModelAttribute Bus bus, @RequestParam("type") int type, @RequestParam("route") int route) {
         BusRoute busRoute = busRouteRepo.findById(route).get();
         BusType busType = busTypeRepo.findById(type).get();
         bus.setBusRoute(busRoute);
         bus.setBusType(busType);
         List<Bus> busList = busRepo.findAllByBusNo(bus.getBusNo());
-        for(Bus b:busList){
-            if(b.getBusRoute().getBusRouteId() == bus.getBusRoute().getBusRouteId()){
+        for (Bus b : busList) {
+            if (b.getBusRoute().getBusRouteId() == bus.getBusRoute().getBusRouteId()) {
                 List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
                 List<BusRoute> routeList = (List<BusRoute>) busRouteRepo.findAll();
                 model.addAttribute("bus", new Bus());
                 model.addAttribute("listBusType", typeList);
                 model.addAttribute("listBusRoute", routeList);
-                model.addAttribute("duplicateRoute","Hành trình đã tồn tại");
+                model.addAttribute("duplicateRoute", "Hành trình đã tồn tại");
                 return "ManageBus/CreateBus";
             }
         }
-        if (bindingResult.hasErrors()) {
-            return "ManageBus/CreateBus";
-        } else {
-            busRepo.save(bus);
-            return "redirect:/manage-bus";
-        }
+        busRepo.save(bus);
+        return "redirect:/manage-bus";
     }
 
     //  Trả về trang sửa thông tin xe
     @RequestMapping(path = "/manage-bus/update/{id}", method = RequestMethod.GET)
-    public String editBus(@PathVariable int id, Model model) {
+    public String editBusPage(@PathVariable int id, Model model) {
         List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
         List<BusRoute> routeList = (List<BusRoute>) busRouteRepo.findAll();
         Optional<Bus> optionalBus = busRepo.findById(id);
-        //remove item
         typeList.remove(optionalBus.get().getBusType());
         routeList.remove(optionalBus.get().getBusRoute());
         model.addAttribute("listBusType", typeList);
@@ -92,14 +86,27 @@ public class BusController {
 
     // Lưu thông tin chỉnh sửa lên DB
     @RequestMapping(value = "/manage-bus/update", method = RequestMethod.POST)
-    public String updateBus(@ModelAttribute @Valid Bus bus, BindingResult bindingResult, @RequestParam("type") int type, @RequestParam("route") int route) {
-        if (bindingResult.hasErrors()) {
-            return "ManageBus/updateBus";
-        } else {
-            bus.setBusRoute(busRouteRepo.findById(route).get());
-            bus.setBusType(busTypeRepo.findById(type).get());
-            busRepo.save(bus);
-            return "redirect:/manage-bus";
+    public String updateBus(Model model, @ModelAttribute Bus bus, @RequestParam("type") int type, @RequestParam("route") int route) {
+        bus.setBusRoute(busRouteRepo.findById(route).get());
+        bus.setBusType(busTypeRepo.findById(type).get());
+        List<Bus> busList = busRepo.findAllByBusNo(bus.getBusNo());
+        for (Bus b : busList) {
+            if (b.getBusRoute().getBusRouteId() == bus.getBusRoute().getBusRouteId()) {
+                List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
+                List<BusRoute> routeList = (List<BusRoute>) busRouteRepo.findAll();
+                model.addAttribute("listBusType", typeList);
+                model.addAttribute("listBusRoute", routeList);
+                model.addAttribute("duplicateRoute", "Hành trình đã tồn tại");
+                return "ManageBus/UpdateBus";
+            }
         }
+        busRepo.save(bus);
+        return "redirect:/manage-bus";
+    }
+
+    //  Hàm trả về trang đặt vé
+    @RequestMapping(value = "/booking-ticket", method = RequestMethod.GET)
+    public String bookingPage() {
+        return "Booking/BookingPage";
     }
 }

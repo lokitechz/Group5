@@ -3,7 +3,7 @@ package com.example.Group5.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "User_Role", uniqueConstraints = {@UniqueConstraint(name = "USER_ROLE_UK", columnNames = {"User_Id", "Role_Id"})})
+@Table(name = "user_role", uniqueConstraints = {@UniqueConstraint(name = "USER_ROLE_UK", columnNames = {"User_Id", "Role_Id"})})
 public class UserRole {
 
     @Id

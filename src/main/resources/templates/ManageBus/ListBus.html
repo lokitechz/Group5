@@ -57,8 +57,11 @@
                                                     <td th:text="${bus.busRoute.arrivalTime}"></td>
                                                     <td th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></td>
                                                     <td>
-                                                        <span class="mdi mdi-pencil">
+                                                        <span class="mdi mdi-pencil mr-5">
                                                             <a th:href="@{'/manage-bus/update/' + ${bus.getId()}}">Sửa</a>
+                                                        </span>
+                                                        <span class="mdi mdi-ticket-confirmation">
+                                                            <a th:href="@{/booking-ticket}">Đặt vé</a>
                                                         </span>
                                                     </td>
                                                 </tr>
