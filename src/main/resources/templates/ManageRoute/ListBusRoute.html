@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bus Reservation System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customCSS.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+</head>
+
+<body>
+<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:include="Common/HorizontalNavbar"/>
+    <!-- Siderbar bên trái -->
+    <div class="container-fluid page-body-wrapper">
+        <th:block th:include="Common/VerticalNavbar"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="text-center">Danh sách tuyến đường</h4>
+                                        <a class="btn btn-success" href="/manage-bus-route/create">
+                                            <span class="mdi mdi-plus"></span>
+                                            Thêm tuyến đường
+                                        </a>
+                                        <div style="color: red; font-size: 12px"
+                                             th:text="${delerror}"></div>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Mã</th>
+                                                    <th>Điểm đi</th>
+                                                    <th>Điểm đến</th>
+                                                    <th>Điểm dừng chân</th>
+                                                    <th>Ngày khởi hành</th>
+                                                    <th>Thời gian</th>
+                                                    <th>Giá vé</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="route : ${busRouteList}">
+                                                    <td th:text="${route.busRouteId}"></td>
+                                                    <td th:text="${route.origin}"></td>
+                                                    <td th:text="${route.destination}"></td>
+                                                    <td th:text="${route.breakPoint}"></td>
+                                                    <td th:text="${route.departureDate}"></td>
+                                                    <td th:text="${route.arrivalTime}"></td>
+                                                    <td th:text="${route.fare}"></td>
+                                                    <td>
+                                                        <span class="mdi mdi-pencil mr-5">
+                                                            <a th:href="@{'/manage-bus-route/update/' + ${route.getBusRouteId()}}">Sửa</a>
+                                                        </span>
+                                                        <span class="mdi mdi-delete">
+                                                            <a th:href="@{'/manage-bus-route/delete/' + ${route.getBusRouteId()}}">Xoá</a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS -->
+<script src="vendors/js/vendor.bundle.base.js"></script>
+<script src="vendors/js/vendor.bundle.addons.js"></script>
+<script src="js/misc.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

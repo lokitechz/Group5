@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bus Reservation System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/customCSS.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+</head>
+
+<body>
+<style>
+    label {
+        font-size: 15px !important;
+    }
+</style>
+<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+    <!-- Menu ngang phía trên -->
+    <th:block th:include="Common/HorizontalNavbar"/>
+    <!-- End -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- Siderbar bên trái -->
+        <th:block th:include="Common/VerticalNavbar"/>
+        <!-- End -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="text-center">Tạo mới tuyến đường </h4>
+                                        <form th:object="${bus_route}" th:action="@{/manage-bus-route/create}"
+                                              method="POST">
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputorigin">Điểm đi</label>
+                                                    <input type="text" class="form-control" id="inputorigin"
+                                                           placeholder="Điểm đi" th:field="*{origin}" required>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputdestination">Điểm đến </label>
+                                                    <input type="text" class="form-control" id="inputdestination"
+                                                           placeholder="Điểm đến"
+                                                           th:field="*{destination}" required>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputbreakPoint">Điểm dừng chân</label>
+                                                    <input type="text" class="form-control" id="inputbreakPoint"
+                                                           placeholder="Điểm dừng chân"
+                                                           th:field="*{breakPoint}">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputdepartureDate">Ngày khởi hành </label>
+                                                    <input type="date" class="form-control" id="inputdepartureDate" required
+                                                           th:field="*{departureDate}">
+                                                    <div style="color: red; font-size: 12px" th:text="${error}" ></div>
+
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="inputarrivalTime">Thời gian tính dự </label>
+                                                    <input type="text" class="form-control" id="inputarrivalTime" required
+                                                           placeholder="Thời gian tính dự" th:field="*{arrivalTime}">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Tạo mới</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<script src="/vendors/js/vendor.bundle.addons.js"></script>
+<script src="/js/misc.js"></script>
+<script src="/js/dashboard.js"></script>
+<script>
+    $('.nav .nav-item:nth-child(4)').addClass('active');
+</script>
+</body>
+</html>
