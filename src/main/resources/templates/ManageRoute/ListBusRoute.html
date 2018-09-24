@@ -27,11 +27,11 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="text-center">Danh sách tuyến đường</h4>
-                                        <a class="btn btn-success" href="/manage-bus-route/create">
+                                        <div class="text-center text-danger" th:text="${deleteError}"></div>
+                                        <a class="btn btn-success" href="/manage-route/create">
                                             <span class="mdi mdi-plus"></span>
                                             Thêm tuyến đường
                                         </a>
-                                        <div style="color: red; font-size: 12px" th:text="${deleteError}"></div>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
@@ -54,13 +54,13 @@
                                                     <td th:text="${route.breakPoint}"></td>
                                                     <td th:text="${route.departureDate}"></td>
                                                     <td th:text="${route.arrivalTime}"></td>
-                                                    <td th:text="${route.fare}"></td>
+                                                    <td th:text="${#numbers.formatDecimal(route.fare,2,0,'COMMA')}+' '+'đ'"></td>
                                                     <td>
                                                         <span class="mdi mdi-pencil mr-5">
-                                                            <a th:href="@{'/manage-bus-route/update/' + ${route.getBusRouteId()}}">Sửa</a>
+                                                            <a th:href="@{'/manage-route/update/' + ${route.getBusRouteId()}}">Sửa</a>
                                                         </span>
                                                         <span class="mdi mdi-delete">
-                                                            <a th:href="@{'/manage-bus-route/delete/' + ${route.getBusRouteId()}}">Xoá</a>
+                                                            <a th:href="@{'/manage-route/delete/' + ${route.getBusRouteId()}}">Xoá</a>
                                                         </span>
                                                     </td>
                                                 </tr>
