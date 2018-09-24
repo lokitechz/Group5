@@ -105,8 +105,10 @@ public class BusController {
     }
 
     //  Hàm trả về trang đặt vé
-    @RequestMapping(value = "/booking-ticket", method = RequestMethod.GET)
-    public String bookingPage() {
+    @RequestMapping(value = "{id}/booking-ticket", method = RequestMethod.GET)
+    public String bookingPage(@PathVariable int id,Model model) {
+        Optional<Bus> optionalBus = busRepo.findById(id);
+        model.addAttribute("bus", optionalBus.get());
         return "Booking/BookingPage";
     }
 }

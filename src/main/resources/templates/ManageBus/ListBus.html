@@ -61,7 +61,7 @@
                                                             <a th:href="@{'/manage-bus/update/' + ${bus.getId()}}">Sửa</a>
                                                         </span>
                                                         <span class="mdi mdi-ticket-confirmation">
-                                                            <a th:href="@{/booking-ticket}">Đặt vé</a>
+                                                            <a th:href="${bus.getId()} + @{'/booking-ticket'}">Đặt vé</a>
                                                         </span>
                                                     </td>
                                                 </tr>
