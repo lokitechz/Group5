@@ -37,31 +37,31 @@
                                         <h4 class="text-center">Thông tin chi tiết vé xe</h4>
                                         <div class="form-group row mt-5">
                                             <label class="col-sm-6 col-form-label">Họ và tên người đặt:</label>
-                                            <div class="col-sm-6 col-form-label"><h5>Dương Hoàng Giang</h5></div>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${passengerInfo.passengerName}"></label>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Tuổi:</label>
-                                            <div class="col-sm-6 col-form-label"><h5>Dương Hoàng Giang</h5></div>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${passengerInfo.passengerAge}"></label>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Số xe:</label>
-                                            <div class="col-sm-6 col-form-label"><h5>Dương Hoàng Giang</h5></div>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busNo}"></label>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Loại xe:</label>
-                                            <div class="col-sm-6 col-form-label"><h5>Dương Hoàng Giang</h5></div>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busType.busType}"></label>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Hành trình:</label>
-                                            <div class="col-sm-6 col-form-label"><h5>Dương Hoàng Giang</h5></div>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busRoute.origin + ' - ' + busInfo.busRoute.destination}"></label>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
-                                            <div class="col-sm-6 col-form-label"><h5>Dương Hoàng Giang</h5></div>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busRoute.departureDate}"></label>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Giá vé:</label>
-                                            <div class="col-sm-6 col-form-label"><h5>Dương Hoàng Giang</h5></div>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${#numbers.formatDecimal(busInfo.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></label>
                                         </div>
                                     </div>
                                 </div>
