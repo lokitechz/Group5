@@ -1,18 +1,12 @@
 package com.example.Group5.controller;
 
-import com.example.Group5.entity.Bus;
-import com.example.Group5.entity.BusRoute;
-import com.example.Group5.entity.BusType;
-import com.example.Group5.repository.BusRepo;
-import com.example.Group5.repository.BusRouteRepo;
-import com.example.Group5.repository.BusTypeRepo;
+import com.example.Group5.entity.*;
+import com.example.Group5.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +21,12 @@ public class BusController {
 
     @Autowired
     private BusRouteRepo busRouteRepo;
+
+    @Autowired
+    private PassengerRepo passengerRepo;
+
+    @Autowired
+    private TicketRepo ticketRepo;
 
     //  Trả về trang danh sách xe xe
     @RequestMapping(value = "/manage-bus", method = RequestMethod.GET)
@@ -104,11 +104,32 @@ public class BusController {
         return "redirect:/manage-bus";
     }
 
-    //  Hàm trả về trang đặt vé
-    @RequestMapping(value = "{id}/booking-ticket", method = RequestMethod.GET)
-    public String bookingPage(@PathVariable int id,Model model) {
+    //  Trả về trang đặt vé
+    @RequestMapping(value = "/booking-ticket/{id}", method = RequestMethod.GET)
+    public String bookingPage(@PathVariable int id, Model model) {
         Optional<Bus> optionalBus = busRepo.findById(id);
         model.addAttribute("bus", optionalBus.get());
+        model.addAttribute("ticket", new Ticket());
         return "Booking/BookingPage";
+    }
+
+    //  Lưu thông tin đặt vé
+    @RequestMapping(value = "/booking-ticket/{id}", method = RequestMethod.POST)
+    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket, @RequestParam String fullname, @RequestParam int age) {
+        Passenger passenger = new Passenger();
+        passenger.setPassengerName(fullname);
+        passenger.setPassengerAge(age);
+        passengerRepo.save(passenger);
+        Optional<Passenger> optionalPassenger = passengerRepo.findById(passenger.getPassengerId());
+        ticket.setBusId(id);
+        ticket.setPassengerId(optionalPassenger.get().getPassengerId());
+        ticketRepo.save(ticket);
+        return "redirect:/booking-ticket/detail";
+    }
+
+    //  Trang thông tin chi tiết của vé
+    @RequestMapping(value = "/booking-ticket/detail",method = RequestMethod.GET)
+    public String detailTicket() {
+        return "Booking/BookingDetailPage";
     }
 }
