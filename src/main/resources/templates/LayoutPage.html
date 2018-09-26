@@ -50,49 +50,49 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
-                        <div class="row flex-grow">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="text-center mb-5">Danh sách kết quả</h4>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>Số xe</th>
-                                                    <th>Loại xe</th>
-                                                    <th>Điểm đi</th>
-                                                    <th>Điểm đến</th>
-                                                    <th>Điểm dừng chân</th>
-                                                    <th>Ngày khởi hành</th>
-                                                    <th>Thao tác</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="bus : ${busList}">
-                                                    <td th:text="${bus.getBusNo()}"></td>
-                                                    <td th:text="${bus.getBusType().getBusType()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getOrigin()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getDestination()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getBreakPoint()}"></td>
-                                                    <td th:text="${bus.getBusRoute().getDepartureDate()}"></td>
-                                                    <td>
-                                                        <span class="mdi mdi-ticket">
-                                                            <a th:href="">Đặt vé</a>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="row">-->
+                    <!--<div class="col-md-12 d-flex align-items-stretch grid-margin">-->
+                        <!--<div class="row flex-grow">-->
+                            <!--<div class="col-12">-->
+                                <!--<div class="card">-->
+                                    <!--<div class="card-body">-->
+                                        <!--<h4 class="text-center mb-5">Danh sách kết quả</h4>-->
+                                        <!--<div class="table-responsive">-->
+                                            <!--<table class="table table-striped">-->
+                                                <!--<thead>-->
+                                                <!--<tr>-->
+                                                    <!--<th>Số xe</th>-->
+                                                    <!--<th>Loại xe</th>-->
+                                                    <!--<th>Điểm đi</th>-->
+                                                    <!--<th>Điểm đến</th>-->
+                                                    <!--<th>Điểm dừng chân</th>-->
+                                                    <!--<th>Ngày khởi hành</th>-->
+                                                    <!--<th>Thao tác</th>-->
+                                                <!--</tr>-->
+                                                <!--</thead>-->
+                                                <!--<tbody>-->
+                                                <!--<tr th:each="bus : ${busList}">-->
+                                                    <!--<td th:text="${bus.getBusNo()}"></td>-->
+                                                    <!--<td th:text="${bus.getBusType().getBusType()}"></td>-->
+                                                    <!--<td th:text="${bus.getBusRoute().getOrigin()}"></td>-->
+                                                    <!--<td th:text="${bus.getBusRoute().getDestination()}"></td>-->
+                                                    <!--<td th:text="${bus.getBusRoute().getBreakPoint()}"></td>-->
+                                                    <!--<td th:text="${bus.getBusRoute().getDepartureDate()}"></td>-->
+                                                    <!--<td>-->
+                                                        <!--<span class="mdi mdi-ticket">-->
+                                                            <!--<a th:href="">Đặt vé</a>-->
+                                                        <!--</span>-->
+                                                    <!--</td>-->
+                                                <!--</tr>-->
+                                                <!--</tbody>-->
+                                            <!--</table>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
         </div>
     </div>

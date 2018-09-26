@@ -17,6 +17,10 @@
     label {
         font-size: 15px !important;
     }
+
+    .custom-height {
+        height: calc(2.25rem + 2px) !important;
+    }
 </style>
 <div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
     <!-- Menu ngang phía trên -->
@@ -34,7 +38,7 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Tạo mới tuyến đường </h4>
+                                        <h4 class="text-center">Tạo mới tuyến đường</h4>
                                         <form th:object="${bus_route}" th:action="@{/manage-route/create}"
                                               method="POST">
                                             <div class="form-row">
@@ -44,7 +48,7 @@
                                                            th:field="*{origin}" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="inputdestination">Điểm đến </label>
+                                                    <label for="inputdestination">Điểm đến</label>
                                                     <input type="text" class="form-control" id="inputdestination" placeholder="Điểm đến"
                                                            th:field="*{destination}" required>
                                                 </div>
@@ -57,20 +61,21 @@
 
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
-                                                    <label for="inputdepartureDate">Ngày khởi hành </label>
+                                                    <label for="inputdepartureDate">Ngày khởi hành</label>
                                                     <input type="date" class="form-control" id="inputdepartureDate" required
                                                            th:field="*{departureDate}">
                                                     <div style="color: red; font-size: 12px" th:text="${error}"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="inputarrivalTime">Thời gian tính dự </label>
-                                                    <input type="text" class="form-control" id="inputarrivalTime" placeholder="Thời gian tính dự"
+                                                    <label for="inputarrivalTime">Thời gian tính dự</label>
+                                                    <input type="text" class="form-control custom-height" id="inputarrivalTime"
+                                                           placeholder="Thời gian tính dự"
                                                            th:field="*{arrivalTime}" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="inuputFare">Giá vé</label>
-                                                    <input type="text" class="form-control" id="inuputFare" placeholder="Giá vé" th:field="*{fare}"
-                                                           pattern="[0-9.]+" required>
+                                                    <input type="text" class="form-control custom-height" id="inuputFare" placeholder="Giá vé"
+                                                           th:field="*{fare}" pattern="[0-9.]+" required>
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Tạo mới</button>

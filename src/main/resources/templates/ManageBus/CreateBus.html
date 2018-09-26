@@ -54,7 +54,7 @@
                                                 <div class="form-group col-md-4">
                                                     <label for="route">Tuyến đường</label>
                                                     <select id="route" name="route" class="form-control">
-                                                        <option th:each="routes : ${listBusRoute}" th:value="${routes.getBusRouteId()}"
+                                                        <option th:each="routes:${listBusRoute}" th:value="${routes.getBusRouteId()}"
                                                                 th:text="${routes.getOrigin() + ' - ' + routes.getDestination()}"></option>
                                                     </select>
                                                     <div style="color: red; font-size: 12px" th:text="${duplicateRoute}"></div>

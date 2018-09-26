@@ -21,8 +21,8 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <div class="row">
-                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
-                        <div class="row flex-grow">
+                    <div class="col-md-12">
+                        <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -39,9 +39,8 @@
                                                     <th>Loại xe</th>
                                                     <th>Điểm đi</th>
                                                     <th>Điểm đến</th>
-                                                    <th>Điểm dừng chân</th>
+                                                    <th>Điểm dừng</th>
                                                     <th>Ngày khởi hành</th>
-                                                    <th>Thời gian</th>
                                                     <th>Giá vé</th>
                                                     <th>Thao tác</th>
                                                 </tr>
@@ -54,7 +53,6 @@
                                                     <td th:text="${bus.busRoute.destination}"></td>
                                                     <td th:text="${bus.busRoute.breakPoint}"></td>
                                                     <td th:text="${bus.busRoute.departureDate}"></td>
-                                                    <td th:text="${bus.busRoute.arrivalTime}"></td>
                                                     <td th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></td>
                                                     <td>
                                                         <span class="mdi mdi-pencil mr-5">
