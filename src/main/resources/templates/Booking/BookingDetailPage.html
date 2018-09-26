@@ -17,6 +17,12 @@
     label {
         font-size: 15px !important;
     }
+    .fs-20 {
+        font-size: 20px !important;
+    }
+    .dropdown-divider{
+        border-top: 1px solid #308ee0;
+    }
 </style>
 <div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
     <!-- Menu ngang phía trên -->
@@ -53,15 +59,23 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Hành trình:</label>
-                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busRoute.origin + ' - ' + busInfo.busRoute.destination}"></label>
+                                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                                   th:text="${busInfo.busRoute.origin + ' - ' + busInfo.busRoute.destination}"></label>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
-                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busRoute.departureDate}"></label>
+                                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                                   th:text="${busInfo.busRoute.departureDate}"></label>
                                         </div>
                                         <div class="form-group row">
-                                            <label class="col-sm-6 col-form-label">Giá vé:</label>
-                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${#numbers.formatDecimal(busInfo.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></label>
+                                            <label class="col-sm-6 col-form-label">Số vẽ đã đặt:</label>
+                                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${ticketInfo.amount}"></label>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-6 col-form-label font-weight-bold fs-20">Tổng tiền:</label>
+                                            <label class="col-sm-6 col-form-label font-weight-bold fs-20 text-right"
+                                                   th:text="${#numbers.formatDecimal(busInfo.busRoute.fare*ticketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
                                         </div>
                                     </div>
                                 </div>
