@@ -1,3 +1,28 @@
 .sidebar .nav .nav-item.nav-profile .nav-link .user-wrapper .text-wrapper .profile-name {
     margin-bottom: 12px !important;
 }
+
+.card {
+    border: 0;
+    border-radius: 2px;
+}
+
+.card .card-body {
+    padding: 1.88rem 1.81rem;
+}
+
+.table {
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 0;
+}
+
+.table thead th {
+    border-top: 0;
+    border-bottom-width: 1px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f8f9;
+}

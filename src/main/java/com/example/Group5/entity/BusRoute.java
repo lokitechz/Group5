@@ -1,6 +1,7 @@
 package com.example.Group5.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -24,7 +25,7 @@ public class BusRoute {
     @Column(name = "Break_Point", nullable = false)
     private String breakPoint;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "Departure_Date", nullable = false)
     private java.sql.Date departureDate;
 

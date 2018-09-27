@@ -39,13 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         // Các trang không yêu cầu login
         http.authorizeRequests().antMatchers("/", "/login", "/logout").permitAll();
-        // Trang /userInfo yêu cầu phải login với vai trò ROLE_USER hoặc ROLE_ADMIN.
         // Nếu chưa login, nó sẽ redirect tới trang /login.
-        http.authorizeRequests().antMatchers("/booking-ticket","/booking-ticket/**","/dashboard").access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/customer/**").access("hasRole('ROLE_CUSTOMER')");
         // Trang chỉ dành cho ADMIN
-        http.authorizeRequests().antMatchers("/manage-employee","/manage-employee/**").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/manage-bus","/manage-bus/**").access("hasRole('ROLE_ADMIN')");
-        http.authorizeRequests().antMatchers("/manage-route","/manage-route/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/dashboard").access("hasAnyRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/manage-employee", "/manage-employee/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/manage-bus", "/manage-bus/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/manage-route", "/manage-route/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/booking-ticket", "/booking-ticket/**").access("hasRole('ROLE_ADMIN')");
         // Khi người dùng đã login, với vai trò XX.
         // Nhưng truy cập vào trang yêu cầu vai trò YY,
         // Ngoại lệ AccessDeniedException sẽ ném ra.
