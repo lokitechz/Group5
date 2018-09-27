@@ -26,10 +26,10 @@ public class MainController {
     @Autowired
     AppRoleRepo appRoleRepo;
 
-    // Trang main khi chương trình chạy lên
+    // Trang chính khi chạy chương trình
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String welcomePage() {
-        return "LayoutPage";
+    public String homePage() {
+        return "Customer/HomePage";
     }
 
     // Trả về trang đăng nhập
