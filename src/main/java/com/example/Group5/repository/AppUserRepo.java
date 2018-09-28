@@ -5,4 +5,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface AppUserRepo extends PagingAndSortingRepository<AppUser, Long> {
     AppUser findByUserId(long a);
+    AppUser findAppUserByUserName(String name);
 }

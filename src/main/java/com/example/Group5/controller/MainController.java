@@ -1,15 +1,12 @@
 package com.example.Group5.controller;
 
-import com.example.Group5.entity.Bus;
-import com.example.Group5.entity.BusRoute;
-import com.example.Group5.entity.Passenger;
-import com.example.Group5.entity.Ticket;
+import com.example.Group5.entity.*;
 import com.example.Group5.repository.*;
+import com.example.Group5.utils.EncrytedPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -39,8 +36,6 @@ public class MainController {
 
     @Autowired
     TicketRepo ticketRepo;
-
-    private boolean isSearch = false;
 
     // Trang chính khi chạy chương trình
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -123,5 +118,34 @@ public class MainController {
             return "Customer/InfoTicket";
         }
         return "Customer/InfoTicket";
+    }
+
+
+    //  Chuyển sang trang đổi mật khẩu
+    @RequestMapping(path = "/change-password/{name}", method = RequestMethod.GET)
+    public String changePassword(Model model, @PathVariable String name) {
+        AppUser appUser = appUserRepo.findAppUserByUserName(name);
+        model.addAttribute("appUser", appUser);
+        return "Common/ChangePassword";
+    }
+
+    // Đổi mật khẩu mà lưu lên database
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
+    public String updatePassword(Model model, AppUser appUser, @RequestParam("oldpass") String oldPass, @RequestParam("newpass") String newPass, @RequestParam("renewpass") String reNewPass) {
+        if (!EncrytedPasswordUtils.comparePassword(oldPass, appUser.getEncrytedPassword())) {
+            model.addAttribute("error", "Mật khẩu không đúng!");
+            model.addAttribute("appUser", appUser);
+            return "Common/ChangePassword";
+        } else {
+            if (!newPass.equals(reNewPass)) {
+                model.addAttribute("error", "Mật khẩu mới không giống nhau");
+                model.addAttribute("appUser", appUser);
+                return "Common/ChangePassword";
+            } else {
+                appUser.setEncrytedPassword(EncrytedPasswordUtils.encrytePassword(newPass));
+                appUserRepo.save(appUser);
+                return "Common/LoginForm";
+            }
+        }
     }
 }

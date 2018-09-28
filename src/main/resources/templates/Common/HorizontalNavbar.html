@@ -23,7 +23,7 @@
                 </a>
             </li>
             <li class="nav-item dropdown d-none d-xl-inline-block" th:if="${#request.userPrincipal != null}">
-                <a class="nav-link mdi mdi-key-change" th:href="@{/change-password}">
+                <a class="nav-link mdi mdi-key-change" th:href="@{'/change-password/' + ${#request.userPrincipal.name}}">
                     <span class="profile-text">Đổi mật khẩu</span>
                 </a>
             </li>

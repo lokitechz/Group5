@@ -9,6 +9,11 @@ public class EncrytedPasswordUtils {
         return encoder.encode(password);
     }
 
+    public static boolean comparePassword(String password, String encryptPassword) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(password, encryptPassword);
+    }
+
     public static void main(String[] args) {
     }
 
