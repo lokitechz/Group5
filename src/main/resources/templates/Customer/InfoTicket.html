@@ -30,7 +30,8 @@
         bottom: 0;
         width: 100%;
     }
-    label{
+
+    label {
         font-size: 20px;
     }
 </style>
@@ -65,34 +66,48 @@
         <div class="row align-items-center">
             <div class="col-md-3"></div>
             <div class="col-md-6 pt-100 pb-100">
-                <div class="card">
+                <div class="card" style="border: 1px solid rgba(0,0,0,0.125);border-radius: .25rem;">
                     <div class="card-body">
-                        <h3 class="text-center">Đặt vé xe</h3>
-                        <form th:object="${ticket}" th:action="@{'/customer/booking-ticket/'+ ${bus.getId()}}" method="POST">
-                            <div class="form-group">
-                                <label for="inputFullName">Họ và tên</label>
-                                <input type="text" class="form-control" id="inputFullName" placeholder="Tên đầy đủ" th:name="fullname"
-                                       required>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAge">Tuổi</label>
-                                <input type="text" class="form-control" id="inputAge" placeholder="Phải là số" pattern="[0-9.]+" th:name="age"
-                                       required maxlength="2">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAmount">Số lượng vé</label>
-                                <input type="text" class="form-control" id="inputAmount" placeholder="Phải là số" pattern="[1-9.]+"
-                                       th:field="*{amount}"
-                                       required maxlength="2">
-                            </div>
-                            <div class="form-group">
-                                <div class="d-flex justify-content-center">
-                                    <button class="primary-btn mt-20 float-right" type="submit">Đặt vé
-                                        <span class="lnr lnr-arrow-right"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                        <h3 class="text-center">Thông tin chi tiết vé xe</h3>
+                        <div class="form-group row mt-5">
+                            <label class="col-sm-6 col-form-label">Họ và tên:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${passengerInfo.passengerName}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Tuổi:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${passengerInfo.passengerAge}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Số xe:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busNo}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Loại xe:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busInfo.busType.busType}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Hành trình:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                   th:text="${busInfo.busRoute.origin + ' - ' + busInfo.busRoute.destination}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                   th:text="${busInfo.busRoute.departureDate}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Số vẽ đã đặt:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${ticketInfo.amount}"></label>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div class="form-group row" style="color: black">
+                            <label class="col-sm-6 col-form-label font-weight-bold fs-20">Tổng tiền:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold fs-20 text-right"
+                                   th:text="${#numbers.formatDecimal(busInfo.busRoute.fare*ticketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
+                        </div>
+                        <div class="form-group row">
+                            <button class="btn btn-success col-sm-12">Thanh toán</button>
+                        </div>
                     </div>
                 </div>
             </div>

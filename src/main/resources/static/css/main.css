@@ -1629,7 +1629,7 @@ nav a:hover {
   color: #5cf2ee;
 }
 .section-gap {
-  padding: 120px 0;
+  padding: 0 0 120px 0;
 }
 .section-title {
   padding-bottom: 30px;
