@@ -9,7 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +60,27 @@ public class MainController {
 
     //  Trả về trang thống kê số liệu
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String dashboard(Model model) {
+    public String Dashboard(Model model) {
+        int total = 0;
+        long num = 2;
+        int revenue = 0;
+        int order = 0;
+        model.addAttribute("DashBoardUser", roleRepo.findAllByAppRole(appRoleRepo.findById(num)).size());
+        for (int x = 0; x < 7; x++) {
+            for (Ticket ticket : ticketRepo.findAllByBookingDate(Date.from(LocalDate.now().plusDays(-x).atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
+                total += ticket.getAmount();
+                order++;
+                int amount = ticket.getAmount();
+                for (Bus bus : busRepo.findAllByBusId(ticket.getBusId())) {
+                    for (BusRoute route : busRouteRepo.findAllByBusRouteId(bus.getId())) {
+                        revenue += route.getFare() * amount;
+                    }
+                }
+            }
+        }
+        model.addAttribute("DashboardTicket", order);
+        model.addAttribute("DashboardWeeklySale", total);
+        model.addAttribute("revenue", Integer.toString(revenue));
         return "Common/Dashboard";
     }
 
@@ -147,5 +170,18 @@ public class MainController {
                 return "Common/LoginForm";
             }
         }
+    }
+
+    private static <E> List<E> toList(Iterable<E> iterable) {
+        if (iterable instanceof List) {
+            return (List<E>) iterable;
+        }
+        ArrayList<E> list = new ArrayList<E>();
+        if (iterable != null) {
+            for (E e : iterable) {
+                list.add(e);
+            }
+        }
+        return list;
     }
 }

@@ -40,6 +40,7 @@
                 <div class="main-menubar d-flex align-items-center">
                     <nav class="hide">
                         <a href="/">Trang chủ</a>
+                        <a href="/register" th:if="${#request.userPrincipal == null}">Đăng kí</a>
                         <a href="/login" th:if="${#request.userPrincipal == null}">Đăng nhập</a>
                         <a href="/logout" th:if="${#request.userPrincipal != null}">Đăng xuất</a>
                     </nav>
@@ -57,13 +58,9 @@
 <section class="banner-area relative" id="home">
     <div class="overlay overlay-bg"></div>
     <div class="container">
-        <div class="row fullscreen align-items-center justify-content-start" style="height: 915px;">
-            <div class="banner-content col-lg-9 col-md-12">
-                <h1>Bất cứ nơi nào bạn đi
-                    <br>
-                    nó sẽ đều nằm trong thế giới của bạn
-                </h1>
-                <p>Cung cấp dịch vụ đặt vé xe du lịch trực tuyến</p>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center mt-100" style="color: #ffffff">Cung cấp dịch vụ đặt vé xe du lịch trực tuyến</h3>
             </div>
         </div>
     </div>
@@ -87,20 +84,23 @@
                         <form class="booking-form" method="GET" th:action="@{/search}">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <label class="font-weight-bold">From</label>
                                     <input type="text" class="single-in form-control" placeholder="Điểm đi" th:name="origin"
                                            th:value="${#request.getParameter('origin')}" required>
                                 </div>
                                 <div class="col-md-6">
+                                    <label class="font-weight-bold">To</label>
                                     <input type="text" class="single-in form-control" placeholder="Điểm đến" th:name="destination"
                                            th:value="${#request.getParameter('destination')}" required>
                                 </div>
                                 <div class="col-md-12">
+                                    <label class="font-weight-bold">Ngày khởi hành</label>
                                     <input type="date" class="single-in form-control" placeholder="Ngày khởi hành" th:name="date"
                                            th:value="${#request.getParameter('date')}"
                                            required>
                                 </div>
                                 <div class="col-lg-12 d-flex justify-content-end">
-                                    <button class="primary-btn mt-20" type="submit">Tìm kiếm
+                                    <button class="primary-btn" type="submit">Tìm kiếm
                                         <span class="lnr lnr-arrow-right"></span>
                                     </button>
                                 </div>
@@ -128,8 +128,8 @@
                             <th class="text-center">Loại xe</th>
                             <th class="text-center">Điểm đi</th>
                             <th class="text-center">Điểm đến</th>
-                            <th class="text-center">Điểm dừng</th>
                             <th class="text-center">Ngày khởi hành</th>
+                            <th class="text-center">Thời gian</th>
                             <th class="text-center">Giá vé</th>
                             <th class="text-center">Thao tác</th>
                         </tr>
@@ -140,8 +140,8 @@
                             <td th:text="${bus.busType.busType}"></td>
                             <td th:text="${bus.busRoute.origin}"></td>
                             <td th:text="${bus.busRoute.destination}"></td>
-                            <td th:text="${bus.busRoute.breakPoint}"></td>
                             <td th:text="${bus.busRoute.departureDate}"></td>
+                            <td th:text="${bus.busRoute.arrivalTime}"></td>
                             <td th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></td>
                             <td>
                                 <span class="mdi mdi-ticket-confirmation">

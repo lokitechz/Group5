@@ -28,26 +28,40 @@
         <!-- End -->
         <div class="main-panel">
             <div class="content-wrapper">
-                <h4 class="text-center">Thống kê số liệu</h4>
+                <h4 class="text-center mb-5">Thống kê số liệu</h4>
                 <div class="row">
+                    <!--<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">-->
+                        <!--<div class="card card-statistics">-->
+                            <!--<div class="card-body">-->
+                                <!--<div class="clearfix">-->
+                                    <!--<div class="float-left">-->
+                                        <!--<i class="mdi mdi-account-location text-black icon-lg"></i>-->
+                                    <!--</div>-->
+                                    <!--<div class="float-right">-->
+                                        <!--<p class="mb-0 text-right">Số tài khoản khách hàng</p>-->
+                                        <!--<div class="fluid-container mt-3">-->
+                                            <!--<h4 class="font-weight-medium text-right mb-0" th:text="${DashBoardUser}"></h4>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
 
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
                         <div class="card card-statistics">
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
-                                        <i class="mdi mdi-cube text-danger icon-lg"></i>
+                                        <i class="mdi mdi-cash-multiple text-success icon-lg"></i>
                                     </div>
                                     <div class="float-right">
-                                        <p class="mb-0 text-right">Total Revenue</p>
-                                        <div class="fluid-container">
-                                            <h3 class="font-weight-medium text-right mb-0">$65,650</h3>
+                                        <p class="mb-0 text-right">Tổng doanh thu trong tuần</p>
+                                        <div class="fluid-container mt-3">
+                                            <h4 class="font-weight-medium text-right mb-0" th:text="${revenue}"></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <p class="text-muted mt-3 mb-0">
-                                    <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> 65% lower growth
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -56,18 +70,15 @@
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
-                                        <i class="mdi mdi-receipt text-warning icon-lg"></i>
+                                        <i class="mdi mdi-ticket text-warning icon-lg"></i>
                                     </div>
                                     <div class="float-right">
-                                        <p class="mb-0 text-right">Orders</p>
-                                        <div class="fluid-container">
-                                            <h3 class="font-weight-medium text-right mb-0">3455</h3>
+                                        <p class="mb-0 text-right">Tố số đơn trong tuấn</p>
+                                        <div class="fluid-container mt-3">
+                                            <h4 class="font-weight-medium text-right mb-0"  th:text="${DashboardTicket}"></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <p class="text-muted mt-3 mb-0">
-                                    <i class="mdi mdi-bookmark-outline mr-1" aria-hidden="true"></i> Product-wise sales
-                                </p>
                             </div>
                         </div>
                     </div>
@@ -79,35 +90,12 @@
                                         <i class="mdi mdi-poll-box text-success icon-lg"></i>
                                     </div>
                                     <div class="float-right">
-                                        <p class="mb-0 text-right">Sales</p>
-                                        <div class="fluid-container">
-                                            <h3 class="font-weight-medium text-right mb-0">5693</h3>
+                                        <p class="mb-0 text-right">Tổng số vé đã bán trong tuần</p>
+                                        <div class="fluid-container mt-3">
+                                            <h4 class="font-weight-medium text-right mb-0"  th:text="${DashboardWeeklySale}"></h4>
                                         </div>
                                     </div>
                                 </div>
-                                <p class="text-muted mt-3 mb-0">
-                                    <i class="mdi mdi-calendar mr-1" aria-hidden="true"></i> Weekly Sales
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
-                        <div class="card card-statistics">
-                            <div class="card-body">
-                                <div class="clearfix">
-                                    <div class="float-left">
-                                        <i class="mdi mdi-account-location text-info icon-lg"></i>
-                                    </div>
-                                    <div class="float-right">
-                                        <p class="mb-0 text-right">Employees</p>
-                                        <div class="fluid-container">
-                                            <h3 class="font-weight-medium text-right mb-0">246</h3>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-muted mt-3 mb-0">
-                                    <i class="mdi mdi-reload mr-1" aria-hidden="true"></i> Product-wise sales
-                                </p>
                             </div>
                         </div>
                     </div>
