@@ -44,10 +44,15 @@
                         <img src="/images/logo.png" alt="">
                     </a>
                 </div>
+                <div class="text-center d-flex font-weight-bold ml-50" th:if="${#request.userPrincipal != null}">
+                    <span>Tài khoản:</span>&nbsp;
+                    <div th:utext="${#request.userPrincipal.name}"></div>
+                </div>
                 <div class="main-menubar d-flex align-items-center">
                     <nav class="hide">
                         <a href="/">Trang chủ</a>
-                        <a href="/login">Đăng nhập</a>
+                        <a href="/login" th:if="${#request.userPrincipal == null}">Đăng nhập</a>
+                        <a href="/logout" th:if="${#request.userPrincipal != null}">Đăng xuất</a>
                     </nav>
                     <div class="menu-bar">
                         <span class="lnr lnr-menu"></span>
@@ -67,7 +72,7 @@
             <div class="col-md-6 pt-100 pb-100">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-center">Đặt vé xe</h3>
+                        <h3 class="text-center mb-50">Đặt vé xe</h3>
                         <form th:object="${ticket}" th:action="@{'/customer/booking-ticket/'+ ${bus.getId()}}" method="POST">
                             <div class="form-group">
                                 <label for="inputFullName">Họ và tên</label>

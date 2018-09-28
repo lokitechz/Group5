@@ -45,10 +45,15 @@
                         <img src="/images/logo.png" alt="">
                     </a>
                 </div>
+                <div class="text-center d-flex font-weight-bold ml-50" th:if="${#request.userPrincipal != null}">
+                    <span>Tài khoản:</span>&nbsp;
+                    <div th:utext="${#request.userPrincipal.name}"></div>
+                </div>
                 <div class="main-menubar d-flex align-items-center">
                     <nav class="hide">
                         <a href="/">Trang chủ</a>
-                        <a href="/login">Đăng nhập</a>
+                        <a href="/login" th:if="${#request.userPrincipal == null}">Đăng nhập</a>
+                        <a href="/logout" th:if="${#request.userPrincipal != null}">Đăng xuất</a>
                     </nav>
                     <div class="menu-bar">
                         <span class="lnr lnr-menu"></span>
