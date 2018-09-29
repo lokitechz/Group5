@@ -30,25 +30,7 @@
             <div class="content-wrapper">
                 <h4 class="text-center mb-5">Thống kê số liệu</h4>
                 <div class="row">
-                    <!--<div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">-->
-                        <!--<div class="card card-statistics">-->
-                            <!--<div class="card-body">-->
-                                <!--<div class="clearfix">-->
-                                    <!--<div class="float-left">-->
-                                        <!--<i class="mdi mdi-account-location text-black icon-lg"></i>-->
-                                    <!--</div>-->
-                                    <!--<div class="float-right">-->
-                                        <!--<p class="mb-0 text-right">Số tài khoản khách hàng</p>-->
-                                        <!--<div class="fluid-container mt-3">-->
-                                            <!--<h4 class="font-weight-medium text-right mb-0" th:text="${DashBoardUser}"></h4>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+                    <div class="col-md-4 col-sm-6 grid-margin stretch-card">
                         <div class="card card-statistics">
                             <div class="card-body">
                                 <div class="clearfix">
@@ -58,41 +40,41 @@
                                     <div class="float-right">
                                         <p class="mb-0 text-right">Tổng doanh thu trong tuần</p>
                                         <div class="fluid-container mt-3">
-                                            <h4 class="font-weight-medium text-right mb-0" th:text="${revenue}"></h4>
+                                            <h4 class="font-weight-medium text-right mb-0" th:text="${revenue} + ' đ'"></h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+                    <div class="col-md-4 col-sm-6 grid-margin stretch-card">
                         <div class="card card-statistics">
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
-                                        <i class="mdi mdi-ticket text-warning icon-lg"></i>
+                                        <i class="mdi mdi-note text-warning icon-lg"></i>
                                     </div>
                                     <div class="float-right">
-                                        <p class="mb-0 text-right">Tố số đơn trong tuấn</p>
+                                        <p class="mb-0 text-right">Tổng số đơn trong tuần</p>
                                         <div class="fluid-container mt-3">
-                                            <h4 class="font-weight-medium text-right mb-0"  th:text="${DashboardTicket}"></h4>
+                                            <h4 class="font-weight-medium text-right mb-0" th:text="${DashboardTicket}"></h4>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 grid-margin stretch-card">
+                    <div class="col-md-4 col-sm-6 grid-margin stretch-card">
                         <div class="card card-statistics">
                             <div class="card-body">
                                 <div class="clearfix">
                                     <div class="float-left">
-                                        <i class="mdi mdi-poll-box text-success icon-lg"></i>
+                                        <i class="mdi mdi-receipt text-danger icon-lg"></i>
                                     </div>
                                     <div class="float-right">
                                         <p class="mb-0 text-right">Tổng số vé đã bán trong tuần</p>
                                         <div class="fluid-container mt-3">
-                                            <h4 class="font-weight-medium text-right mb-0"  th:text="${DashboardWeeklySale}"></h4>
+                                            <h4 class="font-weight-medium text-right mb-0" th:text="${DashboardWeeklySale}"></h4>
                                         </div>
                                     </div>
                                 </div>
