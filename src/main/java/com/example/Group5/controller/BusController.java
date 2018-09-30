@@ -23,12 +23,6 @@ public class BusController {
     @Autowired
     private BusRouteRepo busRouteRepo;
 
-    @Autowired
-    private PassengerRepo passengerRepo;
-
-    @Autowired
-    private TicketRepo ticketRepo;
-
     //  Trả về trang danh sách xe xe
     @RequestMapping(value = "/manage-bus", method = RequestMethod.GET)
     public String listBus(Model model) {
@@ -112,34 +106,5 @@ public class BusController {
         model.addAttribute("bus", optionalBus.get());
         model.addAttribute("ticket", new Ticket());
         return "Booking/BookingPage";
-    }
-
-    //  Lưu thông tin đặt vé
-    @RequestMapping(value = "/booking-ticket/{id}", method = RequestMethod.POST)
-    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket, @RequestParam String fullname, @RequestParam int age) {
-        Passenger passenger = new Passenger();
-        passenger.setPassengerName(fullname);
-        passenger.setPassengerAge(age);
-        passengerRepo.save(passenger);
-        Optional<Passenger> optionalPassenger = passengerRepo.findById(passenger.getPassengerId());
-        ticket.setBusId(id);
-        ticket.setPassengerId(optionalPassenger.get().getPassengerId());
-        ticketRepo.save(ticket);
-        return "redirect:/booking-ticket/detail/" + ticket.getTicketId();
-    }
-
-    //  Trang thông tin chi tiết của vé
-    @RequestMapping(value = "/booking-ticket/detail/{id}", method = RequestMethod.GET)
-    public String detailTicket(Model model, @PathVariable int id, @ModelAttribute Ticket ticket) {
-        Optional<Ticket> ticketOptional = ticketRepo.findById(id);
-        if (ticketOptional.isPresent()) {
-            Optional<Bus> bus = busRepo.findById(ticketOptional.get().getBusId());
-            Optional<Passenger> passenger = passengerRepo.findById(ticketOptional.get().getPassengerId());
-            model.addAttribute("ticketInfo", ticketOptional.get());
-            model.addAttribute("busInfo", bus.get());
-            model.addAttribute("passengerInfo", passenger.get());
-            return "Booking/BookingDetailPage";
-        }
-        return "Booking/BookingDetailPage";
     }
 }

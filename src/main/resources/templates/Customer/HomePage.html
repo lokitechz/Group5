@@ -115,7 +115,7 @@
 <!-- End booking Area -->
 
 <!-- Start list -->
-<section class="col-12 mt-100 mb-50">
+<section class="col-12 mt-50 mb-50">
     <div class="col-sm-12" th:if="${listSearch != null}">
         <div class="card">
             <div class="card-body">
@@ -132,6 +132,7 @@
                             <th class="text-center">Thời gian</th>
                             <th class="text-center">Giá vé</th>
                             <th class="text-center">Thao tác</th>
+                            <th class="text-center">Số vé còn lại</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -148,6 +149,7 @@
                                     <a th:href="@{'/customer/booking-ticket/'+ ${bus.getId()}}">Đặt vé</a>
                                 </span>
                             </td>
+                            <td th:text="${bus.busType.totalSeat}"></td>
                         </tr>
                         </tbody>
                     </table>

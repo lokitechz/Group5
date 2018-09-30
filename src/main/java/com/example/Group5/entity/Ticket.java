@@ -32,10 +32,10 @@ public class Ticket {
     @Column(name = "BOOKING_DATE", nullable = false)
     private Date bookingDate;
 
+    @Column(name = "STATUS", length = 1, nullable = false)
+    private boolean status;
 
-    public int getTicketId() {
-        return ticketId;
-    }
+    public int getTicketId() { return ticketId; }
 
     public void setTicketId(int ticketId) {
         this.ticketId = ticketId;
@@ -72,4 +72,8 @@ public class Ticket {
     public void setBookingDate(Date bookingDate) {
         this.bookingDate = bookingDate;
     }
+
+    public boolean isStatus() { return status; }
+
+    public void setStatus(boolean status) { this.status = status; }
 }

@@ -14,6 +14,9 @@ public class BusType {
     @Column(name = "Type", nullable = false)
     private String busType;
 
+    @Column(name = "TOTAL_SEAT", nullable = false)
+    private int totalSeat;
+
     public int getBusTypeId() {
         return busTypeId;
     }
@@ -29,4 +32,8 @@ public class BusType {
     public void setBusType(String busType) {
         this.busType = busType;
     }
+
+    public int getTotalSeat() { return totalSeat; }
+
+    public void setTotalSeat(int totalSeat) { this.totalSeat = totalSeat; }
 }

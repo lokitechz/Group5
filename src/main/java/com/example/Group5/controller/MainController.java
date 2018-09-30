@@ -1,13 +1,17 @@
 package com.example.Group5.controller;
 
+import com.example.Group5.dao.AppUserDAO;
 import com.example.Group5.entity.*;
 import com.example.Group5.repository.*;
 import com.example.Group5.utils.EncrytedPasswordUtils;
+import com.example.Group5.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -35,10 +39,10 @@ public class MainController {
     BusRepo busRepo;
 
     @Autowired
-    PassengerRepo passengerRepo;
+    TicketRepo ticketRepo;
 
     @Autowired
-    TicketRepo ticketRepo;
+    private JavaMailSender javaMailSender;
 
     // Trang chính khi chạy chương trình
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -116,32 +120,17 @@ public class MainController {
 
     //  Lưu thông tin đặt vé của khách hàng
     @RequestMapping(value = "/customer/booking-ticket/{id}", method = RequestMethod.POST)
-    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket, @RequestParam String fullname, @RequestParam int age) {
-        Passenger passenger = new Passenger();
-        passenger.setPassengerName(fullname);
-        passenger.setPassengerAge(age);
-        passengerRepo.save(passenger);
-        Optional<Passenger> optionalPassenger = passengerRepo.findById(passenger.getPassengerId());
+    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket,@RequestParam String username) {
         ticket.setBusId(id);
-        ticket.setPassengerId(optionalPassenger.get().getPassengerId());
+        ticket.setPassengerId(appUserRepo.findAppUserByUserName(username).getUserId());
         ticketRepo.save(ticket);
         return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
     }
 
-    //  Trang thông tin chi tiết vé xe khách đã đặt
-    @RequestMapping(value = "/customer/booking-ticket/detail/{id}", method = RequestMethod.GET)
-    public String detailTicket(Model model, @PathVariable int id, @ModelAttribute Ticket ticket) {
-        Optional<Ticket> ticketOptional = ticketRepo.findById(id);
-        if (ticketOptional.isPresent()) {
-            Optional<Bus> bus = busRepo.findById(ticketOptional.get().getBusId());
-            Optional<Passenger> passenger = passengerRepo.findById(ticketOptional.get().getPassengerId());
-            model.addAttribute("ticketInfo", ticketOptional.get());
-            model.addAttribute("busInfo", bus.get());
-            model.addAttribute("passengerInfo", passenger.get());
-            return "Customer/InfoTicket";
-        }
-        return "Customer/InfoTicket";
-    }
+//    //  Trang thông tin chi tiết vé xe khách đã đặt
+//    @RequestMapping(value = "/customer/booking-ticket/detail/{id}", method = RequestMethod.GET)
+//    public String detailTicket(Model model, @PathVariable int id, @ModelAttribute Ticket ticket) {
+//    }
 
 
     //  Chuyển sang trang đổi mật khẩu
@@ -184,4 +173,5 @@ public class MainController {
         }
         return list;
     }
+
 }

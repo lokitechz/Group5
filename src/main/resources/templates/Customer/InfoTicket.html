@@ -28,6 +28,7 @@
         bottom: 0;
         width: 100%;
     }
+
     label {
         font-size: 20px;
     }
@@ -108,7 +109,7 @@
                                    th:text="${#numbers.formatDecimal(busInfo.busRoute.fare*ticketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
                         </div>
                         <div class="form-group row">
-                            <button class="btn btn-success col-sm-12">Thanh toán</button>
+                            <button class="btn btn-success col-sm-12" type="button" onclick="gotoPayment()">Thanh toán</button>
                         </div>
                     </div>
                 </div>
@@ -141,8 +142,12 @@
                     <h6>Theo dõi chúng tôi</h6>
                     <p>Liên kết mạng xã hội</p>
                     <div class="footer-social d-flex align-items-center">
-                        <a href="https://www.facebook.com/vuachom94"><i class="mdi mdi-facebook"></i></a>
-                        <a href="https://web.skype.com/en/"><i class="mdi mdi-skype"></i></a>
+                        <a href="https://www.facebook.com/vuachom94">
+                            <i class="mdi mdi-facebook"></i>
+                        </a>
+                        <a href="https://web.skype.com/en/">
+                            <i class="mdi mdi-skype"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -166,6 +171,12 @@
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/jquery.sticky.js"></script>
 <script src="/js/main.js"></script>
+<script th:inline="javascript">
+    function gotoPayment() {
+        var idTicket = [[${ticketInfo.ticketId}]];
+        window.location.href = '/payment/'+idTicket;
+    }
+</script>
 </body>
 
 </html>

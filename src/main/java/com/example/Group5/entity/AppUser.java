@@ -9,7 +9,7 @@ public class AppUser {
     @Id
     @GeneratedValue
     @Column(name = "User_Id", nullable = false)
-    private Long userId;
+    private int userId;
 
     @Column(name = "User_Name", nullable = false)
     private String userName;
@@ -19,6 +19,9 @@ public class AppUser {
 
     @Column(name = "User_full_name")
     private String fullName;
+
+    @Column(name = "USER_EMAIL")
+    private String email;
 
     @Column(name = "User_phone")
     private String phone;
@@ -32,13 +35,9 @@ public class AppUser {
     @Column(name = "Enabled", length = 1, nullable = false)
     private boolean enabled;
 
-    public Long getUserId() {
-        return userId;
-    }
+    public int getUserId() { return userId; }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+    public void setUserId(int userId) { this.userId = userId; }
 
     public String getUserName() {
         return userName;
@@ -55,6 +54,10 @@ public class AppUser {
     public void setEncrytedPassword(String encrytedPassword) {
         this.encrytedPassword = encrytedPassword;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 
     public String getFullName() {
         return fullName;
