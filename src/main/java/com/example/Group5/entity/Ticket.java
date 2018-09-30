@@ -19,7 +19,7 @@ public class Ticket {
     private int busId;
 
     @Basic
-    @Column(name = "PASSENGER_ID", nullable = false)
+    @Column(name = "USER_ID", nullable = false)
     private int passengerId;
 
     @Basic

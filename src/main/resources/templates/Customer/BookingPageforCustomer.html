@@ -27,6 +27,7 @@
     footer {
         bottom: 0;
         width: 100%;
+        position: fixed;
     }
     label{
         font-size: 20px;
@@ -39,7 +40,7 @@
             <div class="header-top d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="/">
-                        <img src="/images/logo.png" alt="">
+                        <img src="/images/logo.png">
                     </a>
                 </div>
                 <div class="text-center d-flex font-weight-bold ml-50" th:if="${#request.userPrincipal != null}">
@@ -48,8 +49,7 @@
                 </div>
                 <div class="main-menubar d-flex align-items-center">
                     <nav class="hide">
-                        <a href="/">Trang chủ</a>
-                        <a href="/login" th:if="${#request.userPrincipal == null}">Đăng nhập</a>
+                        <a href="/user-info" th:if="${#request.userPrincipal != null}">Thông tin tài khoản</a>
                         <a href="/logout" th:if="${#request.userPrincipal != null}">Đăng xuất</a>
                     </nav>
                     <div class="menu-bar">
@@ -72,16 +72,6 @@
                     <div class="card-body">
                         <h3 class="text-center mb-50">Đặt vé xe</h3>
                         <form th:object="${ticket}" th:action="@{'/customer/booking-ticket/'+ ${bus.getId()}}" method="POST">
-                            <div class="form-group">
-                                <label for="inputFullName">Họ và tên</label>
-                                <input type="text" class="form-control" id="inputFullName" placeholder="Tên đầy đủ" th:name="fullname"
-                                       required>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputAge">Tuổi</label>
-                                <input type="text" class="form-control" id="inputAge" placeholder="Phải là số" pattern="[0-9.]+" th:name="age"
-                                       required maxlength="2">
-                            </div>
                             <div class="form-group">
                                 <label for="inputAmount">Số lượng vé</label>
                                 <input type="text" class="form-control" id="inputAmount" placeholder="Phải là số" pattern="[1-9.]+"

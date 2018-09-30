@@ -39,7 +39,7 @@
                 </div>
                 <div class="main-menubar d-flex align-items-center">
                     <nav class="hide">
-                        <a href="/">Trang chủ</a>
+                        <a href="/user-info" th:if="${#request.userPrincipal != null}">Thông tin tài khoản</a>
                         <a href="/register" th:if="${#request.userPrincipal == null}">Đăng kí</a>
                         <a href="/login" th:if="${#request.userPrincipal == null}">Đăng nhập</a>
                         <a href="/logout" th:if="${#request.userPrincipal != null}">Đăng xuất</a>
