@@ -206,9 +206,6 @@ public class MainController {
     //
     @RequestMapping(value = "/payment/{id}", method = RequestMethod.POST)
     public String paymentOffline(@PathVariable int id, RedirectAttributes red) {
-        Optional<Ticket> ticket = ticketRepo.findById(id);
-        ticket.ifPresent(ticketOp -> ticketOp.setStatus(false));
-        ticketRepo.save(ticket.get());
         red.addFlashAttribute("success", "Mời bạn đến địa điểm giao dịch gần nhất của chúng tôi để hoàn tất thủ tục thanh toán");
         return "redirect:/";
     }
