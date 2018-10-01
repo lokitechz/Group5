@@ -102,7 +102,8 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${#dates.format(BusInfo.busRoute.departureDate,'dd-MM-yyyy')}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                   th:text="${#dates.format(BusInfo.busRoute.departureDate,'dd-MM-yyyy')}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Thời gian:</label>
@@ -119,7 +120,17 @@
                                    th:text="${#numbers.formatDecimal(BusInfo.busRoute.fare*TicketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
                         </div>
                         <div class="form-group row">
-                            <button class="btn btn-success col-sm-12" type="button" onclick="gotoPayment()">Thanh toán</button>
+                            <button class="btn btn-success col-sm-5" type="button" onclick="gotoPayment()">
+                                <span class="mdi mdi-credit-card mr-5"></span>
+                                Thanh toán online
+                            </button>
+                            <div class="col-sm-2"></div>
+                            <form class="col-sm-5" th:action="@{'/payment/'+ ${TicketInfo.getTicketId()}}" method="POST">
+                                <button class="btn btn-success" style="width: 100%" type="submit">
+                                    <span class="mdi mdi-store mr-5"></span>
+                                    Thanh toán tại quầy
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

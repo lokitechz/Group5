@@ -179,7 +179,6 @@ public class MainController {
                     + "<div>Mã vé: " + ticket.getTicketId() + "</div>"
                     + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
                     + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
-
             sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
             return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
         }
@@ -196,6 +195,22 @@ public class MainController {
         model.addAttribute("TicketInfo", ticket.get());
         model.addAttribute("BusInfo", bus.get());
         return "Customer/InfoTicket";
+    }
+
+    //  Trả về trang thanh toán
+    @RequestMapping(value = "/payment/{id}", method = RequestMethod.GET)
+    public String paymentPage(@PathVariable int id) {
+        return "Customer/PaymentPage";
+    }
+
+    //
+    @RequestMapping(value = "/payment/{id}", method = RequestMethod.POST)
+    public String paymentOffline(@PathVariable int id, RedirectAttributes red) {
+        Optional<Ticket> ticket = ticketRepo.findById(id);
+        ticket.ifPresent(ticketOp -> ticketOp.setStatus(false));
+        ticketRepo.save(ticket.get());
+        red.addFlashAttribute("success", "Mời bạn đến địa điểm giao dịch gần nhất của chúng tôi để hoàn tất thủ tục thanh toán");
+        return "redirect:/";
     }
 
 
