@@ -27,10 +27,15 @@
     footer {
         bottom: 0;
         width: 100%;
-        position: fixed;
     }
-    label{
+
+    label {
         font-size: 20px;
+    }
+
+    .card {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: .25rem;
     }
 </style>
 <!-- Start Header Area -->
@@ -43,7 +48,7 @@
                         <img src="/images/logo.png">
                     </a>
                 </div>
-                <div class="text-center d-flex font-weight-bold ml-50" th:if="${#request.userPrincipal != null}">
+                <div class="text-center d-flex font-weight-bold" style="margin-left: 250px" th:if="${#request.userPrincipal != null}">
                     <span>Tài khoản:</span>&nbsp;
                     <div th:utext="${#request.userPrincipal.name}"></div>
                 </div>
@@ -70,13 +75,41 @@
             <div class="col-md-6 pt-100 pb-100">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="text-center mb-50">Đặt vé xe</h3>
+                        <h3 class="text-center mb-50">Thông tin vé xe</h3>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Số xe:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="'B1-'+${bus.busNo}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Loại xe:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${bus.busType.busType}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Hành trình:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                   th:text="${bus.busRoute.origin + ' - ' + bus.busRoute.destination}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                   th:text="${#dates.format(bus.busRoute.departureDate,'dd-MM-yyyy')}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Thời gian:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                   th:text="${bus.busRoute.arrivalTime}"></label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-6 col-form-label">Giá vé:</label>
+                            <label class="col-sm-6 col-form-label font-weight-bold"
+                                   th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></label>
+                        </div>
                         <form th:object="${ticket}" th:action="@{'/customer/booking-ticket/'+ ${bus.getId()}}" method="POST">
-                            <div class="form-group">
-                                <label for="inputAmount">Số lượng vé</label>
-                                <input type="text" class="form-control" id="inputAmount" placeholder="Phải là số" pattern="[1-9.]+"
-                                       th:field="*{amount}"
+                            <div class="form-group row">
+                                <label class="col-sm-6 col-form-label">Số lượng vé muốn đặt</label>
+                                <input type="text" class="col-sm-1 form-control" placeholder="Phải là số" pattern="[0-9.]+" th:field="*{amount}"
                                        required maxlength="2">
+                                <p class="col-sm-5  text-danger" th:text="${soldout}"></p>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-center">

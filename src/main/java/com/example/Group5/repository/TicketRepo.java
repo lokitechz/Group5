@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface TicketRepo extends PagingAndSortingRepository<Ticket, Integer> {
     List<Ticket> findAllByBookingDate(Date a);
+
+    List<Ticket> findAllByBusId(int busId);
 }

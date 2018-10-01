@@ -6,13 +6,21 @@ import com.example.Group5.repository.*;
 import com.example.Group5.utils.EncrytedPasswordUtils;
 import com.example.Group5.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.HTML;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -42,7 +50,7 @@ public class MainController {
     TicketRepo ticketRepo;
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    public JavaMailSender emailSender;
 
     // Trang chính khi chạy chương trình
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -54,6 +62,34 @@ public class MainController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage() {
         return "Common/LoginForm";
+    }
+
+    //  Chuyển sang trang đổi mật khẩu
+    @RequestMapping(path = "/change-password/{name}", method = RequestMethod.GET)
+    public String changePassword(Model model, @PathVariable String name) {
+        AppUser appUser = appUserRepo.findAppUserByUserName(name);
+        model.addAttribute("appUser", appUser);
+        return "Common/ChangePassword";
+    }
+
+    // Đổi mật khẩu mà lưu lên database
+    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
+    public String updatePassword(Model model, AppUser appUser, @RequestParam("oldpass") String oldPass, @RequestParam("newpass") String newPass, @RequestParam("renewpass") String reNewPass) {
+        if (!EncrytedPasswordUtils.comparePassword(oldPass, appUser.getEncrytedPassword())) {
+            model.addAttribute("error", "Mật khẩu không đúng!");
+            model.addAttribute("appUser", appUser);
+            return "Common/ChangePassword";
+        } else {
+            if (!newPass.equals(reNewPass)) {
+                model.addAttribute("error", "Mật khẩu mới không giống nhau");
+                model.addAttribute("appUser", appUser);
+                return "Common/ChangePassword";
+            } else {
+                appUser.setEncrytedPassword(EncrytedPasswordUtils.encrytePassword(newPass));
+                appUserRepo.save(appUser);
+                return "Common/LoginForm";
+            }
+        }
     }
 
     // Trả về trang 403 khi không có quyền
@@ -120,46 +156,48 @@ public class MainController {
 
     //  Lưu thông tin đặt vé của khách hàng
     @RequestMapping(value = "/customer/booking-ticket/{id}", method = RequestMethod.POST)
-    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket,@RequestParam String username) {
-        ticket.setBusId(id);
-        ticket.setPassengerId(appUserRepo.findAppUserByUserName(username).getUserId());
-        ticketRepo.save(ticket);
-        return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
-    }
-
-//    //  Trang thông tin chi tiết vé xe khách đã đặt
-//    @RequestMapping(value = "/customer/booking-ticket/detail/{id}", method = RequestMethod.GET)
-//    public String detailTicket(Model model, @PathVariable int id, @ModelAttribute Ticket ticket) {
-//    }
-
-
-    //  Chuyển sang trang đổi mật khẩu
-    @RequestMapping(path = "/change-password/{name}", method = RequestMethod.GET)
-    public String changePassword(Model model, @PathVariable String name) {
-        AppUser appUser = appUserRepo.findAppUserByUserName(name);
-        model.addAttribute("appUser", appUser);
-        return "Common/ChangePassword";
-    }
-
-    // Đổi mật khẩu mà lưu lên database
-    @RequestMapping(value = "/change-password", method = RequestMethod.POST)
-    public String updatePassword(Model model, AppUser appUser, @RequestParam("oldpass") String oldPass, @RequestParam("newpass") String newPass, @RequestParam("renewpass") String reNewPass) {
-        if (!EncrytedPasswordUtils.comparePassword(oldPass, appUser.getEncrytedPassword())) {
-            model.addAttribute("error", "Mật khẩu không đúng!");
-            model.addAttribute("appUser", appUser);
-            return "Common/ChangePassword";
-        } else {
-            if (!newPass.equals(reNewPass)) {
-                model.addAttribute("error", "Mật khẩu mới không giống nhau");
-                model.addAttribute("appUser", appUser);
-                return "Common/ChangePassword";
-            } else {
-                appUser.setEncrytedPassword(EncrytedPasswordUtils.encrytePassword(newPass));
-                appUserRepo.save(appUser);
-                return "Common/LoginForm";
-            }
+    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket, Principal principal, RedirectAttributes red) throws MessagingException {
+        String username = principal.getName();
+        //  Lấy ra danh sách tất cả ticket đã đặt của xe đó
+        List<Ticket> tickets = ticketRepo.findAllByBusId(id);
+        int totalSold = 0;
+        for (Ticket item : tickets) {
+            totalSold += item.getAmount();
         }
+        if (totalSold + ticket.getAmount() > busRepo.findById(id).get().getBusType().getTotalSeat()) {
+            red.addFlashAttribute("soldout", "Số lượng vé bạn muốn đặt không đủ");
+        } else {
+            ticket.setBusId(id);
+            ticket.setPassengerId(appUserRepo.findAppUserByUserName(username).getUserId());
+            ticketRepo.save(ticket);
+            String subject = "Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
+            String TicketInfo = "<h3>Đây là thông tin chi tiết vé xe của bạn</h3>"
+                    + "<div>Họ và tên: " + appUserRepo.findAppUserByUserName(username).getFullName() + "</div>"
+                    + "<div>Email: " + appUserRepo.findAppUserByUserName(username).getEmail() + "</div>"
+                    + "<div>Số điện thoại: " + appUserRepo.findAppUserByUserName(username).getPhone() + "</div>"
+                    + "<div>Tuổi: " + appUserRepo.findAppUserByUserName(username).getAge() + "</div>"
+                    + "<div>Mã vé: " + ticket.getTicketId() + "</div>"
+                    + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
+                    + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
+
+            sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
+            return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
+        }
+        return "redirect:/customer/booking-ticket/{id}";
     }
+
+    //  Trang thông tin chi tiết vé xe khách đã đặt
+    @RequestMapping(value = "/customer/booking-ticket/detail/{id}", method = RequestMethod.GET)
+    public String detailTicket(Model model, @PathVariable int id, Principal principal) {
+        AppUser appUser = appUserRepo.findAppUserByUserName(principal.getName());
+        Optional<Ticket> ticket = ticketRepo.findById(id);
+        Optional<Bus> bus = busRepo.findById(ticket.get().getBusId());
+        model.addAttribute("CustomerInfo", appUser);
+        model.addAttribute("TicketInfo", ticket.get());
+        model.addAttribute("BusInfo", bus.get());
+        return "Customer/InfoTicket";
+    }
+
 
     private static <E> List<E> toList(Iterable<E> iterable) {
         if (iterable instanceof List) {
@@ -174,4 +212,13 @@ public class MainController {
         return list;
     }
 
+    // Use it to send HTML Email
+    private void sendHTMLMail(String to, String subject, String content) throws MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+        helper.setTo(to);
+        helper.setSubject(subject);
+        message.setContent(content, "text/html; charset=UTF-8");
+        emailSender.send(message);
+    }
 }
