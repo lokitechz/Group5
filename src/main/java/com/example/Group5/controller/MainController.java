@@ -178,14 +178,20 @@ public class MainController {
                     + "<div>Email: " + appUserRepo.findAppUserByUserName(username).getEmail() + "</div>"
                     + "<div>Số điện thoại: " + appUserRepo.findAppUserByUserName(username).getPhone() + "</div>"
                     + "<div>Tuổi: " + appUserRepo.findAppUserByUserName(username).getAge() + "</div>"
-                    + "<div>Mã vé: " + ticket.getTicketId() + "</div>"
+                    + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>"
                     + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
                     + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
+            
+            String notification = "Thông báo";
+            String notificationContent = "<h3>Có khách hàng vừa đặt vé trên hệ thống</h3>"
+                    + "<div>Khách hàng: " + appUserRepo.findAppUserByUserName(username).getFullName() + " vừa đặt vé trên hệ thống </div>"
+                    + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>";
             try {
+                sendHTMLMail("vuachom94@gmail.com", notification, notificationContent);
                 sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
                 return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
-            } catch (MessagingException e){
-                red.addFlashAttribute("sendMailError","Server đang gặp sự cố,quý khách vui lòng quay lại sau");
+            } catch (MessagingException e) {
+                red.addFlashAttribute("sendMailError", "Server đang gặp sự cố,quý khách vui lòng quay lại sau");
                 return "redirect:/customer/booking-ticket/{id}";
             }
         }

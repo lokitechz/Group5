@@ -47,12 +47,12 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="bus : ${busList}">
-                                                    <td th:text="${bus.busNo}"></td>
+                                                    <td th:text="'B1-'+ ${bus.busNo}"></td>
                                                     <td th:text="${bus.busType.busType}"></td>
                                                     <td th:text="${bus.busRoute.origin}"></td>
                                                     <td th:text="${bus.busRoute.destination}"></td>
                                                     <td th:text="${bus.busRoute.breakPoint}"></td>
-                                                    <td th:text="${bus.busRoute.departureDate}"></td>
+                                                    <td th:text="${#dates.format(bus.busRoute.departureDate,'dd-MM-yyyy')}"></td>
                                                     <td th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></td>
                                                     <td>
                                                         <span class="mdi mdi-pencil mr-5">

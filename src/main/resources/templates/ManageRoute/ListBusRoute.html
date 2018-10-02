@@ -52,7 +52,7 @@
                                                     <td th:text="${route.origin}"></td>
                                                     <td th:text="${route.destination}"></td>
                                                     <td th:text="${route.breakPoint}"></td>
-                                                    <td th:text="${route.departureDate}"></td>
+                                                    <td th:text="${#dates.format(route.departureDate,'dd-MM-yyyy')}"></td>
                                                     <td th:text="${route.arrivalTime}"></td>
                                                     <td th:text="${#numbers.formatDecimal(route.fare,2,0,'COMMA')}+' '+'đ'"></td>
                                                     <td>
