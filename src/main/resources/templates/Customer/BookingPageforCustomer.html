@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/customCSS.css">
     <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
 </head>
 
 <body>
@@ -109,7 +110,6 @@
                                 <label class="col-sm-6 col-form-label">Số lượng vé muốn đặt</label>
                                 <input type="text" class="col-sm-1 form-control" placeholder="Phải là số" pattern="[0-9.]+" th:field="*{amount}"
                                        required maxlength="2">
-                                <p class="col-sm-5  text-danger" th:text="${soldout}"></p>
                             </div>
                             <div class="form-group">
                                 <div class="d-flex justify-content-center">
@@ -175,6 +175,16 @@
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/jquery.sticky.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/bootstrap-notify.min.js"></script>
+<script th:inline="javascript">
+    if ([[${soldout}]]) {
+        $.notify({
+            message: [[${soldout}]]
+        }, {
+            type: 'warning'
+        });
+    }
+</script>
 </body>
 
 </html>

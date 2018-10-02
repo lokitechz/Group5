@@ -126,14 +126,16 @@ public class MainController {
 
     //  Trả về danh sách kết quả tìm kiếm của khách hàng
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(@RequestParam(name = "origin") String origin, @RequestParam(name = "destination") String destination, @RequestParam(name = "date") String date, Model model, HttpSession session) {
+    public String search(Model model, @RequestParam(name = "origin") String origin,
+                         @RequestParam(name = "destination") String destination,
+                         @RequestParam(name = "date") String date, RedirectAttributes red) {
         List<BusRoute> busRouteList = (List<BusRoute>) busRouteRepo.findAll();
         List<Bus> busList = (List<Bus>) busRepo.findAll();
-        List<BusRoute> busRoutes = new ArrayList<>();
         List<Bus> buses = new ArrayList<>();
         for (BusRoute busRoute : busRouteList) {
-            if (busRoute.getOrigin().equalsIgnoreCase(origin) && busRoute.getDestination().equalsIgnoreCase(destination) && busRoute.getDepartureDate().toString().equals(date)) {
-                busRoutes.add(busRoute);
+            if (busRoute.getOrigin().equalsIgnoreCase(origin)
+                    && busRoute.getDestination().equalsIgnoreCase(destination)
+                    && busRoute.getDepartureDate().toString().equals(date)) {
                 for (Bus bus : busList) {
                     if (bus.getBusRoute().getBusRouteId() == busRoute.getBusRouteId()) {
                         buses.add(bus);
@@ -141,6 +143,10 @@ public class MainController {
                     }
                 }
             }
+        }
+        if (buses.isEmpty()) {
+            red.addFlashAttribute("isEmpty", "Xin lỗi, chúng tôi không thể tìm được kết quả hợp với tìm kiếm của bạn");
+            return "redirect:/";
         }
         return "Customer/HomePage";
     }

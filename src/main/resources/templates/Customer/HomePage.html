@@ -282,6 +282,13 @@
             type: 'success'
         });
     }
+    if ([[${isEmpty}]]) {
+        $.notify({
+            message: [[${isEmpty}]]
+        }, {
+            type: 'info'
+        });
+    }
 </script>
 
 
