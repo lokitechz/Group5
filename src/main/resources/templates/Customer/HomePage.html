@@ -40,10 +40,11 @@
                 </div>
                 <div class="main-menubar d-flex align-items-center">
                     <nav class="hide">
-                        <a href="/user-info" th:if="${#request.userPrincipal != null}">Thông tin tài khoản</a>
                         <a href="/register" th:if="${#request.userPrincipal == null}">Đăng kí</a>
                         <a href="/login" th:if="${#request.userPrincipal == null}">Đăng nhập</a>
+                        <a href="/dashboard" th:if="${#request.userPrincipal == null}">Dashboard</a>
                         <a href="/logout" th:if="${#request.userPrincipal != null}">Đăng xuất</a>
+                        <a th:href="${#request.userPrincipal.name}" th:if="${#request.userPrincipal != null}">Thông tin tài khoản</a>
                     </nav>
                     <div class="menu-bar">
                         <span class="lnr lnr-menu"></span>

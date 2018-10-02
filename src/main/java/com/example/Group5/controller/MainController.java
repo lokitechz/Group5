@@ -181,7 +181,7 @@ public class MainController {
                     + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>"
                     + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
                     + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
-            
+
             String notification = "Thông báo";
             String notificationContent = "<h3>Có khách hàng vừa đặt vé trên hệ thống</h3>"
                     + "<div>Khách hàng: " + appUserRepo.findAppUserByUserName(username).getFullName() + " vừa đặt vé trên hệ thống </div>"
@@ -216,11 +216,17 @@ public class MainController {
         return "Customer/PaymentPage";
     }
 
-    //
+    //  Trả về thông báo cho khách hàng thanh toán offline
     @RequestMapping(value = "/payment/{id}", method = RequestMethod.POST)
     public String paymentOffline(@PathVariable int id, RedirectAttributes red) {
         red.addFlashAttribute("success", "Mời bạn đến địa điểm giao dịch gần nhất của chúng tôi để hoàn tất thủ tục thanh toán");
         return "redirect:/";
+    }
+
+    //  Trả về trang thông tin cá nhân của tài khoản
+    @RequestMapping(value = "/{username}")
+    public String userInfo(@PathVariable String username) {
+        return "Common/UserInfoPage";
     }
 
 
