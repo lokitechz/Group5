@@ -1,16 +1,14 @@
 package com.example.Group5.controller;
 
-import com.example.Group5.dao.AppUserDAO;
-import com.example.Group5.entity.*;
+import com.example.Group5.entity.AppUser;
+import com.example.Group5.entity.Bus;
+import com.example.Group5.entity.BusRoute;
+import com.example.Group5.entity.Ticket;
 import com.example.Group5.repository.*;
 import com.example.Group5.utils.EncrytedPasswordUtils;
-import com.example.Group5.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpSession;
-import javax.swing.text.html.HTML;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.ZoneId;
