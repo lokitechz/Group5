@@ -55,6 +55,7 @@
                             <div class="text-center" th:if="${#request.getParameter('error') == 'true'}" style="color:red;margin:10px 0;">
                                 Tài khoản hoặc mật khẩu không đúng
                             </div>
+                            <div class="text-center text-success" th:text="${registerSuccess}"></div>
                         </form>
                     </div>
                 </div>

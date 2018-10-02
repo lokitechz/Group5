@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -36,29 +36,26 @@ public class RegisterController {
 
     //  Lưu dữ liệu khàng hách lên Database
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String save(Model model, AppUser appUser, @RequestParam("status") int status, @RequestParam("role") long role) {
+    public String save(Model model, AppUser appUser, RedirectAttributes red) {
         List<AppUser> listUser = (List<AppUser>) appUserRepo.findAll();
         String b = appUser.getUserName().toLowerCase();
         for (AppUser x : listUser) {
             if (x.getUserName().toLowerCase().equals(b)) {
-                model.addAttribute("dulicateUsername", "Tên tài khoản đã tồn tại");
-                return "Common/Register";
+                red.addFlashAttribute("dulicateUsername", "Tên tài khoản đã tồn tại");
+                return "redirect:/register";
             }
         }
         appUser.setEncrytedPassword(EncrytedPasswordUtils.encrytePassword(appUser.getEncrytedPassword()));
-        if (status == 1) {
-            appUser.setEnabled(true);
-        } else {
-            appUser.setEnabled(false);
-        }
+        appUser.setEnabled(true);
         appUserRepo.save(appUser);
         if (roleRepo.findByAppUser(appUser).size() == 0) {
-            long userRole = role;
+            long role = 2;
             UserRole employeeRole = new UserRole();
-            employeeRole.setAppRole(appRoleRepo.findById(userRole).get());
+            employeeRole.setAppRole(appRoleRepo.findById(role).get());
             employeeRole.setAppUser(appUser);
             roleRepo.save(employeeRole);
         }
-        return "Common/LoginForm";
+        red.addFlashAttribute("registerSuccess","Đăng kí tài khoản thành công");
+        return "redirect:/login";
     }
 }
