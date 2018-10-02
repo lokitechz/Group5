@@ -185,8 +185,13 @@ public class MainController {
                     + "<div>Mã vé: " + ticket.getTicketId() + "</div>"
                     + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
                     + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
-            sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
-            return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
+            try {
+                sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
+                return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
+            } catch (MessagingException e){
+                red.addFlashAttribute("sendMailError","Server đang gặp sự cố,quý khách vui lòng quay lại sau");
+                return "redirect:/customer/booking-ticket/{id}";
+            }
         }
         return "redirect:/customer/booking-ticket/{id}";
     }

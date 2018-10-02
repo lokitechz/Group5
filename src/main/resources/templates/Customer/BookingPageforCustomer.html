@@ -184,6 +184,13 @@
             type: 'warning'
         });
     }
+    if ([[${sendMailError}]]) {
+        $.notify({
+            message: [[${sendMailError}]]
+        }, {
+            type: 'warning'
+        });
+    }
 </script>
 </body>
 
