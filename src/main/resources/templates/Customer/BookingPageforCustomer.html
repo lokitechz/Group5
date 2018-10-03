@@ -191,6 +191,13 @@
             type: 'warning'
         });
     }
+    if ([[${msg}]]) {
+        $.notify({
+            message: [[${msg}]]
+        }, {
+            type: 'danger'
+        });
+    }
 </script>
 </body>
 

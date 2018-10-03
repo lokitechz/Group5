@@ -150,7 +150,8 @@
                                     <a th:href="@{'/customer/booking-ticket/'+ ${bus.getId()}}">Đặt vé</a>
                                 </span>
                             </td>
-                            <td th:text="${bus.busType.totalSeat}"></td>
+                            <td th:text="${bus.busType.totalSeat - totalSold}" th:if="${bus.getId() == TicketInfo}"></td>
+                            <td th:text="${bus.busType.totalSeat}" th:unless="${bus.getId() == TicketInfo}"></td>
                         </tr>
                         </tbody>
                     </table>

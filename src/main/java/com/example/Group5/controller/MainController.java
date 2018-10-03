@@ -125,6 +125,7 @@ public class MainController {
     public String search(Model model, @RequestParam(name = "origin") String origin,
                          @RequestParam(name = "destination") String destination,
                          @RequestParam(name = "date") String date, RedirectAttributes red) {
+        int totalSold = 0;
         List<BusRoute> busRouteList = (List<BusRoute>) busRouteRepo.findAll();
         List<Bus> busList = (List<Bus>) busRepo.findAll();
         List<Bus> buses = new ArrayList<>();
@@ -136,6 +137,17 @@ public class MainController {
                     if (bus.getBusRoute().getBusRouteId() == busRoute.getBusRouteId()) {
                         buses.add(bus);
                         model.addAttribute("listSearch", buses);
+                        List<Ticket> tickets = ticketRepo.findAllByBusId(bus.getId());
+                        for (Ticket item : tickets) {
+                            totalSold += item.getAmount();
+                            if (totalSold == busRepo.findById(bus.getId()).get().getBusType().getTotalSeat()) {
+                                model.addAttribute("TicketInfo", item.getBusId());
+                                model.addAttribute("totalSold", totalSold);
+                            } else {
+                                model.addAttribute("TicketInfo", item.getBusId());
+                                model.addAttribute("totalSold", totalSold);
+                            }
+                        }
                     }
                 }
             }
@@ -158,7 +170,7 @@ public class MainController {
 
     //  Lưu thông tin đặt vé của khách hàng
     @RequestMapping(value = "/customer/booking-ticket/{id}", method = RequestMethod.POST)
-    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket, Principal principal, RedirectAttributes red) throws MessagingException {
+    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket, Principal principal, RedirectAttributes red) {
         String username = principal.getName();
         //  Lấy ra danh sách tất cả ticket đã đặt của xe đó
         List<Ticket> tickets = ticketRepo.findAllByBusId(id);
@@ -166,7 +178,9 @@ public class MainController {
         for (Ticket item : tickets) {
             totalSold += item.getAmount();
         }
-        if (totalSold + ticket.getAmount() > busRepo.findById(id).get().getBusType().getTotalSeat()) {
+        if (ticket.getAmount() == 0) {
+            red.addFlashAttribute("msg", "Số lượng vé phải lớn hơn 0");
+        } else if (totalSold + ticket.getAmount() > busRepo.findById(id).get().getBusType().getTotalSeat()) {
             red.addFlashAttribute("soldout", "Số lượng vé bạn muốn đặt không đủ");
         } else {
             ticket.setBusId(id);
