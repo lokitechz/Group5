@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Ticket System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/customCSS.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+</head>
+
+<body>
+<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+    <th:block th:include="Common/HorizontalNavbar"/>
+    <!-- Siderbar bên trái -->
+    <div class="container-fluid page-body-wrapper">
+        <th:block th:include="Common/VerticalNavbar"/>
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="text-center">Danh sách những khách hàng đã đặt vé</h4>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Họ và tên</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Email</th>
+                                                    <th>Tuổi</th>
+                                                    <th>Số lượng vé đặt</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Thao tác</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="cus : ${CustomerInfo}">
+                                                    <td th:text="${cus.fullName}"></td>
+                                                    <td th:text="${cus.phone}"></td>
+                                                    <td th:text="${cus.email}"></td>
+                                                    <td th:text="${cus.age}"></td>
+                                                    <td th:text="${TicketInfo.amount}"></td>
+                                                    <td th:text="${#dates.format(TicketInfo.bookingDate,'dd-MM-yyyy')}"></td>
+                                                    <td th:if="${TicketInfo.status == false}" th:text="'Chưa thanh toán'" ></td>
+                                                    <td th:unless="${TicketInfo.status == false}" th:text="'Đã thanh toán'" ></td>
+                                                    <td>
+                                                        <span class="mdi mdi-pencil mr-5">
+                                                            <a th:href="@{'/manage-bus/updateTicket/'}">Sửa</a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<script src="/vendors/js/vendor.bundle.addons.js"></script>
+<script src="/js/misc.js"></script>
+<script src="/js/dashboard.js"></script>
+<script>
+    $('.nav .nav-item:nth-child(4)').addClass('active');
+</script>
+</body>
+</html>
