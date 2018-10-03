@@ -226,7 +226,7 @@ public class MainController {
         return "Customer/PaymentPage";
     }
 
-    //  Trả về thông báo cho khách hàng thanh toán offline
+    //  Thanh toán
     @RequestMapping(value = "/payment/{id}", method = RequestMethod.POST)
     public String paymentOffline(@PathVariable int id, RedirectAttributes red) {
         red.addFlashAttribute("success", "Mời bạn đến địa điểm giao dịch gần nhất của chúng tôi để hoàn tất thủ tục thanh toán");
@@ -237,20 +237,6 @@ public class MainController {
     @RequestMapping(value = "/{username}")
     public String userInfo(@PathVariable String username) {
         return "Common/UserInfoPage";
-    }
-
-
-    private static <E> List<E> toList(Iterable<E> iterable) {
-        if (iterable instanceof List) {
-            return (List<E>) iterable;
-        }
-        ArrayList<E> list = new ArrayList<E>();
-        if (iterable != null) {
-            for (E e : iterable) {
-                list.add(e);
-            }
-        }
-        return list;
     }
 
     // Use it to send HTML Email

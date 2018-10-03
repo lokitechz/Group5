@@ -69,8 +69,10 @@
             <div class="col-md-3"></div>
             <div class="col-md-6 pt-50 pb-100">
                 <div class="card" style="border: 1px solid rgba(0,0,0,0.125);border-radius: .25rem;">
+                    <div class="card-header text-center">
+                        <h3>Thông tin chi tiết vé xe</h3>
+                    </div>
                     <div class="card-body">
-                        <h3 class="text-center">Thông tin chi tiết vé xe</h3>
                         <div class="form-group row mt-2">
                             <label class="col-sm-6 col-form-label">Mã vé:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold" th:text="'TK-'+${TicketInfo.ticketId}"></label>
@@ -123,19 +125,27 @@
                             <label class="col-sm-6 col-form-label font-weight-bold fs-20 text-right"
                                    th:text="${#numbers.formatDecimal(BusInfo.busRoute.fare*TicketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
                         </div>
-                        <div class="form-group row">
-                            <button class="btn btn-success col-sm-5" type="button" onclick="gotoPayment()">
-                                <span class="mdi mdi-credit-card mr-5"></span>
+
+                    </div>
+                </div>
+                <div class="card mt-10" style="border: 1px solid rgba(0,0,0,0.125);border-radius: .25rem;">
+                    <div class="card-header text-center">Chọn phương thức thanh toán</div>
+                    <div class="row text-center">
+                        <form class="col-sm-12 mt-3" th:action="@{'/payment/'+ ${TicketInfo.getTicketId()}}" method="POST">
+                            <label class="radio-inline btn btn-success">
+                                <input type="radio" name="optradio" checked>
                                 Thanh toán online
-                            </button>
-                            <div class="col-sm-2"></div>
-                            <form class="col-sm-5" th:action="@{'/payment/'+ ${TicketInfo.getTicketId()}}" method="POST">
-                                <button class="btn btn-success" style="width: 100%" type="submit">
-                                    <span class="mdi mdi-store mr-5"></span>
-                                    Thanh toán tại quầy
-                                </button>
-                            </form>
-                        </div>
+                                <span class="mdi mdi-credit-card-multiple"></span>
+                            </label>
+                            <label class="radio-inline btn btn-success">
+                                <input type="radio" name="optradio">
+                                Thanh toán tại quầy
+                                <span class="mdi mdi-store"></span>
+                            </label>
+                            <div>
+                                <button class="btn btn-primary col-sm-12 mb-2">Thanh toán</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
