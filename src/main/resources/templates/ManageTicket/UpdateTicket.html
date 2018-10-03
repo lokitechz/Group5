@@ -37,7 +37,7 @@
                                         <h4 class="text-center mb-5">Cập nhật trạng thái của vé</h4>
                                         <form th:object="${ticket}" class="form-inline col-sm-6 offset-3" th:action="@{'/manage-bus/updateTicket/' +${detailTicket.ticketId}}" method="post">
                                             <div class="form-group col-md-4">
-                                                <label style="padding-left: 150px;">Trạng thái</label>
+                                                <label>Trạng thái</label>
                                             </div>
                                             <div class="form-group col-sm-4">
                                                 <select title="Chọn trạng thái" class="form-control col-sm-12" th:if="${detailTicket.status == false}" th:name="status">

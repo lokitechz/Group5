@@ -53,14 +53,11 @@ public class AdminController {
 
     // Lưu trạng thái của vé lên DB
     @RequestMapping(value = "/manage-bus/updateTicket/{id}", method = RequestMethod.POST)
-    public String updateTicket(Model model, @PathVariable int id, @ModelAttribute Ticket ticket, RedirectAttributes red) {
+    public String updateTicket(@PathVariable int id, @ModelAttribute Ticket ticket, RedirectAttributes red) {
         Ticket item = ticketRepo.findById(id).get();
-        if (!ticket.isStatus()){
-            red.addFlashAttribute("msg","Cập nhật thành công");
-            return "redirect:/manage-bus";
-        }
-        red.addFlashAttribute("msg","Cập nhật thành công");
+        item.setStatus(ticket.isStatus());
+        ticketRepo.save(item);
+        red.addFlashAttribute("msg", "Cập nhật thành công");
         return "redirect:/manage-bus";
     }
-
 }

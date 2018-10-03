@@ -98,19 +98,15 @@ public class MainController {
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public String Dashboard(Model model) {
         int total = 0;
-        long num = 2;
         int revenue = 0;
         int order = 0;
-        model.addAttribute("DashBoardUser", roleRepo.findAllByAppRole(appRoleRepo.findById(num)).size());
-        for (int x = 0; x < 7; x++) {
-            for (Ticket ticket : ticketRepo.findAllByBookingDate(Date.from(LocalDate.now().plusDays(-x).atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
+        for (int x = 0; x <= 7; x++) {
+            for (Ticket ticket : ticketRepo.findAllByBookingDate(Date.from(LocalDate.now().minusDays(x).atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
                 total += ticket.getAmount();
                 order++;
-                int amount = ticket.getAmount();
+                int perBusRoute = ticket.getAmount();
                 for (Bus bus : busRepo.findAllByBusId(ticket.getBusId())) {
-                    for (BusRoute route : busRouteRepo.findAllByBusRouteId(bus.getId())) {
-                        revenue += route.getFare() * amount;
-                    }
+                    revenue += bus.getBusRoute().getFare() * perBusRoute;
                 }
             }
         }
