@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bus Reservation System</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/customCSS.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/images/favicon.ico"/>
+</head>
+
+<body>
+<style>
+    label {
+        font-size: 15px !important;
+    }
+</style>
+<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+    <!-- Menu ngang phía trên -->
+    <th:block th:include="Common/HorizontalNavbar"/>
+    <!-- End -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- Siderbar bên trái -->
+        <th:block th:include="Common/VerticalNavbar"/>
+        <!-- End -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="row">
+                    <div class="col-md-12 d-flex align-items-stretch grid-margin">
+                        <div class="row flex-grow">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="text-center mb-5">Cập nhật trạng thái của vé</h4>
+                                        <form th:object="${ticket}" class="form-inline col-sm-6 offset-3" th:action="@{'/manage-bus/updateTicket/' +${detailTicket.ticketId}}" method="post">
+                                            <div class="form-group col-md-4">
+                                                <label style="padding-left: 150px;">Trạng thái</label>
+                                            </div>
+                                            <div class="form-group col-sm-4">
+                                                <select title="Chọn trạng thái" class="form-control col-sm-12" th:if="${detailTicket.status == false}" th:name="status">
+                                                    <option th:value="${detailTicket.status}" th:text="'Chưa thanh toán'"></option>
+                                                    <option th:value="1" th:text="'Đã thanh toán'"></option>
+                                                </select>
+                                                <select title="Chọn trạng thái"  class="form-control col-sm-12" th:unless="${detailTicket.status == false}">
+                                                    <option th:value="${detailTicket.status}" th:text="'Đã thanh toán'"></option>
+                                                </select>
+                                            </div>
+                                            <button th:if="${detailTicket.status == false}" class="btn btn-primary" type="submit">Cập nhật</button>
+                                            <button th:unless="${detailTicket.status == false}" class="btn btn-primary" type="submit" disabled>Cập nhật
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- JS -->
+<script src="/vendors/js/vendor.bundle.base.js"></script>
+<script src="/vendors/js/vendor.bundle.addons.js"></script>
+<script src="/js/misc.js"></script>
+<script src="/js/dashboard.js"></script>
+<script>
+    $('.nav .nav-item:nth-child(4)').addClass('active');
+</script>
+</body>
+</html>

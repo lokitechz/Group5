@@ -53,7 +53,7 @@
                                                     <td th:unless="${TicketInfo.status == false}" th:text="'Đã thanh toán'" ></td>
                                                     <td>
                                                         <span class="mdi mdi-pencil mr-5">
-                                                            <a th:href="@{'/manage-bus/updateTicket/'}">Sửa</a>
+                                                            <a th:href="@{'/manage-bus/updateTicket/' + ${TicketInfo.getTicketId()}}">Sửa</a>
                                                         </span>
                                                     </td>
                                                 </tr>
