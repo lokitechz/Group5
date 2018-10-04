@@ -83,32 +83,32 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Loại xe:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${bus.busType.busType}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${bustype.busType}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Hành trình:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${bus.busRoute.origin + ' - ' + bus.busRoute.destination}"></label>
+                                   th:text="${busroute.origin + ' - ' + busroute.destination}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${#dates.format(bus.busRoute.departureDate,'dd-MM-yyyy')}"></label>
+                                   th:text="${#dates.format(busroute.departureDate,'dd-MM-yyyy')}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Thời gian:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${bus.busRoute.arrivalTime}"></label>
+                                   th:text="${busroute.arrivaltime}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Giá vé:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></label>
+                                   th:text="${#numbers.formatDecimal(busroute.fare,2,0,'COMMA')}+' '+'đ'"></label>
                         </div>
-                        <form th:object="${ticket}" th:action="@{'/customer/booking-ticket/'+ ${bus.getId()}}" method="POST">
+                        <form th:object="${ticket}" th:action="@{'/customer/payment/'+ ${busroute.getRouteId()}}" method="POST">
                             <div class="form-group row">
                                 <label class="col-sm-6 col-form-label">Số lượng vé muốn đặt</label>
-                                <input type="text" class="col-sm-1 form-control" placeholder="Phải là số" pattern="[0-9.]+" th:field="*{amount}"
+                                <input type="text" class="col-sm-1 form-control" pattern="[0-9.]+" th:field="*{amount}"
                                        required maxlength="2">
                             </div>
                             <div class="form-group">
@@ -177,16 +177,9 @@
 <script src="/js/main.js"></script>
 <script src="/js/bootstrap-notify.min.js"></script>
 <script th:inline="javascript">
-    if ([[${soldout}]]) {
+    if ([[${notEnough}]]) {
         $.notify({
-            message: [[${soldout}]]
-        }, {
-            type: 'warning'
-        });
-    }
-    if ([[${sendMailError}]]) {
-        $.notify({
-            message: [[${sendMailError}]]
+            message: [[${notEnough}]]
         }, {
             type: 'warning'
         });
@@ -195,7 +188,7 @@
         $.notify({
             message: [[${msg}]]
         }, {
-            type: 'danger'
+            type: 'warning'
         });
     }
 </script>

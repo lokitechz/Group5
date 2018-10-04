@@ -1,7 +1,5 @@
 package com.example.Group5.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.sql.Date;
 
@@ -42,9 +40,7 @@ public class BusRoute {
     private int busId;
 
 
-    public int getRouteId() {
-        return routeId;
-    }
+    public int getRouteId() { return routeId; }
 
     public void setRouteId(int routeId) {
         this.routeId = routeId;
@@ -98,9 +94,7 @@ public class BusRoute {
         this.fare = fare;
     }
 
-    public int getBusId() {
-        return busId;
-    }
+    public int getBusId() { return busId; }
 
     public void setBusId(int busId) {
         this.busId = busId;

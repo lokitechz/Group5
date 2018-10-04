@@ -73,10 +73,6 @@
                         <h3>Thông tin chi tiết vé xe</h3>
                     </div>
                     <div class="card-body">
-                        <div class="form-group row mt-2">
-                            <label class="col-sm-6 col-form-label">Mã vé:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="'TK-'+${TicketInfo.ticketId}"></label>
-                        </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Họ và tên:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold" th:text="${CustomerInfo.fullName}"></label>
@@ -99,46 +95,46 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Loại xe:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${BusInfo.busType.busType}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${BusTypeInfo.busType}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Hành trình:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${BusInfo.busRoute.origin + ' - ' + BusInfo.busRoute.destination}"></label>
+                                   th:text="${BusRouteInfo.origin + ' - ' + BusRouteInfo.destination}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${#dates.format(BusInfo.busRoute.departureDate,'dd-MM-yyyy')}"></label>
+                                   th:text="${#dates.format(BusRouteInfo.departureDate,'dd-MM-yyyy')}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Thời gian:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${BusInfo.busRoute.arrivalTime}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${BusRouteInfo.arrivaltime}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Số vẽ đã đặt:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${TicketInfo.amount}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${ticketInfo.amount}"></label>
                         </div>
                         <div class="dropdown-divider"></div>
                         <div class="form-group row" style="color: black">
                             <label class="col-sm-6 col-form-label font-weight-bold fs-20">Tổng tiền:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold fs-20 text-right"
-                                   th:text="${#numbers.formatDecimal(BusInfo.busRoute.fare*TicketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
+                                   th:text="${#numbers.formatDecimal(BusRouteInfo.fare * ticketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
                         </div>
-
                     </div>
                 </div>
                 <div class="card mt-10" style="border: 1px solid rgba(0,0,0,0.125);border-radius: .25rem;">
                     <div class="card-header text-center">Chọn phương thức thanh toán</div>
                     <div class="row text-center">
-                        <form class="col-sm-12 mt-3" th:action="@{'/payment/'+ ${TicketInfo.getTicketId()}}" method="POST">
+                        <form class="col-sm-12 mt-3" th:action="@{'/payment/'+ ${BusRouteInfo.getRouteId()}}" method="POST">
                             <label class="radio-inline btn btn-success">
-                                <input type="radio" name="optradio" checked>
+                                <input hidden th:value="${ticketInfo.amount}" th:name="amount">
+                                <input type="radio" th:name="paymentOp" th:value="1" checked>
                                 Thanh toán online
                                 <span class="mdi mdi-credit-card-multiple"></span>
                             </label>
                             <label class="radio-inline btn btn-success">
-                                <input type="radio" name="optradio">
+                                <input type="radio" th:name="paymentOp" th:value="2">
                                 Thanh toán tại quầy
                                 <span class="mdi mdi-store"></span>
                             </label>
@@ -206,12 +202,6 @@
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/jquery.sticky.js"></script>
 <script src="/js/main.js"></script>
-<script th:inline="javascript">
-    function gotoPayment() {
-        var idTicket = [[${TicketInfo.ticketId}]];
-        window.location.href = '/payment/' + idTicket;
-    }
-</script>
 </body>
 
 </html>

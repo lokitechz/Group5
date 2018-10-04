@@ -1,9 +1,6 @@
 package com.example.Group5.controller;
 
-import com.example.Group5.entity.Bus;
-import com.example.Group5.entity.BusRoute;
-import com.example.Group5.entity.BusType;
-import com.example.Group5.entity.Ticket;
+import com.example.Group5.entity.*;
 import com.example.Group5.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,14 +8,12 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -99,108 +94,103 @@ public class MainController {
         }
     }
 
+    //  Trả về trang đặt vé cho khách hàng
+    @RequestMapping(value = "/customer/booking-ticket/{id}", method = RequestMethod.GET)
+    public String bookingPage(@PathVariable int id, Model model) {
+        Optional<BusRoute> busRoute = busRouteRepo.findById(id);
+        if (busRoute.isPresent()) {
+            Optional<Bus> bus = busRepo.findById(busRoute.get().getBusId());
+            if (bus.isPresent()) {
+                Optional<BusType> busType = busTypeRepo.findById(bus.get().getBusTypeId());
+                model.addAttribute("bustype", busType.get());
+            }
+            model.addAttribute("bus", bus.get());
+            model.addAttribute("busroute", busRoute.get());
+            model.addAttribute("ticket", new Ticket());
+        }
+        return "Customer/BookingPageforCustomer";
+    }
 
-//    //  Trả về trang thống kê số liệu
-//    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-//    public String Dashboard(Model model) {
-//        int total = 0;
-//        int revenue = 0;
-//        int order = 0;
-//        for (int x = 0; x <= 7; x++) {
-//            for (Ticket ticket : ticketRepo.findAllByBookingDate(Date.from(LocalDate.now().minusDays(x).atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
-//                total += ticket.getAmount();
-//                order++;
-//                int perBusRoute = ticket.getAmount();
-//                for (Bus bus : busRepo.findAllByBusId(ticket.getBusId())) {
-//                    revenue += bus.getBusRoute().getFare() * perBusRoute;
-//                }
-//            }
-//        }
-//        model.addAttribute("DashboardTicket", order);
-//        model.addAttribute("DashboardWeeklySale", total);
-//        model.addAttribute("revenue", Integer.toString(revenue));
-//        return "Common/Dashboard";
-//    }
+    //  Lấy thông tin đặt vé và truyển về trang thanh toán
+    @RequestMapping(value = "/customer/payment/{id}", method = RequestMethod.POST)
+    public String paymentPage(@PathVariable int id, @ModelAttribute Ticket ticket, RedirectAttributes red) {
+        Optional<BusRoute> busRoute = busRouteRepo.findById(id);
+        Optional<Bus> bus = busRepo.findById(busRoute.get().getBusId());
+        Optional<BusType> busType = busTypeRepo.findById(bus.get().getBusTypeId());
+        //  Lấy ra danh sách tất cả ticket đã đặt của hành trình đó
+        int totalSold = 0;
+        List<Ticket> tickets = (List<Ticket>) ticketRepo.findAll();
+        for (Ticket item : tickets) {
+            if (item.getRouteId() == busRoute.get().getRouteId()) {
+                totalSold += item.getAmount();
+            }
+        }
+        if (ticket.getAmount() == 0) {
+            red.addFlashAttribute("msg", "Số lượng vé phải lớn hơn 0");
+            return "redirect:/customer/booking-ticket/{id}";
+        } else if (totalSold + ticket.getAmount() > busType.get().getTotalSeat()) {
+            red.addFlashAttribute("notEnough", "Số lượng vé bạn muốn đặt k đủ");
+            return "redirect:/customer/booking-ticket/{id}";
+        } else {
+            red.addFlashAttribute("ticketInfo", ticket);
+            return "redirect:/customer/payment/{id}";
+        }
+    }
 
+    //  Trang thông tin chi tiết vé xe khách đã đặt
+    @RequestMapping(value = "/customer/payment/{id}", method = RequestMethod.GET)
+    public String detailTicket(Model model, @PathVariable int id, Principal principal) {
+        AppUser appUser = appUserRepo.findAppUserByUserName(principal.getName());
+        Optional<BusRoute> busRoute = busRouteRepo.findById(id);
+        Optional<Bus> bus = busRepo.findById(busRoute.get().getBusId());
+        Optional<BusType> busType = busTypeRepo.findById(bus.get().getBusTypeId());
+        Ticket ticket = new Ticket();
+        model.addAttribute("CustomerInfo", appUser);
+        model.addAttribute("TicketInfo", ticket);
+        model.addAttribute("BusRouteInfo", busRoute.get());
+        model.addAttribute("BusInfo", bus.get());
+        model.addAttribute("BusTypeInfo", busType.get());
+        return "Customer/InfoTicket";
+    }
 
-//    //  Trả về trang đặt vé cho khách hàng
-//    @RequestMapping(value = "/customer/booking-ticket/{id}", method = RequestMethod.GET)
-//    public String bookingPage(@PathVariable int id, Model model) {
-//        Optional<Bus> optionalBus = busRepo.findById(id);
-//        model.addAttribute("bus", optionalBus.get());
-//        model.addAttribute("ticket", new Ticket());
-//        return "Customer/BookingPageforCustomer";
-//    }
-//
-//    //  Lưu thông tin đặt vé của khách hàng
-//    @RequestMapping(value = "/customer/booking-ticket/{id}", method = RequestMethod.POST)
-//    public String saveTicket(@PathVariable int id, @ModelAttribute Ticket ticket, Principal principal, RedirectAttributes red) {
-//        String username = principal.getName();
-//        //  Lấy ra danh sách tất cả ticket đã đặt của xe đó
-//        List<Ticket> tickets = ticketRepo.findAllByBusId(id);
-//        int totalSold = 0;
-//        for (Ticket item : tickets) {
-//            totalSold += item.getAmount();
-//        }
-//        if (ticket.getAmount() == 0) {
-//            red.addFlashAttribute("msg", "Số lượng vé phải lớn hơn 0");
-//        } else if (totalSold + ticket.getAmount() > busRepo.findById(id).get().getBusType().getTotalSeat()) {
-//            red.addFlashAttribute("soldout", "Số lượng vé bạn muốn đặt không đủ");
-//        } else {
-//            ticket.setBusId(id);
-//            ticket.setPassengerId(appUserRepo.findAppUserByUserName(username).getUserId());
-//            ticketRepo.save(ticket);
-//            String subject = "Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
-//            String TicketInfo = "<h3>Đây là thông tin chi tiết vé xe của bạn</h3>"
-//                    + "<div>Họ và tên: " + appUserRepo.findAppUserByUserName(username).getFullName() + "</div>"
-//                    + "<div>Email: " + appUserRepo.findAppUserByUserName(username).getEmail() + "</div>"
-//                    + "<div>Số điện thoại: " + appUserRepo.findAppUserByUserName(username).getPhone() + "</div>"
-//                    + "<div>Tuổi: " + appUserRepo.findAppUserByUserName(username).getAge() + "</div>"
-//                    + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>"
-//                    + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
-//                    + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
-//
-//            String notification = "Thông báo";
-//            String notificationContent = "<h3>Có khách hàng vừa đặt vé trên hệ thống</h3>"
-//                    + "<div>Khách hàng: " + appUserRepo.findAppUserByUserName(username).getFullName() + " vừa đặt vé trên hệ thống </div>"
-//                    + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>";
-//            try {
-//                sendHTMLMail("vuachom94@gmail.com", notification, notificationContent);
-//                sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
-//                return "redirect:/customer/booking-ticket/detail/" + ticket.getTicketId();
-//            } catch (MessagingException e) {
-//                red.addFlashAttribute("sendMailError", "Server đang gặp sự cố,quý khách vui lòng quay lại sau");
-//                return "redirect:/customer/booking-ticket/{id}";
-//            }
-//        }
-//        return "redirect:/customer/booking-ticket/{id}";
-//    }
-//
-//    //  Trang thông tin chi tiết vé xe khách đã đặt
-//    @RequestMapping(value = "/customer/booking-ticket/detail/{id}", method = RequestMethod.GET)
-//    public String detailTicket(Model model, @PathVariable int id, Principal principal) {
-//        AppUser appUser = appUserRepo.findAppUserByUserName(principal.getName());
-//        Optional<Ticket> ticket = ticketRepo.findById(id);
-//        Optional<Bus> bus = busRepo.findById(ticket.get().getBusId());
-//        model.addAttribute("CustomerInfo", appUser);
-//        model.addAttribute("TicketInfo", ticket.get());
-//        model.addAttribute("BusInfo", bus.get());
-//        return "Customer/InfoTicket";
-//    }
-//
-//    //  Trả về trang thanh toán
-//    @RequestMapping(value = "/payment/{id}", method = RequestMethod.GET)
-//    public String paymentPage(@PathVariable int id) {
-//        return "Customer/PaymentPage";
-//    }
-//
-//    //  Thanh toán
-//    @RequestMapping(value = "/payment/{id}", method = RequestMethod.POST)
-//    public String paymentOffline(@PathVariable int id, RedirectAttributes red) {
-//        red.addFlashAttribute("success", "Mời bạn đến địa điểm giao dịch gần nhất của chúng tôi để hoàn tất thủ tục thanh toán");
-//        return "redirect:/";
-//    }
+    //  Trả về trang thanh toán
+    @RequestMapping(value = "/payment/{id}", method = RequestMethod.POST)
+    public String paymentMethod(@PathVariable int id, Principal principal, @ModelAttribute Ticket ticket,
+                                @RequestParam int amount, @RequestParam int paymentOp, RedirectAttributes red) {
+        String username = principal.getName();
+        AppUser appUser = appUserRepo.findAppUserByUserName(principal.getName());
+        ticket.setAmount(amount);
+        ticket.setRouteId(id);
+        ticket.setUserId(appUserRepo.findAppUserByUserName(username).getUserId());
+        ticketRepo.save(ticket);
+        String subject = "Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
+        String TicketInfo = "<h3>Đây là thông tin chi tiết vé xe của bạn</h3>"
+                + "<div>Họ và tên: " + appUserRepo.findAppUserByUserName(username).getFullName() + "</div>"
+                + "<div>Email: " + appUserRepo.findAppUserByUserName(username).getEmail() + "</div>"
+                + "<div>Số điện thoại: " + appUserRepo.findAppUserByUserName(username).getPhone() + "</div>"
+                + "<div>Tuổi: " + appUserRepo.findAppUserByUserName(username).getAge() + "</div>"
+                + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>"
+                + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
+                + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
 
+        String notification = "Thông báo";
+        String notificationContent = "<h3>Có khách hàng vừa đặt vé trên hệ thống</h3>"
+                + "<div>Khách hàng: " + appUserRepo.findAppUserByUserName(username).getFullName() + " vừa đặt vé trên hệ thống </div>"
+                + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>";
+        try {
+            sendHTMLMail("vuachom94@gmail.com", notification, notificationContent);
+            sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
+        } catch (MessagingException e){
+            red.addFlashAttribute("sendMailError", "Server đang gặp sự cố,quý khách vui lòng quay lại sau");
+            return "redirect:/customer/booking-ticket/{id}";
+        }
+        if (paymentOp == 1) {
+            return "Customer/PaymentPage";
+        } else {
+            red.addFlashAttribute("success", "Mời bạn đến địa điểm giao dịch gần nhất của chúng tôi để hoàn tất thủ tục thanh toán");
+            return "redirect:/";
+        }
+    }
 
     // Use it to send HTML Email
     private void sendHTMLMail(String to, String subject, String content) throws MessagingException {
