@@ -70,8 +70,6 @@ public class MainController {
                          @RequestParam(name = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, RedirectAttributes red) {
         BusRoute busRoute = busRouteRepo.search(origin, destination, date);
         if (busRoute != null) {
-            Optional<Bus> bus = busRepo.findById(busRoute.getBusId());
-            Optional<BusType> busType = busTypeRepo.findById(bus.get().getBusTypeId());
             int totalSold = 0;
             List<Ticket> tickets = (List<Ticket>) ticketRepo.findAll();
             for (Ticket ticket : tickets) {
@@ -79,13 +77,11 @@ public class MainController {
                     totalSold += ticket.getAmount();
                 }
             }
-            if (totalSold == busType.get().getTotalSeat()) {
+            if (totalSold == busRoute.getBus().getBusType().getTotalSeat()) {
                 model.addAttribute("soldOut", "Hết vé");
             } else {
                 model.addAttribute("totalSold", totalSold);
             }
-            model.addAttribute("busInfo", bus.get());
-            model.addAttribute("busTypeInfo", busType.get());
             model.addAttribute("result", busRoute);
             return "Customer/HomePage";
         } else {
@@ -98,16 +94,8 @@ public class MainController {
     @RequestMapping(value = "/customer/booking-ticket/{id}", method = RequestMethod.GET)
     public String bookingPage(@PathVariable int id, Model model) {
         Optional<BusRoute> busRoute = busRouteRepo.findById(id);
-        if (busRoute.isPresent()) {
-            Optional<Bus> bus = busRepo.findById(busRoute.get().getBusId());
-            if (bus.isPresent()) {
-                Optional<BusType> busType = busTypeRepo.findById(bus.get().getBusTypeId());
-                model.addAttribute("bustype", busType.get());
-            }
-            model.addAttribute("bus", bus.get());
-            model.addAttribute("busroute", busRoute.get());
-            model.addAttribute("ticket", new Ticket());
-        }
+        model.addAttribute("busroute", busRoute.get());
+        model.addAttribute("ticket", new Ticket());
         return "Customer/BookingPageforCustomer";
     }
 
@@ -115,8 +103,6 @@ public class MainController {
     @RequestMapping(value = "/customer/payment/{id}", method = RequestMethod.POST)
     public String paymentPage(@PathVariable int id, @ModelAttribute Ticket ticket, RedirectAttributes red) {
         Optional<BusRoute> busRoute = busRouteRepo.findById(id);
-        Optional<Bus> bus = busRepo.findById(busRoute.get().getBusId());
-        Optional<BusType> busType = busTypeRepo.findById(bus.get().getBusTypeId());
         //  Lấy ra danh sách tất cả ticket đã đặt của hành trình đó
         int totalSold = 0;
         List<Ticket> tickets = (List<Ticket>) ticketRepo.findAll();
@@ -128,7 +114,7 @@ public class MainController {
         if (ticket.getAmount() == 0) {
             red.addFlashAttribute("msg", "Số lượng vé phải lớn hơn 0");
             return "redirect:/customer/booking-ticket/{id}";
-        } else if (totalSold + ticket.getAmount() > busType.get().getTotalSeat()) {
+        } else if (totalSold + ticket.getAmount() > busRoute.get().getBus().getBusType().getTotalSeat()) {
             red.addFlashAttribute("notEnough", "Số lượng vé bạn muốn đặt k đủ");
             return "redirect:/customer/booking-ticket/{id}";
         } else {
@@ -142,14 +128,10 @@ public class MainController {
     public String detailTicket(Model model, @PathVariable int id, Principal principal) {
         AppUser appUser = appUserRepo.findAppUserByUserName(principal.getName());
         Optional<BusRoute> busRoute = busRouteRepo.findById(id);
-        Optional<Bus> bus = busRepo.findById(busRoute.get().getBusId());
-        Optional<BusType> busType = busTypeRepo.findById(bus.get().getBusTypeId());
         Ticket ticket = new Ticket();
         model.addAttribute("CustomerInfo", appUser);
         model.addAttribute("TicketInfo", ticket);
-        model.addAttribute("BusRouteInfo", busRoute.get());
-        model.addAttribute("BusInfo", bus.get());
-        model.addAttribute("BusTypeInfo", busType.get());
+        model.addAttribute("busRoute", busRoute.get());
         return "Customer/InfoTicket";
     }
 

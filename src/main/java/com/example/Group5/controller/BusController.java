@@ -1,35 +1,29 @@
-//package com.example.Group5.controller;
-//
-//import com.example.Group5.entity.*;
-//import com.example.Group5.repository.*;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.*;
-//import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//@Controller
-//public class BusController {
-//
-//    @Autowired
-//    private BusRepo busRepo;
-//
-//    @Autowired
-//    private BusTypeRepo busTypeRepo;
-//
-//    @Autowired
-//    private BusRouteRepo busRouteRepo;
-//
-//    //  Trả về trang danh sách xe xe
-//    @RequestMapping(value = "/manage-bus", method = RequestMethod.GET)
-//    public String listBus(Model model) {
-//        List<Bus> busList = (List<Bus>) busRepo.findAll();
-//        model.addAttribute("busList", busList);
-//        return "ManageBus/ListBus";
-//    }
+package com.example.Group5.controller;
+
+import com.example.Group5.entity.Bus;
+import com.example.Group5.repository.BusRepo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
+
+@Controller
+public class BusController {
+
+    @Autowired
+    private BusRepo busRepo;
+
+    //  Trả về trang danh sách xe xe
+    @RequestMapping(value = "/manage-bus", method = RequestMethod.GET)
+    public String listBus(Model model) {
+        List<Bus> busList = (List<Bus>) busRepo.findAll();
+        model.addAttribute("busList", busList);
+        return "ManageBus/ListBus";
+    }
+}
 //
 //    //  Trả về trang tạo mới xe
 //    @RequestMapping(path = "/manage-bus/create", method = RequestMethod.GET)

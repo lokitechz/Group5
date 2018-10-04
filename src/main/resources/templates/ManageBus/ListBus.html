@@ -34,33 +34,22 @@
                                         </a>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
-                                                <thead>
+                                                <thead class="text-center">
                                                 <tr>
                                                     <th>Số xe</th>
                                                     <th>Loại xe</th>
-                                                    <th>Điểm đi</th>
-                                                    <th>Điểm đến</th>
-                                                    <th>Điểm dừng</th>
-                                                    <th>Ngày khởi hành</th>
-                                                    <th>Giá vé</th>
+                                                    <th>Tổng số ghế</th>
                                                     <th>Thao tác</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="text-center">
                                                 <tr th:each="bus : ${busList}">
                                                     <td th:text="'B1-'+ ${bus.busNo}"></td>
                                                     <td th:text="${bus.busType.busType}"></td>
-                                                    <td th:text="${bus.busRoute.origin}"></td>
-                                                    <td th:text="${bus.busRoute.destination}"></td>
-                                                    <td th:text="${bus.busRoute.breakPoint}"></td>
-                                                    <td th:text="${#dates.format(bus.busRoute.departureDate,'dd-MM-yyyy')}"></td>
-                                                    <td th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></td>
+                                                    <td th:text="${bus.busType.totalSeat}"></td>
                                                     <td>
-                                                        <span class="mdi mdi-pencil mr-5">
-                                                            <a th:href="@{'/manage-bus/update/' + ${bus.getId()}}">Sửa</a>
-                                                        </span>
-                                                        <span class="mdi mdi-desktop-mac">
-                                                            <a th:href="@{'/manage-bus/details/'+ ${bus.getId()}}">Chi tiết</a>
+                                                        <span class="mdi mdi-pencil">
+                                                            <a th:href="@{'/manage-bus/update/' + ${bus.getBusId()}}">Sửa</a>
                                                         </span>
                                                     </td>
                                                 </tr>

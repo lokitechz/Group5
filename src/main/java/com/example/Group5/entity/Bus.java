@@ -14,14 +14,12 @@ public class Bus {
     @Column(name = "BUS_NO", nullable = false)
     private int busNo;
 
-    @Basic
-    @Column(name = "BUS_TYPE_ID", nullable = false)
-    private int busTypeId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BUS_TYPE_ID", nullable = false)
+    private BusType busType;
 
 
-    public int getBusId() {
-        return busId;
-    }
+    public int getBusId() { return busId; }
 
     public void setBusId(int busId) {
         this.busId = busId;
@@ -35,11 +33,7 @@ public class Bus {
         this.busNo = busNo;
     }
 
-    public int getBusTypeId() {
-        return busTypeId;
-    }
+    public BusType getBusType() { return busType; }
 
-    public void setBusTypeId(int busTypeId) {
-        this.busTypeId = busTypeId;
-    }
+    public void setBusType(BusType busType) { this.busType = busType; }
 }

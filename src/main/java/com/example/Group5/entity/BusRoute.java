@@ -35,9 +35,9 @@ public class BusRoute {
     @Column(name = "FARE", nullable = false, precision = 0)
     private double fare;
 
-    @Basic
-    @Column(name = "BUS_ID", nullable = false)
-    private int busId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "BUS_ID", nullable = false)
+    private Bus bus;
 
 
     public int getRouteId() { return routeId; }
@@ -94,10 +94,7 @@ public class BusRoute {
         this.fare = fare;
     }
 
-    public int getBusId() { return busId; }
+    public Bus getBus() { return bus; }
 
-    public void setBusId(int busId) {
-        this.busId = busId;
-    }
-
+    public void setBus(Bus bus) { this.bus = bus; }
 }

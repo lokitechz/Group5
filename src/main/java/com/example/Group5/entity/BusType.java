@@ -8,10 +8,10 @@ public class BusType {
 
     @Id
     @GeneratedValue
-    @Column(name = "Bus_type_Id", nullable = false)
+    @Column(name = "BUS_TYPE_ID", nullable = false)
     private int busTypeId;
 
-    @Column(name = "Type", nullable = false)
+    @Column(name = "TYPE", nullable = false)
     private String busType;
 
     @Column(name = "TOTAL_SEAT", nullable = false)

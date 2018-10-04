@@ -91,25 +91,25 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Số xe:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="'B1-'+${BusInfo.busNo}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="'B1-'+${busRoute.bus.busNo}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Loại xe:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${BusTypeInfo.busType}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busRoute.bus.busType.busType}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Hành trình:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${BusRouteInfo.origin + ' - ' + BusRouteInfo.destination}"></label>
+                                   th:text="${busRoute.origin + ' - ' + busRoute.destination}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Ngày khởi hành:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold"
-                                   th:text="${#dates.format(BusRouteInfo.departureDate,'dd-MM-yyyy')}"></label>
+                                   th:text="${#dates.format(busRoute.departureDate,'dd-MM-yyyy')}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Thời gian:</label>
-                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${BusRouteInfo.arrivaltime}"></label>
+                            <label class="col-sm-6 col-form-label font-weight-bold" th:text="${busRoute.arrivaltime}"></label>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label">Số vẽ đã đặt:</label>
@@ -119,14 +119,14 @@
                         <div class="form-group row" style="color: black">
                             <label class="col-sm-6 col-form-label font-weight-bold fs-20">Tổng tiền:</label>
                             <label class="col-sm-6 col-form-label font-weight-bold fs-20 text-right"
-                                   th:text="${#numbers.formatDecimal(BusRouteInfo.fare * ticketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
+                                   th:text="${#numbers.formatDecimal(busRoute.fare * ticketInfo.amount,2,0,'COMMA')}+' '+'đ'"></label>
                         </div>
                     </div>
                 </div>
                 <div class="card mt-10" style="border: 1px solid rgba(0,0,0,0.125);border-radius: .25rem;">
                     <div class="card-header text-center">Chọn phương thức thanh toán</div>
                     <div class="row text-center">
-                        <form class="col-sm-12 mt-3" th:action="@{'/payment/'+ ${BusRouteInfo.getRouteId()}}" method="POST">
+                        <form class="col-sm-12 mt-3" th:action="@{'/payment/'+ ${busRoute.getRouteId()}}" method="POST">
                             <input hidden th:value="${ticketInfo.amount}" th:name="amount">
                             <label class="radio-inline btn btn-success">
                                 <input type="radio" th:name="paymentOp" th:value="1" checked>
