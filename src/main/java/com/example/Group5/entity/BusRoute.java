@@ -1,46 +1,53 @@
 package com.example.Group5.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "bus_route")
 public class BusRoute {
 
     @Id
-    @GeneratedValue
-    @Column(name = "Route_Id", nullable = false)
-    private int busRouteId;
+    @Column(name = "ROUTE_ID", nullable = false)
+    private int routeId;
 
-    @Column(name = "Origin", nullable = false)
+    @Basic
+    @Column(name = "ORIGIN", nullable = false, length = 50)
     private String origin;
 
-    @Column(name = "Destination", nullable = false)
+    @Basic
+    @Column(name = "DESTINATION", nullable = false, length = 50)
     private String destination;
 
-    @Column(name = "Break_Point", nullable = false)
+    @Basic
+    @Column(name = "BREAK_POINT", nullable = false)
     private String breakPoint;
 
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    @Column(name = "Departure_Date", nullable = false)
-    private java.sql.Date departureDate;
+    @Basic
+    @Column(name = "DEPARTURE_DATE", nullable = false)
+    private Date departureDate;
 
-    @Column(name = "ARRIVALTIME", nullable = false)
-    private String arrivalTime;
+    @Basic
+    @Column(name = "ARRIVALTIME", nullable = false, length = 50)
+    private String arrivaltime;
 
-    @Column(name = "FARE", nullable = false)
-    private float fare;
+    @Basic
+    @Column(name = "FARE", nullable = false, precision = 0)
+    private double fare;
 
-    public int getBusRouteId() {
-        return busRouteId;
+    @Basic
+    @Column(name = "BUS_ID", nullable = false)
+    private int busId;
+
+
+    public int getRouteId() {
+        return routeId;
     }
 
-    public void setBusRouteId(int busRouteId) {
-        this.busRouteId = busRouteId;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public String getOrigin() {
@@ -67,27 +74,36 @@ public class BusRoute {
         this.breakPoint = breakPoint;
     }
 
-    public java.sql.Date getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(java.sql.Date departureDate) {
+    public void setDepartureDate(Date departureDate) {
         this.departureDate = departureDate;
     }
 
-    public String getArrivalTime() {
-        return arrivalTime;
+    public String getArrivaltime() {
+        return arrivaltime;
     }
 
-    public void setArrivalTime(String arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setArrivaltime(String arrivaltime) {
+        this.arrivaltime = arrivaltime;
     }
 
-    public float getFare() {
+    public double getFare() {
         return fare;
     }
 
-    public void setFare(float fare) {
+    public void setFare(double fare) {
         this.fare = fare;
     }
+
+    public int getBusId() {
+        return busId;
+    }
+
+    public void setBusId(int busId) {
+        this.busId = busId;
+    }
+
 }

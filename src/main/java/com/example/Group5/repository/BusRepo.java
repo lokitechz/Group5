@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface BusRepo extends PagingAndSortingRepository<Bus, Integer> {
     List<Bus> findAllByBusNo(String busNo);
+
     List<Bus> findAllByBusId(int Id);
 }

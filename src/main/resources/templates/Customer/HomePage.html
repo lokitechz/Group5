@@ -117,7 +117,7 @@
 
 <!-- Start list -->
 <section class="col-12 mt-50 mb-50">
-    <div class="col-sm-12" th:if="${listSearch != null}">
+    <div class="col-sm-12" th:if="${result != null}">
         <div class="card">
             <div class="card-body">
                 <h4 class="text-center mb-5">Kết quả tìm kiếm</h4>
@@ -137,21 +137,21 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="bus : ${listSearch}">
-                            <td th:text="'B1-'+ ${bus.busNo}"></td>
-                            <td th:text="${bus.busType.busType}"></td>
-                            <td th:text="${bus.busRoute.origin}"></td>
-                            <td th:text="${bus.busRoute.destination}"></td>
-                            <td th:text="${#dates.format(bus.busRoute.departureDate,'dd-MM-yyyy')}"></td>
-                            <td th:text="${bus.busRoute.arrivalTime}"></td>
-                            <td th:text="${#numbers.formatDecimal(bus.busRoute.fare,2,0,'COMMA')}+' '+'đ'"></td>
+                        <tr>
+                            <td th:text="'B1-'+ ${busInfo.busNo}"></td>
+                            <td th:text="${busTypeInfo.busType}"></td>
+                            <td th:text="${result.origin}"></td>
+                            <td th:text="${result.destination}"></td>
+                            <td th:text="${#dates.format(result.departureDate,'dd-MM-yyyy')}"></td>
+                            <td th:text="${result.arrivaltime}"></td>
+                            <td th:text="${#numbers.formatDecimal(result.fare,2,0,'COMMA')}+' '+'đ'"></td>
                             <td>
                                 <span class="mdi mdi-ticket-confirmation">
-                                    <a th:href="@{'/customer/booking-ticket/'+ ${bus.getId()}}">Đặt vé</a>
+                                    <a th:href="@{'/customer/booking-ticket/'+ ${busInfo.getBusId()}}">Đặt vé</a>
                                 </span>
                             </td>
-                            <td th:text="${bus.busType.totalSeat - totalSold}" th:if="${bus.getId() == TicketInfo}"></td>
-                            <td th:text="${bus.busType.totalSeat}" th:unless="${bus.getId() == TicketInfo}"></td>
+                            <td th:text="${busTypeInfo.totalSeat - totalSold}" th:if="${totalSold != null}"></td>
+                            <td th:text="${soldOut}" th:unless="${totalSold != null}"></td>
                         </tr>
                         </tbody>
                     </table>

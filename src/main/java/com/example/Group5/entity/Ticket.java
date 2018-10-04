@@ -1,60 +1,47 @@
 package com.example.Group5.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 @Entity
 @Table(name = "ticket")
 public class Ticket {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "TICKET_ID", nullable = false)
     private int ticketId;
 
     @Basic
-    @Column(name = "BUS_ID", nullable = false)
-    private int busId;
-
-    @Basic
-    @Column(name = "USER_ID", nullable = false)
-    private int passengerId;
+    @Column(name = "ROUTE_ID", nullable = false)
+    private int routeId;
 
     @Basic
     @Column(name = "AMOUNT", nullable = false)
     private int amount;
 
     @Basic
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @CreationTimestamp
     @Column(name = "BOOKING_DATE", nullable = false)
     private Date bookingDate;
 
-    @Column(name = "STATUS", length = 1, nullable = false)
-    private boolean status;
+    @Basic
+    @Column(name = "STATUS")
+    private Boolean status;
 
-    public int getTicketId() { return ticketId; }
+
+    public int getTicketId() {
+        return ticketId;
+    }
 
     public void setTicketId(int ticketId) {
         this.ticketId = ticketId;
     }
 
-    public int getBusId() {
-        return busId;
+    public int getRouteId() {
+        return routeId;
     }
 
-    public void setBusId(int busId) {
-        this.busId = busId;
-    }
-
-    public int getPassengerId() {
-        return passengerId;
-    }
-
-    public void setPassengerId(int passengerId) {
-        this.passengerId = passengerId;
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
     }
 
     public int getAmount() {
@@ -73,7 +60,12 @@ public class Ticket {
         this.bookingDate = bookingDate;
     }
 
-    public boolean isStatus() { return status; }
+    public Boolean getStatus() {
+        return status;
+    }
 
-    public void setStatus(boolean status) { this.status = status; }
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
 }
