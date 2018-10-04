@@ -9,12 +9,10 @@ import com.example.Group5.utils.EncrytedPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -63,8 +61,25 @@ public class UserController {
 
     //  Trả về trang thông tin cá nhân của tài khoản
     @RequestMapping(value = "/{username}")
-    public String userInfo(@PathVariable String username) {
+    public String userInfo(@PathVariable String username, Model model) {
+        AppUser appUser = appUserRepo.findAppUserByUserName(username);
+        model.addAttribute("appUser", appUser);
         return "Common/UserInfoPage";
+    }
+
+    //  Luư thông tin nhân viên sau khi chỉnh sửa
+    @RequestMapping(value = "/updateInfo", method = RequestMethod.POST)
+    public String updateInfo(RedirectAttributes red, Principal principal, @ModelAttribute AppUser appUser) {
+        AppUser userInfo = appUserRepo.findAppUserByUserName(principal.getName());
+        userInfo.setFullName(appUser.getFullName());
+        userInfo.setAge(appUser.getAge());
+        userInfo.setEmail(appUser.getEmail());
+        userInfo.setPhone(appUser.getPhone());
+        userInfo.setAddress(appUser.getAddress());
+        appUser.setEnabled(true);
+        appUserRepo.save(userInfo);
+        red.addFlashAttribute("updateSucess", "Cập nhật thông tin thành công");
+        return "redirect:/";
     }
 
     //  Chuyển sang trang đổi mật khẩu

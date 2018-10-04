@@ -166,10 +166,10 @@ public class MainController {
         ticketRepo.save(ticket);
         String subject = "Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
         String TicketInfo = "<h3>Đây là thông tin chi tiết vé xe của bạn</h3>"
-                + "<div>Họ và tên: " + appUserRepo.findAppUserByUserName(username).getFullName() + "</div>"
-                + "<div>Email: " + appUserRepo.findAppUserByUserName(username).getEmail() + "</div>"
-                + "<div>Số điện thoại: " + appUserRepo.findAppUserByUserName(username).getPhone() + "</div>"
-                + "<div>Tuổi: " + appUserRepo.findAppUserByUserName(username).getAge() + "</div>"
+                + "<div>Họ và tên: " + appUser.getFullName() + "</div>"
+                + "<div>Email: " + appUser.getEmail() + "</div>"
+                + "<div>Số điện thoại: " + appUser.getPhone() + "</div>"
+                + "<div>Tuổi: " + appUser.getAge() + "</div>"
                 + "<div>Mã vé: TK-" + ticket.getTicketId() + "</div>"
                 + "<div>Số xe đã đặt: " + ticket.getAmount() + "</div>"
                 + "<h4>Lưu lý: Khi đến quầy quý khách vui lòng xuất trình mã vé để có thể lấy vé</h4>";
@@ -181,7 +181,7 @@ public class MainController {
         try {
             sendHTMLMail("vuachom94@gmail.com", notification, notificationContent);
             sendHTMLMail(appUserRepo.findAppUserByUserName(username).getEmail(), subject, TicketInfo);
-        } catch (MessagingException e){
+        } catch (MessagingException e) {
             red.addFlashAttribute("sendMailError", "Server đang gặp sự cố,quý khách vui lòng quay lại sau");
             return "redirect:/customer/booking-ticket/{id}";
         }
