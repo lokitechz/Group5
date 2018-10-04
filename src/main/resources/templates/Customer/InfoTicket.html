@@ -127,8 +127,8 @@
                     <div class="card-header text-center">Chọn phương thức thanh toán</div>
                     <div class="row text-center">
                         <form class="col-sm-12 mt-3" th:action="@{'/payment/'+ ${BusRouteInfo.getRouteId()}}" method="POST">
+                            <input hidden th:value="${ticketInfo.amount}" th:name="amount">
                             <label class="radio-inline btn btn-success">
-                                <input hidden th:value="${ticketInfo.amount}" th:name="amount">
                                 <input type="radio" th:name="paymentOp" th:value="1" checked>
                                 Thanh toán online
                                 <span class="mdi mdi-credit-card-multiple"></span>

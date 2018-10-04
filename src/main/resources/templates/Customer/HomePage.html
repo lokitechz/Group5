@@ -145,10 +145,13 @@
                             <td th:text="${#dates.format(result.departureDate,'dd-MM-yyyy')}"></td>
                             <td th:text="${result.arrivaltime}"></td>
                             <td th:text="${#numbers.formatDecimal(result.fare,2,0,'COMMA')}+' '+'đ'"></td>
-                            <td>
+                            <td th:if="${totalSold != null}">
                                 <span class="mdi mdi-ticket-confirmation">
                                     <a th:href="@{'/customer/booking-ticket/'+ ${busInfo.getBusId()}}">Đặt vé</a>
                                 </span>
+                            </td>
+                            <td th:unless="${totalSold != null}">
+                                <span>Không có thao tác</span>
                             </td>
                             <td th:text="${busTypeInfo.totalSeat - totalSold}" th:if="${totalSold != null}"></td>
                             <td th:text="${soldOut}" th:unless="${totalSold != null}"></td>

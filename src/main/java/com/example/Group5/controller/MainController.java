@@ -162,6 +162,7 @@ public class MainController {
         ticket.setAmount(amount);
         ticket.setRouteId(id);
         ticket.setUserId(appUserRepo.findAppUserByUserName(username).getUserId());
+        ticket.setStatus(false);
         ticketRepo.save(ticket);
         String subject = "Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi";
         String TicketInfo = "<h3>Đây là thông tin chi tiết vé xe của bạn</h3>"

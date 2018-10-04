@@ -9,6 +9,8 @@
       <mapping class="com.example.Group5.entity.Booking"/>
       <mapping class="com.example.Group5.entity.Passenger"/>
       <mapping class="com.example.Group5.entity.Ticket"/>
+      <mapping class="com.example.Group5.entity.Bus"/>
+      <mapping class="com.example.Group5.entity.BusRoute"/>
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
