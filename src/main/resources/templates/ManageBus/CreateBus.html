@@ -36,16 +36,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="text-center">Tạo mới hành trình</h4>
-                                        <form th:object="${bus}" th:action="@{/manage-bus/create}" method="POST">
+                                            <form th:object="${bus}" th:action="@{/manage-bus/create}" method="POST">
                                             <div class="col-sm-12">
                                                 <div class="form-group col-sm-4 offset-4 text-center">
                                                     <label for="inputBusno">Số xe</label>
                                                     <input id="inputBusno" type="text" class="form-control" th:field="*{busNo}"
-                                                           pattern="[0-9.]+" maxlength="5"
-                                                           required style="height: calc(2.25rem + 2px);">
-                                                    <div>
-                                                        <div th:text="${ErrorMessage}" style="color: red; font-size: small"></div>
-                                                    </div>
+                                                           pattern="[0-9.]+" maxlength="5" required style="height: calc(2.25rem + 2px);">
                                                 </div>
                                                 <div class="form-group col-sm-4 offset-4 text-center">
                                                     <label for="type">Loại xe</label>

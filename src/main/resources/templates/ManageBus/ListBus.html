@@ -48,8 +48,8 @@
                                                     <td th:text="${bus.busType.busType}"></td>
                                                     <td th:text="${bus.busType.totalSeat}"></td>
                                                     <td>
-                                                        <span class="mdi mdi-pencil">
-                                                            <a th:href="@{'/manage-bus/update/' + ${bus.getBusId()}}">Sửa</a>
+                                                        <span class="mdi mdi-delete">
+                                                            <a th:href="@{'/manage-bus/delete/' + ${bus.getBusId()}}">Xóa</a>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -76,6 +76,20 @@
     if ([[${msgsuccess}]]) {
         $.notify({
             message: [[${msgsuccess}]]
+        }, {
+            type: 'success'
+        });
+    }
+    if ([[${msgDelete}]]) {
+        $.notify({
+            message: [[${msgDelete}]]
+        }, {
+            type: 'danger'
+        });
+    }
+    if ([[${msgSuccess1}]]) {
+        $.notify({
+            message: [[${msgSuccess1}]]
         }, {
             type: 'success'
         });
