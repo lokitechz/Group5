@@ -81,8 +81,7 @@
                                                 <div class="form-group col-md-4">
                                                     <label for="bus">Số xe</label>
                                                     <select id="bus" name="bus" class="form-control">
-                                                        <option th:each="bus : ${busList}" th:value="${bus.busId}"
-                                                                th:text="'B1-'+ ${bus.busNo}"></option>
+                                                        <option th:each="bus : ${busList}" th:value="${bus.busId}" th:text="'B1-'+ ${bus.busNo}"></option>
                                                     </select>
                                                 </div>
                                             </div>
