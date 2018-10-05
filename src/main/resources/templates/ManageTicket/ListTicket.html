@@ -14,7 +14,7 @@
 
 <body>
 <style>
-    .table td{
+    .table td {
         font-size: 11px;
     }
 </style>
@@ -31,40 +31,8 @@
                             <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Danh sách những khách hàng đã đặt vé</h4>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>Họ và tên</th>
-                                                    <th>Số điện thoại</th>
-                                                    <th>Email</th>
-                                                    <th>Tuổi</th>
-                                                    <th>Số lượng</th>
-                                                    <th>Ngày đặt</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Thao tác</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="cus : ${CustomerInfo}">
-                                                    <td th:text="${cus.fullName}"></td>
-                                                    <td th:text="${cus.phone}"></td>
-                                                    <td th:text="${cus.email}"></td>
-                                                    <td th:text="${cus.age}"></td>
-                                                    <td th:text="${TicketInfo.amount}"></td>
-                                                    <td th:text="${#dates.format(TicketInfo.bookingDate,'dd-MM-yyyy')}"></td>
-                                                    <td th:if="${TicketInfo.status == false}" th:text="'Chưa thanh toán'" ></td>
-                                                    <td th:unless="${TicketInfo.status == false}" th:text="'Đã thanh toán'" ></td>
-                                                    <td>
-                                                        <span class="mdi mdi-pencil mr-5">
-                                                            <a th:href="@{'/manage-bus/updateTicket/' + ${TicketInfo.getTicketId()}}">Sửa</a>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                        <h4 class="text-center">Tìm kiếm thông tin về danh sách vé xe</h4>
+
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +49,7 @@
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
 <script>
-    $('.nav .nav-item:nth-child(4)').addClass('active');
+    $('.nav .nav-item:nth-child(5)').addClass('active');
 </script>
 </body>
 </html>

@@ -1,7 +1,8 @@
 package com.example.Group5.controller;
 
+import com.example.Group5.entity.AppUser;
 import com.example.Group5.entity.Ticket;
-import com.example.Group5.repository.BusRepo;
+import com.example.Group5.repository.AppUserRepo;
 import com.example.Group5.repository.BusRouteRepo;
 import com.example.Group5.repository.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminController {
@@ -22,6 +26,9 @@ public class AdminController {
 
     @Autowired
     BusRouteRepo busRouteRepo;
+
+    @Autowired
+    AppUserRepo appUserRepo;
 
     //  Trả về trang thống kê số liệu
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
@@ -43,44 +50,9 @@ public class AdminController {
         return "Common/Dashboard";
     }
 
-
+    //  Trả về danh sách những vé đã bán
+    @RequestMapping(value = "/manage-ticket", method = RequestMethod.GET)
+    public String listTicket(Model model) {
+        return "ManageTicket/ListTicket";
+    }
 }
-//
-//    // Tìm tất danh sách những khách hàng đã đặt vé xe theo mã xe
-//    @RequestMapping(value = "/manage-bus/details/{id}", method = RequestMethod.GET)
-//    public String listTicket(@PathVariable int id, Model model) {
-//        List<Ticket> tickets = ticketRepo.findAllByBusId(id);
-//        for (Ticket ticket : tickets) {
-//            List<AppUser> appUsers = (List<AppUser>) appUserRepo.findAll();
-//            List<AppUser> customers = new ArrayList<>();
-//            for (AppUser customer : appUsers) {
-//                if (ticket.getPassengerId() == customer.getUserId()) {
-////                    customers.add(customer);
-//                    model.addAttribute("CustomerInfo", customers);
-//                }
-//            }
-//            model.addAttribute("TicketInfo", ticket);
-//        }
-//        return "ManageTicket/ListTicket";
-//    }
-//
-//    //  Trả về trang sửa trạng thái của vé
-//    @RequestMapping(path = "/manage-bus/updateTicket/{id}", method = RequestMethod.GET)
-//    public String editTicketPage(@PathVariable int id, Model model) {
-//        Optional<Ticket> ticket = ticketRepo.findById(id);
-//        if (ticket.isPresent()) {
-//            model.addAttribute("detailTicket", ticket.get());
-//        }
-//        return "ManageTicket/UpdateTicket";
-//    }
-//
-//    // Lưu trạng thái của vé lên DB
-//    @RequestMapping(value = "/manage-bus/updateTicket/{id}", method = RequestMethod.POST)
-//    public String updateTicket(@PathVariable int id, @ModelAttribute Ticket ticket, RedirectAttributes red) {
-//        Ticket item = ticketRepo.findById(id).get();
-//        item.setStatus(ticket.isStatus());
-//        ticketRepo.save(item);
-//        red.addFlashAttribute("msg", "Cập nhật thành công");
-//        return "redirect:/manage-bus";
-//    }
-//}

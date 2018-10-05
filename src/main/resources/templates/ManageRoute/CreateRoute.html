@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -64,13 +64,12 @@
                                                     <label for="inputdepartureDate">Ngày khởi hành</label>
                                                     <input type="date" class="form-control" id="inputdepartureDate" required
                                                            th:field="*{departureDate}">
-                                                    <div style="color: red; font-size: 12px" th:text="${error}"></div>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="inputarrivalTime">Thời gian tính dự</label>
                                                     <input type="text" class="form-control custom-height" id="inputarrivalTime"
                                                            placeholder="Thời gian tính dự"
-                                                           th:field="*{arrivalTime}" required>
+                                                           th:field="*{arrivaltime}" required>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="inuputFare">Giá vé</label>
@@ -78,7 +77,17 @@
                                                            th:field="*{fare}" pattern="[0-9.]+" required>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Tạo mới</button>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <label for="bus">Số xe</label>
+                                                    <select id="bus" name="bus" class="form-control">
+                                                        <option th:each="bus : ${busList}" th:value="${bus.busId}"
+                                                                th:text="'B1-'+ ${bus.busNo}"></option>
+                                                    </select>
+                                                    <div style="color: red; font-size: 12px" th:text="${exist}"></div>
+                                                </div>
+                                            </div>
+                                                <button type="submit" class="btn btn-primary">Tạo mới</button>
                                         </form>
                                     </div>
                                 </div>
@@ -96,7 +105,31 @@
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
 <script>
-    $('.nav .nav-item:nth-child(6)').addClass('active');
+    $('.nav .nav-item:nth-child(4)').addClass('active');
+</script>
+
+<script th:inline="javascript">
+    if ([[${success}]]) {
+        $.notify({
+            message: [[${success}]]
+        }, {
+            type: 'success'
+        });
+    }
+    if ([[${isEmpty}]]) {
+        $.notify({
+            message: [[${isEmpty}]]
+        }, {
+            type: 'info'
+        });
+    }
+    if ([[${updateSucess}]]) {
+        $.notify({
+            message: [[${exist}]]
+        }, {
+            type: 'success'
+        });
+    }
 </script>
 </body>
 </html>

@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/dashboard").access("hasAnyRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/manage-bus", "/manage-bus/**").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/manage-route", "/manage-route/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/manage-ticket", "/manage-ticket/**").access("hasRole('ROLE_ADMIN')");
         // Khi người dùng đã login, với vai trò XX.
         // Nhưng truy cập vào trang yêu cầu vai trò YY,
         // Ngoại lệ AccessDeniedException sẽ ném ra.

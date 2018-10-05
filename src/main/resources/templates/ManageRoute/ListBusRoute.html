@@ -42,25 +42,27 @@
                                                     <th>Điểm dừng chân</th>
                                                     <th>Ngày khởi hành</th>
                                                     <th>Thời gian</th>
+                                                    <th>Số xe</th>
                                                     <th>Giá vé</th>
                                                     <th>Thao tác</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <tr th:each="route : ${busRouteList}">
-                                                    <td th:text="${route.busRouteId}"></td>
+                                                    <td th:text="${route.routeId}"></td>
                                                     <td th:text="${route.origin}"></td>
                                                     <td th:text="${route.destination}"></td>
                                                     <td th:text="${route.breakPoint}"></td>
                                                     <td th:text="${#dates.format(route.departureDate,'dd-MM-yyyy')}"></td>
-                                                    <td th:text="${route.arrivalTime}"></td>
+                                                    <td th:text="${route.arrivaltime}"></td>
+                                                    <td th:text="'B1-'+ ${route.bus.busNo}"></td>
                                                     <td th:text="${#numbers.formatDecimal(route.fare,2,0,'COMMA')}+' '+'đ'"></td>
                                                     <td>
                                                         <span class="mdi mdi-pencil mr-5">
-                                                            <a th:href="@{'/manage-route/update/' + ${route.getBusRouteId()}}">Sửa</a>
+                                                            <a th:href="@{'/manage-route/update/' + ${route.routeId}}">Sửa</a>
                                                         </span>
                                                         <span class="mdi mdi-delete">
-                                                            <a th:href="@{'/manage-route/delete/' + ${route.getBusRouteId()}}">Xoá</a>
+                                                            <a th:href="@{'/manage-route/delete/' + ${route.routeId}}">Xoá</a>
                                                         </span>
                                                     </td>
                                                 </tr>

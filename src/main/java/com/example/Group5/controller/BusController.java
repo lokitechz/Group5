@@ -70,16 +70,13 @@ public class BusController {
     //  Xoá xe
     @RequestMapping(value = "/manage-bus/delete/{id}", method = RequestMethod.GET)
     public String deleteBus(@PathVariable int id, Model model, RedirectAttributes red) {
-        Bus bus = busRepo.findById(id).get();
-        List<BusRoute> listBusRoutes = (List<BusRoute>) busRouteRepo.findAll();
-        for (BusRoute busRoute : listBusRoutes) {
-            if (busRoute.getBus().getBusId() == bus.getBusId()) {
-                red.addFlashAttribute("msgDelete", "Xe đang thuộc 1 tuyến đường không thể xóa");
-                return "redirect:/manage-bus";
-            } else {
-                busRepo.delete(bus);
-                red.addFlashAttribute("msgSuccess1", "Xóa thành công");
-            }
+        Optional<Bus> bus = busRepo.findById(id);
+        if (busRouteRepo.findAllByBus(bus.get()).size() == 0) {
+            busRepo.deleteById(id);
+            red.addFlashAttribute("msgSuccess1", "Xóa thành công");
+        } else {
+            red.addFlashAttribute("msgDelete", "Xe đang thuộc 1 tuyến đường không thể xóa");
+            return "redirect:/manage-bus";
         }
         return "redirect:/manage-bus";
     }

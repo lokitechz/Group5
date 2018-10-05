@@ -1,6 +1,8 @@
 package com.example.Group5.controller;
 
-import com.example.Group5.entity.*;
+import com.example.Group5.entity.AppUser;
+import com.example.Group5.entity.BusRoute;
+import com.example.Group5.entity.Ticket;
 import com.example.Group5.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
