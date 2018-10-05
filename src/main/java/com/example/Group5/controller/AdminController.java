@@ -1,17 +1,49 @@
 package com.example.Group5.controller;
 
+import com.example.Group5.entity.Ticket;
+import com.example.Group5.repository.BusRepo;
+import com.example.Group5.repository.BusRouteRepo;
+import com.example.Group5.repository.TicketRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 @Controller
 public class AdminController {
 
+    @Autowired
+    TicketRepo ticketRepo;
+
+    @Autowired
+    BusRouteRepo busRouteRepo;
+
     //  Trả về trang thống kê số liệu
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-    public String Dashboard() {
+    public String Dashboard(Model model) {
+        int total = 0;
+        int revenue = 0;
+        int order = 0;
+        for (int x = 0; x <= 7; x++) {
+            for (Ticket ticket : ticketRepo.findAllByBookingDate(Date.from(LocalDate.now().minusDays(x).atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
+                total += ticket.getAmount();
+                order++;
+                int perBusRoute = ticket.getAmount();
+                revenue += busRouteRepo.findById(ticket.getRouteId()).get().getFare() * perBusRoute;
+            }
+        }
+        model.addAttribute("DashboardTicket", order);
+        model.addAttribute("DashboardWeeklySale", total);
+        model.addAttribute("revenue", Integer.toString(revenue));
         return "Common/Dashboard";
     }
+
+
 }
 //
 //    // Tìm tất danh sách những khách hàng đã đặt vé xe theo mã xe
