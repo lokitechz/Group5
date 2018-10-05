@@ -14,4 +14,6 @@ public interface BusRouteRepo extends PagingAndSortingRepository<BusRoute, Integ
     BusRoute search(String from, String to, Date date);
 
     List<BusRoute> findAllByBus(Bus bus);
+
+    List<BusRoute> findBusRouteByDepartureDate(java.sql.Date date);
 }

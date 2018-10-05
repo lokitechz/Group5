@@ -75,7 +75,7 @@ public class BusController {
             busRepo.deleteById(id);
             red.addFlashAttribute("msgSuccess1", "Xóa thành công");
         } else {
-            red.addFlashAttribute("msgDelete", "Xe đang thuộc 1 tuyến đường không thể xóa");
+            red.addFlashAttribute("msgDelete", "Xe đang chạy 1 tuyến đường không thể xóa");
             return "redirect:/manage-bus";
         }
         return "redirect:/manage-bus";
