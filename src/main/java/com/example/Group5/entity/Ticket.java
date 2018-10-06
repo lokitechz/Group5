@@ -19,8 +19,9 @@ public class Ticket {
     private int routeId;
 
     @Basic
-    @Column(name = "USER_ID", nullable = false)
-    private int userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "User_Id", nullable = false)
+    private AppUser customer;
 
     @Basic
     @Column(name = "AMOUNT", nullable = false)
@@ -52,13 +53,9 @@ public class Ticket {
         this.routeId = routeId;
     }
 
-    public int getUserId() {
-        return userId;
-    }
+    public AppUser getCustomer() { return customer; }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+    public void setCustomer(AppUser customer) { this.customer = customer; }
 
     public int getAmount() {
         return amount;

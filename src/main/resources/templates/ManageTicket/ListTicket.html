@@ -13,11 +13,6 @@
 </head>
 
 <body>
-<style>
-    .table td {
-        font-size: 11px;
-    }
-</style>
 <div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
     <th:block th:include="Common/HorizontalNavbar"/>
     <!-- Siderbar bên trái -->
@@ -31,8 +26,36 @@
                             <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Tìm kiếm thông tin về danh sách vé xe</h4>
-
+                                        <h4 class="text-center">Quản lý vé xe</h4>
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead class="text-center">
+                                                <tr>
+                                                    <th>Mã vé</th>
+                                                    <th>Người đặt</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Ngày đặt</th>
+                                                    <th>Trạng thái</th>
+                                                    <!--<th>Thao tác</th>-->
+                                                </tr>
+                                                </thead>
+                                                <tbody class="text-center">
+                                                <tr th:each="ticket : ${tickets}">
+                                                    <td th:text="'TK-'+ ${ticket.ticketId}"></td>
+                                                    <td th:text="${ticket.customer.fullName}"></td>
+                                                    <td th:text="${ticket.amount}"></td>
+                                                    <td th:text="${ticket.bookingDate}"></td>
+                                                    <td th:if="${ticket.status == false}" th:text="'Chưa thanh toán'"></td>
+                                                    <td th:unless="${ticket.status == false}" th:text="'Đã thanh toán'"></td>
+                                                    <!--<td>-->
+                                                    <!--<span class="mdi mdi-delete">-->
+                                                    <!--<a th:href="@{'/manage-bus/delete/' + ${bus.getBusId()}}">Xóa</a>-->
+                                                    <!--</span>-->
+                                                    <!--</td>-->
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

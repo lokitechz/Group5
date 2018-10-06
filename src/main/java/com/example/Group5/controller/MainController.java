@@ -145,7 +145,7 @@ public class MainController {
         AppUser appUser = appUserRepo.findAppUserByUserName(principal.getName());
         ticket.setAmount(amount);
         ticket.setRouteId(id);
-        ticket.setUserId(appUserRepo.findAppUserByUserName(username).getUserId());
+        ticket.setCustomer(appUserRepo.findAppUserByUserName(username));
         ticket.setStatus(false);
         ticketRepo.save(ticket);
         String subject = "Cảm ơn bạn đã sử dụng dịch vụ của chúng tôi";

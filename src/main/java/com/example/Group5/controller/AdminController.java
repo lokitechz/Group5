@@ -53,6 +53,8 @@ public class AdminController {
     //  Trả về danh sách những vé đã bán
     @RequestMapping(value = "/manage-ticket", method = RequestMethod.GET)
     public String listTicket(Model model) {
+        List<Ticket> tickets = (List<Ticket>) ticketRepo.findAll();
+        model.addAttribute("tickets", tickets);
         return "ManageTicket/ListTicket";
     }
 }
