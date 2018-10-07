@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+<div class="container-scroller">
     <th:block th:include="Common/HorizontalNavbar"/>
     <!-- Siderbar bên trái -->
     <div class="container-fluid page-body-wrapper">
@@ -26,7 +26,7 @@
                             <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Quản lý vé xe</h4>
+                                        <h4 class="text-center">Danh sách vé xe của tuyến đường</h4>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead class="text-center">
@@ -48,8 +48,8 @@
                                                     <td th:if="${ticket.status == false}" th:text="'Chưa thanh toán'"></td>
                                                     <td th:unless="${ticket.status == false}" th:text="'Đã thanh toán'"></td>
                                                     <td>
-                                                        <span class="mdi mdi-pencil">
-                                                            <a th:href="@{'/manage-bus/update/' + ${ticket.getTicketId()}}">Cập nhật</a>
+                                                         <span class="mdi mdi-pencil">
+                                                            <a th:href="@{'/manage-route/ticket/update/' + ${ticket.ticketId}}">Sửa</a>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -71,8 +71,18 @@
 <script src="/vendors/js/vendor.bundle.addons.js"></script>
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
-<script>
-    $('.nav .nav-item:nth-child(5)').addClass('active');
+<script th:inline="javascript">
+    if ([[${msg}]]) {
+        $.notify({
+            message: [[${msg}]]
+        }, {
+            type: 'success'
+        });
+    }
 </script>
+<script>
+    $('.nav .nav-item:nth-child(4)').addClass('active');
+</script>
+
 </body>
 </html>

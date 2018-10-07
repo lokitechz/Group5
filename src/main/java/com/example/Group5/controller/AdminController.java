@@ -1,6 +1,5 @@
 package com.example.Group5.controller;
 
-import com.example.Group5.entity.AppUser;
 import com.example.Group5.entity.Ticket;
 import com.example.Group5.repository.AppUserRepo;
 import com.example.Group5.repository.BusRouteRepo;
@@ -8,15 +7,14 @@ import com.example.Group5.repository.TicketRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class AdminController {
@@ -56,5 +54,13 @@ public class AdminController {
         List<Ticket> tickets = (List<Ticket>) ticketRepo.findAll();
         model.addAttribute("tickets", tickets);
         return "ManageTicket/ListTicket";
+    }
+
+    //  Trả về trang danh sách các vé đã bán theo hành trình
+    @RequestMapping(value = "manage-route/tickets/{id}", method = RequestMethod.GET)
+    public String listTicketByRoute(Model model, @PathVariable int id) {
+        List<Ticket> tickets = ticketRepo.findAllByRouteId(id);
+        model.addAttribute("tickets", tickets);
+        return "ManageRoute/ListTicket";
     }
 }
