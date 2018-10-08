@@ -55,7 +55,7 @@ public class BusController {
             } else if (bus.getBusNo() == 0 || bus.getBusNo() < 10000) {
                 List<BusType> typeList = (List<BusType>) busTypeRepo.findAll();
                 model.addAttribute("listBusType", typeList);
-                model.addAttribute("msgerror1", "Số xe phải là số có 5 chữ số");
+                model.addAttribute("msgerror1", "Số xe phải là số có 5 chữ số và lớn hơn hoặc bằng 1000");
             } else {
                 BusType busType = busTypeRepo.findById(type).get();
                 bus.setBusType(busType);

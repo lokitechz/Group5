@@ -60,7 +60,11 @@ public class AdminController {
     @RequestMapping(value = "manage-route/tickets/{id}", method = RequestMethod.GET)
     public String listTicketByRoute(Model model, @PathVariable int id) {
         List<Ticket> tickets = ticketRepo.findAllByRouteId(id);
-        model.addAttribute("tickets", tickets);
+        if (tickets.size() > 0) {
+            model.addAttribute("tickets", tickets);
+        } else {
+            model.addAttribute("isEmpty", "Danh sách rỗng");
+        }
         return "ManageRoute/ListTicket";
     }
 }

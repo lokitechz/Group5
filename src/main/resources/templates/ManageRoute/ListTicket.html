@@ -26,8 +26,8 @@
                             <div class="col-sm-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="text-center">Danh sách vé xe của tuyến đường</h4>
-                                        <div class="table-responsive">
+                                        <h4 class="text-center">Danh sách vé xe theo tuyến đường</h4>
+                                        <div class="table-responsive" th:if="${tickets != null}">
                                             <table class="table table-striped">
                                                 <thead class="text-center">
                                                 <tr>
@@ -49,13 +49,14 @@
                                                     <td th:unless="${ticket.status == false}" th:text="'Đã thanh toán'"></td>
                                                     <td>
                                                          <span class="mdi mdi-pencil">
-                                                            <a th:href="@{'/manage-route/ticket/update/' + ${ticket.ticketId}}">Sửa</a>
+                                                            <a th:href="@{'/manage-route/ticket/update/' + ${ticket.ticketId}}">Cập nhật</a>
                                                         </span>
                                                     </td>
                                                 </tr>
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <div class="text-center" th:if="${isEmpty != null}" th:text="${isEmpty}"></div>
                                     </div>
                                 </div>
                             </div>
