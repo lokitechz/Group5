@@ -49,7 +49,7 @@
                                                     <td th:unless="${ticket.status == false}" th:text="'Đã thanh toán'"></td>
                                                     <td>
                                                          <span class="mdi mdi-pencil">
-                                                            <a th:href="@{'/manage-route/ticket/update/' + ${ticket.ticketId}}">Cập nhật</a>
+                                                            <a th:href="@{'/ticket/update/' + ${ticket.ticketId}}">Cập nhật</a>
                                                         </span>
                                                     </td>
                                                 </tr>
@@ -72,15 +72,6 @@
 <script src="/vendors/js/vendor.bundle.addons.js"></script>
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
-<script th:inline="javascript">
-    if ([[${msg}]]) {
-        $.notify({
-            message: [[${msg}]]
-        }, {
-            type: 'success'
-        });
-    }
-</script>
 <script>
     $('.nav .nav-item:nth-child(4)').addClass('active');
 </script>

@@ -66,14 +66,18 @@
                                                            th:field="*{departureDate}">
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="inputarrivalTime">Thời gian tính dự</label>
-                                                    <input type="text" class="form-control custom-height" id="inputarrivalTime"
-                                                           placeholder="Thời gian tính dự"
-                                                           th:field="*{arrivaltime}" required>
+                                                    <label for="inputarrivalTime">Thời gian dự tính</label>
+                                                    <select id="inputarrivalTime" th:field="*{arrivaltime}" class="form-control">
+                                                        <option th:value="'8h-12h'">8h-12h</option>
+                                                        <option th:value="'10h-14h'">10h-14h</option>
+                                                        <option th:value="'10h-14h'">10h-14h</option>
+                                                        <option th:value="'14h-18h'">14h-18h</option>
+                                                        <option th:value="'16h-20h'">16h-20h</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="inuputFare">Giá vé</label>
-                                                    <input type="text" class="form-control custom-height" id="inuputFare" th:name="fare"
+                                                    <label for="inputFare">Giá vé</label>
+                                                    <input type="text" class="form-control custom-height" id="inputFare" th:name="fare"
                                                            placeholder="Phải là số lớn hơn 0" pattern="[0-9.]+" required>
                                                 </div>
                                             </div>
@@ -81,7 +85,8 @@
                                                 <div class="form-group col-md-4">
                                                     <label for="bus">Số xe</label>
                                                     <select id="bus" name="bus" class="form-control">
-                                                        <option th:each="bus : ${busList}" th:value="${bus.busId}" th:text="'B1-'+ ${bus.busNo}"></option>
+                                                        <option th:each="bus : ${busList}" th:value="${bus.busId}"
+                                                                th:text="'B1-'+ ${bus.busNo}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -103,7 +108,6 @@
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
 <script src="/js/bootstrap-notify.min.js"></script>
-
 <script th:inline="javascript">
     $('.nav .nav-item:nth-child(4)').addClass('active');
     if ([[${exist}]]) {

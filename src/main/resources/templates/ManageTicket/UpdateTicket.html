@@ -35,22 +35,24 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="text-center mb-5">Cập nhật trạng thái của vé</h4>
-                                        <form th:object="${ticket}" class="form-inline col-sm-6 offset-3" th:action="@{'/manage-bus/updateTicket/' +${detailTicket.ticketId}}" method="post">
+                                        <form th:object="${ticket}" class="form-inline col-sm-6 offset-3"
+                                              th:action="@{'/ticket/update/' +${detailTicket.ticketId}}" method="post">
                                             <div class="form-group col-md-4">
                                                 <label>Trạng thái</label>
                                             </div>
                                             <div class="form-group col-sm-4">
-                                                <select title="Chọn trạng thái" class="form-control col-sm-12" th:if="${detailTicket.status == false}" th:name="status">
+                                                <select title="Chọn trạng thái" class="form-control col-sm-12"
+                                                        th:if="${detailTicket.status == false}" th:name="status">
                                                     <option th:value="${detailTicket.status}" th:text="'Chưa thanh toán'"></option>
                                                     <option th:value="1" th:text="'Đã thanh toán'"></option>
                                                 </select>
-                                                <select title="Chọn trạng thái"  class="form-control col-sm-12" th:unless="${detailTicket.status == false}">
+                                                <select title="Chọn trạng thái" class="form-control col-sm-12"
+                                                        th:unless="${detailTicket.status == false}" th:name="status">
                                                     <option th:value="${detailTicket.status}" th:text="'Đã thanh toán'"></option>
+                                                    <option th:value="0" th:text="'Chưa thanh toán'"></option>
                                                 </select>
                                             </div>
-                                            <button th:if="${detailTicket.status == false}" class="btn btn-primary" type="submit">Cập nhật</button>
-                                            <button th:unless="${detailTicket.status == false}" class="btn btn-primary" type="submit" disabled>Cập nhật
-                                            </button>
+                                            <button class="btn btn-primary" type="submit">Cập nhật</button>
                                         </form>
                                     </div>
                                 </div>
@@ -68,7 +70,7 @@
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
 <script>
-    $('.nav .nav-item:nth-child(4)').addClass('active');
+    $('.nav .nav-item:nth-child(5)').addClass('active');
 </script>
 </body>
 </html>

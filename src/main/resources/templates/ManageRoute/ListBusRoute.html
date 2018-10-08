@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,12 +8,13 @@
     <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/customCSS.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
     <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico"/>
 </head>
 
 <body>
-<div class="container-scroller" xmlns:th="http://www.thymeleaf.org">
+<div class="container-scroller">
     <th:block th:include="Common/HorizontalNavbar"/>
     <!-- Siderbar bên trái -->
     <div class="container-fluid page-body-wrapper">
@@ -84,5 +85,16 @@
 <script src="vendors/js/vendor.bundle.addons.js"></script>
 <script src="js/misc.js"></script>
 <script src="js/dashboard.js"></script>
+<script src="/js/bootstrap-notify.min.js"></script>
+<script th:inline="javascript">
+    $('.nav .nav-item:nth-child(4)').addClass('active');
+    if ([[${success}]]) {
+        $.notify({
+            message: [[${success}]]
+        }, {
+            type: 'success'
+        });
+    }
+</script>
 </body>
 </html>
