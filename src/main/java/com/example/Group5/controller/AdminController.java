@@ -1,5 +1,6 @@
 package com.example.Group5.controller;
 
+import com.example.Group5.entity.BusRoute;
 import com.example.Group5.entity.Ticket;
 import com.example.Group5.repository.AppUserRepo;
 import com.example.Group5.repository.BusRouteRepo;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -36,18 +38,27 @@ public class AdminController {
     public String Dashboard(Model model) {
         int total = 0;
         int revenue = 0;
-        int order = 0;
         for (int x = 0; x <= 7; x++) {
             for (Ticket ticket : ticketRepo.findAllByBookingDate(Date.from(LocalDate.now().minusDays(x).atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
-                total += ticket.getAmount();
-                order++;
                 int perBusRoute = ticket.getAmount();
                 revenue += busRouteRepo.findById(ticket.getRouteId()).get().getFare() * perBusRoute;
             }
         }
-        model.addAttribute("DashboardTicket", order);
-        model.addAttribute("DashboardWeeklySale", total);
+        for (Ticket ticket : ticketRepo.findAllByBookingDate(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))) {
+            total += ticket.getAmount();
+        }
+        List<BusRoute> busRouteList = new ArrayList<>();
+        for(BusRoute route :  busRouteRepo.findAll()){
+            int amountPerRoute = 0;
+            for (Ticket routeTicket : ticketRepo.findAllByRouteId(route.getRouteId())) {
+                amountPerRoute+=routeTicket.getAmount();
+            }
+            route.setBreakPoint(Integer.toString(amountPerRoute));
+            busRouteList.add(route);
+        }
         model.addAttribute("revenue", Integer.toString(revenue));
+        model.addAttribute("DashboardTicketSale", total);
+        model.addAttribute("busRouteList", busRouteList);
         return "Common/Dashboard";
     }
 
