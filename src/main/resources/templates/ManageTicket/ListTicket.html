@@ -9,11 +9,16 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/customCSS.css">
     <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
     <!-- Favicon -->
     <link rel="shortcut icon" href="/images/favicon.ico"/>
 </head>
-
 <body>
+<style>
+    label {
+        font-size: 14px;
+    }
+</style>
 <div class="container-scroller">
     <th:block th:include="Common/HorizontalNavbar"/>
     <!-- Siderbar bên trái -->
@@ -28,25 +33,8 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="text-center mb-3">Quản lý vé xe</h4>
-                                        <form class="form-inline col-sm-12">
-                                            <div class="form-group col-sm-4">
-                                                <label for="inputOrigin" class="mr-5">Điểm đi:</label>
-                                                <input id="inputOrigin" type="text" class="form-control col-sm-8" placeholder="Điểm đi">
-                                            </div>
-                                            <div class="form-group col-sm-4">
-                                                <label for="inputDestination" class="mr-5">Điểm đến:</label>
-                                                <input id="inputDestination" class="form-control col-sm-8" type="text" placeholder="Điểm đến">
-                                            </div>
-                                            <div class="form-group col-sm-3">
-                                                <label for="inputDate">Ngày khởi hành</label>
-                                                <input id="inputDate" type="date" class="form-control" placeholder="Điểm đến">
-                                            </div>
-                                            <button type="submit" class="btn btn-primary col-sm-1"><span class="mdi mdi-search-web mr-2"></span>Tìm
-                                                kiếm
-                                            </button>
-                                        </form>
                                         <div class="table-responsive">
-                                            <table class="table table-striped">
+                                            <table id="listTicket" class="table table-striped table-bordered">
                                                 <thead class="text-center">
                                                 <tr>
                                                     <th>Mã vé</th>
@@ -90,6 +78,9 @@
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
 <script src="/js/bootstrap-notify.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script th:inline="javascript">
     $('.nav .nav-item:nth-child(5)').addClass('active');
     if ([[${msg}]]) {
@@ -99,6 +90,18 @@
             type: 'success'
         });
     }
+    $(document).ready(function () {
+        $('#listTicket').DataTable({
+            "language": {
+                "search": "Tìm kiếm thông tin:",
+                "lengthMenu": "Hiển thị _MENU_ bản ghi 1 trang",
+                "zeroRecords": "Không tìm thấy kết quả",
+                "info": "Hiển thị _PAGE_ trang trên tổng số _PAGES_ trang",
+                "infoEmpty": "Không tìm thấy",
+                "infoFiltered": "(Lọc từ _MAX_ bản ghi)"
+            }
+        });
+    });
 </script>
 </body>
 </html>
