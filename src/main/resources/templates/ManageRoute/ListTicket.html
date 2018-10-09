@@ -36,7 +36,6 @@
                                                     <th>Số lượng</th>
                                                     <th>Ngày đặt</th>
                                                     <th>Trạng thái</th>
-                                                    <th>Thao tác</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="text-center">
@@ -47,11 +46,6 @@
                                                     <td th:text="${#dates.format(ticket.bookingDate,'dd-MM-yyyy')}"></td>
                                                     <td th:if="${ticket.status == false}" th:text="'Chưa thanh toán'"></td>
                                                     <td th:unless="${ticket.status == false}" th:text="'Đã thanh toán'"></td>
-                                                    <td>
-                                                         <span class="mdi mdi-pencil">
-                                                            <a th:href="@{'/ticket/update/' + ${ticket.ticketId}}">Cập nhật</a>
-                                                        </span>
-                                                    </td>
                                                 </tr>
                                                 </tbody>
                                             </table>

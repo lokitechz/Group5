@@ -77,12 +77,12 @@
 <script src="/vendors/js/vendor.bundle.addons.js"></script>
 <script src="/js/misc.js"></script>
 <script src="/js/dashboard.js"></script>
-<script src="/js/bootstrap-notify.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="/js/bootstrap-notify.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="/js/custom.js"></script>
 <script th:inline="javascript">
-    $('.nav .nav-item:nth-child(5)').addClass('active');
     if ([[${msg}]]) {
         $.notify({
             message: [[${msg}]]
@@ -90,18 +90,6 @@
             type: 'success'
         });
     }
-    $(document).ready(function () {
-        $('#listTicket').DataTable({
-            "language": {
-                "search": "Tìm kiếm thông tin:",
-                "lengthMenu": "Hiển thị _MENU_ bản ghi 1 trang",
-                "zeroRecords": "Không tìm thấy kết quả",
-                "info": "Hiển thị _PAGE_ trang trên tổng số _PAGES_ trang",
-                "infoEmpty": "Không tìm thấy",
-                "infoFiltered": "(Lọc từ _MAX_ bản ghi)"
-            }
-        });
-    });
 </script>
 </body>
 </html>

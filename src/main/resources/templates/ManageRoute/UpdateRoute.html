@@ -44,39 +44,40 @@
                                                 <div class="form-group col-md-4">
                                                     <label for="inputorigin">Điểm đi</label>
                                                     <input type="text" class="form-control" id="inputorigin"
-                                                           th:value="*{busRoute.origin}" readonly>
+                                                           th:field="*{busRoute.origin}" readonly>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="inputdestination">Điểm đến</label>
                                                     <input type="text" class="form-control" id="inputdestination"
-                                                           th:value="*{busRoute.destination}" readonly>
+                                                           th:field="*{busRoute.destination}" readonly>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="inputbreakPoint">Điểm dừng chân</label>
-                                                    <input class="form-control" id="inputbreakPoint" th:value="*{busRoute.breakPoint}" readonly>
+                                                    <input class="form-control" id="inputbreakPoint" th:field="*{busRoute.breakPoint}" readonly>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
                                                     <label for="inputdepartureDate">Ngày khởi hành</label>
                                                     <input type="date" class="form-control" id="inputdepartureDate"
-                                                           readonly th:value="*{busRoute.departureDate}">
+                                                           readonly th:field="*{busRoute.departureDate}">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="inputarrivalTime">Thời gian tính dự</label>
                                                     <input type="text" class="form-control custom-height" id="inputarrivalTime"
-                                                           th:value="*{busRoute.arrivaltime}" readonly>
+                                                           th:field="*{busRoute.arrivaltime}" readonly>
                                                 </div>
 
                                                 <div class="form-group col-md-4">
                                                     <label for="inuputFare">Giá vé</label>
-                                                    <input type="text" class="form-control custom-height" id="inuputFare" th:value="*{busRoute.fare}"
+                                                    <input type="text" class="form-control custom-height" id="inuputFare" th:field="*{busRoute.fare}"
                                                            readonly>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="bus">Số xe</label>
-                                                    <select id="bus" name="bus" class="form-control" >
-                                                        <option th:each="bus : ${busList}" th:value="${bus.busId}" th:text="'B1-'+ ${bus.busNo}"></option>
+                                                    <select id="bus" name="bus" class="form-control">
+                                                        <option th:each="bus : ${busList}" th:value="${bus.busId}"
+                                                                th:text="'B1-'+ ${bus.busNo}"></option>
                                                     </select>
                                                 </div>
                                             </div>
