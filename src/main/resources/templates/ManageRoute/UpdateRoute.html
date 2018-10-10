@@ -39,7 +39,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="text-center">Thay đổi tuyến đường</h4>
-                                        <form th:action="@{/manage-route/update}" method="POST">
+                                        <form th:action="@{'/manage-route/update/'+ ${busRoute.routeId}}" method="POST">
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
                                                     <label for="inputorigin">Điểm đi</label>

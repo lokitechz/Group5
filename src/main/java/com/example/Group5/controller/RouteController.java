@@ -63,7 +63,7 @@ public class RouteController {
         } else {
             busRoute.setFare(fare);
             busRouteRepo.save(busRoute);
-            red.addFlashAttribute("success","Tạo mới thành công");
+            red.addFlashAttribute("success", "Tạo mới thành công");
             return "redirect:/manage-route";
         }
     }
@@ -77,12 +77,15 @@ public class RouteController {
         model.addAttribute("busRoute", busRoute.get());
         return "ManageRoute/UpdateRoute";
     }
-//
-//    // Lưu thông tin sau khi chỉnh sửa tuyến đường
-//    @RequestMapping(value = "/manage-route/update", method = RequestMethod.POST)
-//    public String updateBus(Model model, @ModelAttribute BusRoute busRoute) {
-//        busRouteRepo.save(busRoute);
-//        return "redirect:/manage-route";
-//    }
+
+    // Lưu thông tin sau khi chỉnh sửa tuyến đường
+    @RequestMapping(value = "/manage-route/update/{id}", method = RequestMethod.POST)
+    public String updateBus(@PathVariable int id, @ModelAttribute BusRoute busRoute, RedirectAttributes red) {
+        Optional<BusRoute> br = busRouteRepo.findById(id);
+        br.ifPresent(busRoute1 -> busRoute1.setBus(busRoute.getBus()));
+        busRouteRepo.save(br.get());
+        red.addFlashAttribute("success", "Cập nhật thành công");
+        return "redirect:/manage-route";
+    }
 
 }
