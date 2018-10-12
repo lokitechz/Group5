@@ -57,7 +57,7 @@ public class AdminController {
             busRouteList.add(route);
         }
         model.addAttribute("revenue", Integer.toString(revenue));
-        model.addAttribute("DashboardTicketSale", total);
+        model.addAttribute("dailysale", total);
         model.addAttribute("busRouteList", busRouteList);
         return "Common/Dashboard";
     }
